@@ -31,7 +31,18 @@ class GameUtils
     {
         return Math.floor(min + Math.random() * (max - min));
     }
-	public static function distanceBetweenPt(pt1:Point, pt2:Point){
+	public static function dx(objectA:Point, objectB:Point):Float
+	{
+		var dx:Float = Math.abs(objectA.x - objectB.x);
+		return dx;
+	}
+		
+	public static function dy(objectA:Point, objectB:Point):Float
+	{
+		var dy:Float = Math.abs(objectA.y - objectB.y);
+		return dy;
+	}
+	public static function distanceBetweenPt(pt1:Point, pt2:Point):Float{
 		return (Math.sqrt(Math.pow((pt1.x - pt2.x), 2) + Math.pow((pt1.y - pt2.y), 2)));
 	}
 	/*
@@ -56,12 +67,11 @@ class GameUtils
 		var indexX:Int =0;
 		var indexY:Int =0;
 		for(i in 0...ar.length){
-			indexX = Math.floor(i/IsoWorld.instance.mapTileWidth);
-			indexY = Math.floor(i%IsoWorld.instance.mapTileHeight);
+			indexX = Math.floor(i/IsoWorld.instance.PART_NUM_TILE_W);
+			indexY = Math.floor(i%IsoWorld.instance.PART_NUM_TILE_H);
 			if(dArray[indexX] == null ) dArray[indexX] = new Array<Dynamic>();
 			dArray[indexX][indexY] = ar[i];
 		}
 		return dArray;
-	}
-	
+	}	
 }

@@ -6,13 +6,12 @@ package com.lak;
  */
 import com.lak.entities.IsoObject;
 import com.lak.entities.IsoUnit;
-import com.lak.manager.AttackMananger;
-import com.lak.manager.LevelManager;
-import com.lak.manager.EntitiesManager;
+import com.lak.simulator.manager.AttackMananger;
+import com.lak.simulator.manager.LevelManager;
+import com.lak.simulator.manager.EntitiesManager;
 import openfl.display.DisplayObject;
 import openfl.geom.Matrix;
 import spritesheet.Spritesheet;
-import com.lak.Camera;
 import com.lak.isometric.entities.*;
 import openfl.Lib;
 import openfl.display.BitmapData;
@@ -23,7 +22,7 @@ import openfl.display.Sprite;
 import openfl.geom.Point;
 import com.lak.utils.IsoUtils;
 import com.lak.utils.GameUtils;
-import com.lak.events.MapEvent;
+import com.lak.controllers.events.MapEvent;
 import openfl.events.Event;
 
 class IsoWorld extends Sprite
@@ -39,30 +38,30 @@ class IsoWorld extends Sprite
 	public var worldGrass:Spritesheet;
 	private var mtrx:Matrix = new Matrix();
 	
-    public var viewRows:Int;
-    public var viewWidth:Int;
-    public var viewHeight:Int;
+    public var NB_TILE_W:Int;
+    public var VIEW_WIDTH:Int;
+    public var VIEW_HEIGHT:Int;
     public var worldTileWidth:Int;
-    public var worldRows:Int;
+    public var NB_LIGNE_WORLD:Int;
     
 	var worldTileHeight:Int;
     var levelData:Array<Dynamic> =new Array<Array<Dynamic>>();
 	
-    public var viewCols:Int;
+    public var NB_TILE_H:Int;
 	
-    public var worldCols:Int;	
-    public var mapTileWidth:Int;
-    public var mapTileHeight:Int;
+    public var NB_COLONNE_WORLD:Int;	
+    public var PART_NUM_TILE_W:Int;
+    public var PART_NUM_TILE_H:Int;
 	
 	var offsetXCost:Int = 0;
 	var offsetYCost:Int = 0;
 	
 	var curentLevel:String = "0-0";
 	
-	public var worldColOffset:Int=0;
-	public var worldRowOffset:Int = 0;
-	public var viewRowOffset:Float;
-	public var viewColOffset:Float;
+	public var OFFSET_LIGNE_WORLD:Int=0;
+	public var OFFSET_COLONNE_WORLD:Int = 0;
+	public var COLONNE_VISIBLE_OFFSET:Float;
+	public var LIGNE_VISIBLE_OFFSET:Float;
 	
 	public var tileH:Int = 48;
 	public var tileW:Int = 96;
@@ -71,9 +70,6 @@ class IsoWorld extends Sprite
 	
 	var pt:Point = new Point();
 	public var worldObject:Array<IsoObject> = new Array<IsoObject>();
-	public var entitiesManager:EntitiesManager;
-	public var attackMananger:AttackMananger;
-	private var wCamera:Camera;
 	public var levelManager:LevelManager;
 	
 	/*
@@ -92,14 +88,12 @@ class IsoWorld extends Sprite
 	{
 		worldGrass = Main.instance.sprSheetManager.getSpritesheet("world", "grass");
 		
-		viewRowOffset = 0;
-        viewColOffset = 0;
-		halfH = tileH >> 1;
-		halfW = tileW >> 1;
+		COLONNE_VISIBLE_OFFSET = 0;
+        LIGNE_VISIBLE_OFFSET = 0;
+		
+		halfH = tileH>>1;
+		halfW = tileW>>1;
 		levelManager = new LevelManager();
-		entitiesManager = new EntitiesManager(this);
-		attackMananger = new AttackMananger(this);
-		wCamera = new Camera(this, stage);
 		worldSize(true);
 		
 	}
@@ -108,29 +102,31 @@ class IsoWorld extends Sprite
 	 * @arg _first @type Bool @desc variable qui permet de gérer l'etat initial du monde iso 
 	 */
 	public function worldSize(_first:Bool=false){
-		viewWidth = stage.stageWidth;
-        viewHeight = stage.stageHeight;
-        mapTileWidth = 100;
-        mapTileHeight = 100;
+		VIEW_WIDTH = stage.stageWidth;
+        VIEW_HEIGHT = stage.stageHeight;
+		
+        PART_NUM_TILE_W = 100;
+        PART_NUM_TILE_H = 100;
 		 
-        worldCols = mapTileWidth;
-        worldRows = mapTileHeight;
+        NB_COLONNE_WORLD = PART_NUM_TILE_W;
+        NB_LIGNE_WORLD = PART_NUM_TILE_H;
+		//trace(Math.floor(VIEW_HEIGHT / halfH));
+        NB_TILE_W = Math.floor(VIEW_WIDTH / tileW)+2;
+        NB_TILE_H = Math.floor(VIEW_HEIGHT / halfH)+2;
 		
-        viewCols = Math.floor(viewHeight / halfH)+2;
-        viewRows = Math.floor(viewWidth / halfW)+2;
+		/*NB_TILE_H = 30;
+        NB_TILE_W = 30;*/
 		
-		viewRows += Math.round(Math.abs(stage.stageWidth - (viewRows * halfW)) / halfW);
-		viewCols += Math.round(Math.abs(stage.stageHeight - (halfH * viewCols)) / halfH);
+		//NB_TILE_W += Math.round(Math.abs(stage.stageWidth - (NB_TILE_W * tileW)) / tileW);
+		//NB_TILE_H += Math.round(Math.abs(stage.stageHeight - (halfH * NB_TILE_H)) / halfH);
 		
-		trace("viewCols  = " + viewCols+" WIDTH "+viewWidth);
-        trace("viewRows = " + viewRows+" HEIGHT "+viewHeight);
+		trace("NB_TILE_H  = " + NB_TILE_H+" WIDTH "+VIEW_WIDTH);
+        trace("NB_TILE_W = " + NB_TILE_W+" HEIGHT "+VIEW_HEIGHT);
         trace("setup map data ");
 		
 		setupMapData(curentLevel,1,1,true);
 		if (_first == false){ stage.removeChild(floor); }
-		groundCanvas = new BitmapData((viewWidth + tileW), (viewHeight + tileH));
-		
-		entitiesManager.updateViewBounds();
+		groundCanvas = new BitmapData((VIEW_WIDTH + tileW), (VIEW_HEIGHT + tileH));
 		
 		floor = new Bitmap(groundCanvas);
 		floor.x = -halfW;
@@ -148,27 +144,27 @@ class IsoWorld extends Sprite
 		trace("map : part_"+partNum+".txt" +" SENSY ==> " + ((sensY == -1)? "vers le haut" : "vers le bas ")+ " SENSX ==>"+ ((sensX == -1)? "vers la gauche" : "vers la droite "));
 		  
 		if(sensX == 1){ 
-			viewColOffset = worldColOffset-(100*(Std.parseFloat(partNum.split("-")[0])));
-			if(viewColOffset < 0 )  viewColOffset = 0;
+			LIGNE_VISIBLE_OFFSET = OFFSET_LIGNE_WORLD-(100*(Std.parseFloat(partNum.split("-")[0])));
+			if(LIGNE_VISIBLE_OFFSET < 0 )  LIGNE_VISIBLE_OFFSET = 0;
 		}else if(sensX == -1){
-			viewColOffset = worldColOffset; 
+			LIGNE_VISIBLE_OFFSET = OFFSET_LIGNE_WORLD; 
 		}
 		
 		if(sensY == 1){
-			viewRowOffset = worldRowOffset-(100*Std.parseFloat(partNum.split("-")[1]));
-			if(viewRowOffset < 0 )  viewRowOffset = 0;
+			COLONNE_VISIBLE_OFFSET = OFFSET_COLONNE_WORLD-(100*Std.parseFloat(partNum.split("-")[1]));
+			if(COLONNE_VISIBLE_OFFSET < 0 )  COLONNE_VISIBLE_OFFSET = 0;
 			
-		}else if(sensY == -1){ viewRowOffset = worldRowOffset; viewColOffset = worldColOffset; }
+		}else if(sensY == -1){ COLONNE_VISIBLE_OFFSET = OFFSET_COLONNE_WORLD; LIGNE_VISIBLE_OFFSET = OFFSET_LIGNE_WORLD; }
 		
 		if (sensX == 1){ 
-			viewColOffset = worldColOffset - (100 * Std.parseFloat(partNum.split("-")[0]));
-			if(viewColOffset < 0 )  viewColOffset = 0;
+			LIGNE_VISIBLE_OFFSET = OFFSET_LIGNE_WORLD - (100 * Std.parseFloat(partNum.split("-")[0]));
+			if(LIGNE_VISIBLE_OFFSET < 0 )  LIGNE_VISIBLE_OFFSET = 0;
 		}else if(sensX == -1){
 			
-			viewColOffset = worldColOffset; 
+			LIGNE_VISIBLE_OFFSET = OFFSET_LIGNE_WORLD; 
 		}
-		if(sensY == 1){ worldRows += 100; }else{ worldRows -= 100; }
-		if(sensX == 1){ worldCols += 100; }else{ worldCols -= 100; }
+		if(sensY == 1){ NB_LIGNE_WORLD += 100; }else{ NB_LIGNE_WORLD -= 100; }
+		if(sensX == 1){ NB_COLONNE_WORLD += 100; }else{ NB_COLONNE_WORLD -= 100; }
 		
 		levelData = levelManager.mapPartArray("part_"+partNum+".txt");
 		setupWorld(creation);		
@@ -201,31 +197,32 @@ class IsoWorld extends Sprite
 		 
 		if (createWorld == true){
 			tilesArray = new Array<Array<Dynamic>>();
-			while(wRowCpt < viewCols){
-			wColViewCpt = 0;
-				while(wColViewCpt < viewRows)
+			while(wRowCpt < NB_TILE_W){
+				wColViewCpt = 0;
+				while(wColViewCpt < NB_TILE_H)
 				{
-				  pos = IsoUtils.stageMapTilePlotter(new Point(wColViewCpt, wRowCpt),tileW,tileH);
-				  if(tilesArray[Math.floor(pos.x/halfW)] == null ){ tilesArray[Math.floor(pos.x/halfW)] = new Array<Dynamic>(); }
-				  tilesArray[Math.floor(pos.x/halfW)].insert(Math.floor(pos.y/halfH),{ndType:"none",position:new Point(pos.x,pos.y),index:-1});
+				  if (tilesArray[wRowCpt] == null ){ tilesArray[wRowCpt] = new Array<Dynamic>(); }
+				  tilesArray[wRowCpt].push({ndType:"none",position:new Point(wRowCpt*halfW,wColViewCpt*halfH),index:-1});
+				  //pos = IsoUtils.mapTilePosition(new Point(wColViewCpt, wRowCpt),tileW,tileH);
+				  //if(tilesArray[Math.floor(pos.x/halfW)] == null ){ tilesArray[Math.floor(pos.x/halfW)] = new Array<Dynamic>(); }
+				  //tilesArray[Math.floor(pos.x/halfW)].insert(Math.floor(pos.y/halfH),{ndType:"none",position:new Point(pos.x,pos.y),index:-1});
 				  wColViewCpt++;
 				}
 				wRowCpt++;
 			}
 		}
 		wRowCpt = wColViewCpt =  wRowCpt = 0;
-		while(wRowCpt < mapTileWidth){
+		while(wRowCpt < PART_NUM_TILE_W){
            wColViewCpt = 0;
-           while(wColViewCpt < mapTileHeight)
+           while(wColViewCpt < PART_NUM_TILE_H)
            {
-			  pos = IsoUtils.stageMapTilePlotter(new Point(wColViewCpt, wRowCpt), tileW, tileH);
+			  //pos = IsoUtils.mapTilePosition(new Point(wRowCpt,wColViewCpt), tileW, tileH);
 			  if (createWorld == true){
-				  if(aWorld[wColViewCpt] == null ){ aWorld[wColViewCpt] = new Array<Dynamic>(); }
-				  aWorld[wColViewCpt].insert(wRowCpt,{ndType:"g",x:pos.x,y:pos.y});
+				  if (aWorld[wRowCpt] == null ){ aWorld[wRowCpt] = new Array<Dynamic>(); }
+				  aWorld[wRowCpt].insert(wColViewCpt, {ndType:"g", position:IsoUtils.mapTilePosition(new Point(wRowCpt, wColViewCpt), halfW, tileH)});				  
 			  }else{
-				aWorld[wColViewCpt][wRowCpt].ndType = (levelData[wRowCpt][wColViewCpt]);
-				aWorld[wColViewCpt][wRowCpt].position.x = pos.x;
-				aWorld[wColViewCpt][wRowCpt].position.y = pos.y;
+				aWorld[wRowCpt][wColViewCpt].ndType = levelData[wRowCpt][wColViewCpt];
+				aWorld[wRowCpt][wColViewCpt].position = IsoUtils.mapTilePosition(new Point(wRowCpt, wColViewCpt), halfW, tileH);
 			  }
               wColViewCpt++;
            }
@@ -236,11 +233,11 @@ class IsoWorld extends Sprite
 	 * @funcname drawView @desc fonction qui gère le dessin des tiles visible sur l'écran du joueur en fonction la position de la camara sur le world
 	 * @return Void
 	 */
-	private function drawView():Void{
+	public function drawView():Void{
 		  
          var rowCpt:String = "";
          var colCpt:Int = 0;
-         var rowViewCpt:Int = 0;
+         var lineViewCpt:Int = 0;
          var colViewCpt:Int = 0;
 		 var indexX:Int=0;
 		 var indexY:Int=0;
@@ -248,22 +245,29 @@ class IsoWorld extends Sprite
 		 var bmp:Bitmap = new Bitmap();
 		 var n:Dynamic;
 		 var nW:Dynamic;
-		 groundCanvas.unlock();
+		 var pos:Point;
 		 
-         while(rowViewCpt < viewRows)
+		 groundCanvas.unlock();
+         while(lineViewCpt < NB_TILE_W)
          {
             colViewCpt = 0;
-            while(colViewCpt < viewCols)
+            while(colViewCpt < NB_TILE_H)
             {
-				if(viewRowOffset > 100){ viewRowOffset = viewRowOffset%100; }
-				if (viewColOffset > 100){ viewColOffset = viewColOffset % 100; }
-				if (rowViewCpt < 100 && colViewCpt < 100){
-					nW = aWorld[Std.int(rowViewCpt + viewRowOffset)][Std.int(colViewCpt + viewColOffset)];
-					n = tilesArray[rowViewCpt][colViewCpt];
+				pos = IsoUtils.mapTilePosition(new Point(lineViewCpt,colViewCpt), tileW, tileH);
+				if (COLONNE_VISIBLE_OFFSET > PART_NUM_TILE_W){ 
+					COLONNE_VISIBLE_OFFSET = COLONNE_VISIBLE_OFFSET%PART_NUM_TILE_W; 
+				}
+				if (LIGNE_VISIBLE_OFFSET > PART_NUM_TILE_H){ 
+					LIGNE_VISIBLE_OFFSET = LIGNE_VISIBLE_OFFSET%PART_NUM_TILE_H; 
+				}
+				if (lineViewCpt < PART_NUM_TILE_H && colViewCpt < PART_NUM_TILE_W){
+					nW = aWorld[Std.int(lineViewCpt+LIGNE_VISIBLE_OFFSET)][Std.int(colViewCpt+COLONNE_VISIBLE_OFFSET)];
+					n = tilesArray[lineViewCpt][colViewCpt];
+					n.position.x  = nW.position;
 					if (nW != null && n != null && nW.ndType != n.ndType){
 						n.ndType = nW.ndType;
-						mtrx.tx = n.position.x;
-						mtrx.ty = n.position.y;
+						mtrx.tx = pos.x;
+						mtrx.ty = pos.y;
 						if(n.index == -1){
 							bmp.bitmapData = worldGrass.getFrame(GameUtils.random(0, 99)).bitmapData;
 						}else{
@@ -274,15 +278,14 @@ class IsoWorld extends Sprite
 				}
 				colViewCpt++;
             }
-            rowViewCpt++;
+            lineViewCpt++;
         }
-		
 		groundCanvas.lock();
-		indexY = Std.int(rowViewCpt+viewRowOffset)%100;
-		indexX = Std.int(colViewCpt+viewColOffset)%100;
+		indexY = Std.int(lineViewCpt+COLONNE_VISIBLE_OFFSET)%PART_NUM_TILE_W;
+		indexX = Std.int(colViewCpt+LIGNE_VISIBLE_OFFSET)%PART_NUM_TILE_H;
 			
-		offsetYCost = Math.floor((rowViewCpt+worldRowOffset)/100);
-		offsetXCost = Math.floor((colViewCpt+worldColOffset)/100);
+		offsetYCost = Math.floor((lineViewCpt+OFFSET_COLONNE_WORLD)/PART_NUM_TILE_H);
+		offsetXCost = Math.floor((colViewCpt + OFFSET_LIGNE_WORLD) / PART_NUM_TILE_W);
 		
 		part = offsetXCost+"-"+offsetYCost;
 		if(part != curentLevel){
@@ -294,14 +297,4 @@ class IsoWorld extends Sprite
 			setupMapData(part,rorl,bort);
 		}
     }
-	/*
-	 * @funcname update @desc function de mise à jour globale des propriétés du world
-	 * @return Void
-	 */
-	public function update(delta):Void{
-		drawView();
-		wCamera.checkKeys();
-		entitiesManager.run();
-		attackMananger.run();
-	}
 }

@@ -1,6 +1,11 @@
 package;
 
+import com.lak.display.FPS_Mem;
+import com.lak.controllers.events.UnitEvent;
 import com.lak.entities.IsoUnit;
+import com.lak.simulator.Simulator;
+import com.lak.simulator.gamestate.IGameState;
+import com.lak.simulator.gamestate.InitialState;
 import haxe.Log.trace;
 import openfl.display.BitmapData;
 import openfl.display.Bitmap;
@@ -14,10 +19,12 @@ import spritesheet.AnimatedSprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
 import com.lak.IsoWorld;
-import com.lak.manager.SpritesheetManager;
+import com.lak.simulator.manager.*;
 import com.lak.utils.IsoUtils;
 import com.lak.utils.GameUtils;
-
+import com.lak.controllers.*;
+import com.lak.renderers.Renderer;
+import openfl.events.KeyboardEvent;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -31,13 +38,16 @@ class Main extends Sprite
 	public static var instance:Main;
 	public var realWidth:Int;
 	public var realHeight:Int;
-	
+	public var simulateur:Simulator;
+	public var state:IGameState;
+	private var initState:InitialState = new InitialState();
 	public function new() 
 	{
 		super();
-		addChild(new FPS(0, 0, 0x000000));
+		addChild(new FPS_Mem());
+		state = initState; 
 		instance = this;
-		addEventListener(Event.ADDED_TO_STAGE, onMainAdded);		
+		addEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 	}
 	
 	function onMainAdded(e:Event){
@@ -45,40 +55,68 @@ class Main extends Sprite
 		
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;
+		
 		world = new IsoWorld();
 		addChild(world);
 		
-		unit = new IsoUnit();
-		unit.initilizeUnit("general");
+		/*var sprt:Sprite = new Sprite();
+		sprt.graphics.beginFill( 0x458B00, 0.4 );
+		sprt.graphics.lineStyle(3, 0x3B5323, 0.6);
+		sprt.graphics.drawRect(0,0,100,100);
+		sprt.graphics.endFill();
+		world.addChild(sprt);*/
+		
+		simulateur = new Simulator();
+		UnitController.create("king");
+		/*unit = new IsoUnit();
+		//unit.initilizeUnit("general");
 		unit.currentAction = "stay";
-		unit.x = 294;
+		unit.x = 480;
 		unit.y = 288;
-		world.addChildToWorld(unit);
+		world.addChildToWorld(unit);*/
 		
 		addEventListener(Event.ENTER_FRAME, update);
 		
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.addEventListener(Event.RESIZE, onstageResized);
 		stage.addEventListener(MouseEvent.CLICK,onStageClick);
+		stage.addEventListener(MouseEvent.MOUSE_DOWN,onStageMouseDown);
+		stage.addEventListener(MouseEvent.MOUSE_UP,onStageMouseUp);
+		stage.addEventListener(MouseEvent.MOUSE_MOVE, onStageMouseMove);
+		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
+        stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
+	}
+	private function keyDownListener(kevt:KeyboardEvent):Void{ 
+		simulateur.aKeyPress[kevt.keyCode] = true; 
+	}
+	private function keyUpListener(kevt:KeyboardEvent):Void{ 
+		simulateur.aKeyPress[kevt.keyCode] = false; 
+	}
+	
+	function onStageMouseDown(me:MouseEvent){
+		state.mousedown();
+	}
+	function onStageMouseUp(me:MouseEvent){
+		state.mouseup();
+	}
+	function onStageMouseMove(me:MouseEvent){
+		state.mousemove();
 	}
 	function onStageClick(me:MouseEvent):Void{
-		trace("CLICK");
-		var pt:Point = IsoUtils.getTileAt(mouseX, mouseY * .5);
-		var n:Dynamic = IsoWorld.instance.tilesArray[Std.int(pt.x)][Std.int(pt.y)];
-		/*IsoWorld.instance.tilesArray[Std.int(pt.x)][Std.int(pt.y)].index = 99;
-		IsoWorld.instance.tilesArray[Std.int(pt.x)][Std.int(pt.y)].ndType = "o";*/
+		state.mouseclick();
+		
 		//trace(IsoWorld.instance.tilesArray[Std.int(pt.x)][Std.int(pt.y)]);
-		unit.goTo(n.position);
+		//world.levelManager.get9Nodes(unit);
+		//unit.goTo(n.position);
 	}
 	function onstageResized(e:Event){
-		//trace(stage.stageWidth + " --- " + stage.stageHeight);
 		world.worldSize();
+		simulateur.entitiesManager.updateViewBounds();
 	}
 	function update(e:Event){
 		var time = Lib.getTimer();
 		var delta = time - lastTime;
-		unit.update(delta);
-		world.update(delta);
+		simulateur.run(delta);
 		lastTime = time;
 	}
 
