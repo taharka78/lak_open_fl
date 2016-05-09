@@ -78,9 +78,11 @@ class Simulator extends DisplayObject
 			//trace("HAUT");
             IsoWorld.instance.COLONNE_VISIBLE_OFFSET--;
 			IsoWorld.instance.OFFSET_COLONNE_WORLD--;
-            if(IsoWorld.instance.COLONNE_VISIBLE_OFFSET < 0){ IsoWorld.instance.COLONNE_VISIBLE_OFFSET = 0; }
+            
+			if(IsoWorld.instance.COLONNE_VISIBLE_OFFSET < 0){ IsoWorld.instance.COLONNE_VISIBLE_OFFSET = 0; }
             if (IsoWorld.instance.OFFSET_COLONNE_WORLD < 0){ IsoWorld.instance.OFFSET_COLONNE_WORLD = 0; IsoWorld.instance.y = 0; }
-			else{ IsoWorld.instance.y+=IsoWorld.instance.tileW; }
+			
+			else{ IsoWorld.instance.y+=IsoWorld.instance.halfH; }
 			
          }
          if(aKeyPress[40])
@@ -88,11 +90,10 @@ class Simulator extends DisplayObject
 			// trace("BAS");
             IsoWorld.instance.COLONNE_VISIBLE_OFFSET++;
 			IsoWorld.instance.OFFSET_COLONNE_WORLD++;
-			 
-			if(IsoWorld.instance.COLONNE_VISIBLE_OFFSET > IsoWorld.instance.PART_NUM_TILE_W - IsoWorld.instance.NB_TILE_W){ IsoWorld.instance.COLONNE_VISIBLE_OFFSET = IsoWorld.instance.PART_NUM_TILE_W - IsoWorld.instance.NB_TILE_W; }
-			if(IsoWorld.instance.OFFSET_COLONNE_WORLD > IsoWorld.instance.NB_LIGNE_WORLD - IsoWorld.instance.NB_TILE_W){ IsoWorld.instance.OFFSET_COLONNE_WORLD = IsoWorld.instance.NB_LIGNE_WORLD - IsoWorld.instance.NB_TILE_W; }
+			
 			if (IsoWorld.instance.OFFSET_COLONNE_WORLD >= 900){ IsoWorld.instance.OFFSET_COLONNE_WORLD = 900; IsoWorld.instance.y = 90000; }
-			else{ IsoWorld.instance.y -= IsoWorld.instance.tileW; }
+			else{ IsoWorld.instance.y -= IsoWorld.instance.halfH; }
+			
          }
          if(aKeyPress[37])
          {
@@ -108,8 +109,6 @@ class Simulator extends DisplayObject
 			// trace("DROITE");
 			IsoWorld.instance.LIGNE_VISIBLE_OFFSET++;
 			IsoWorld.instance.OFFSET_LIGNE_WORLD++;
-			if(IsoWorld.instance.LIGNE_VISIBLE_OFFSET > IsoWorld.instance.PART_NUM_TILE_H - IsoWorld.instance.NB_TILE_H){ IsoWorld.instance.LIGNE_VISIBLE_OFFSET = IsoWorld.instance.PART_NUM_TILE_H - IsoWorld.instance.NB_TILE_H; }
-			if(IsoWorld.instance.OFFSET_LIGNE_WORLD > IsoWorld.instance.NB_COLONNE_WORLD - IsoWorld.instance.NB_TILE_H){ IsoWorld.instance.OFFSET_LIGNE_WORLD = IsoWorld.instance.NB_COLONNE_WORLD - IsoWorld.instance.NB_TILE_H; }
 			if (IsoWorld.instance.OFFSET_LIGNE_WORLD >= 900){ IsoWorld.instance.OFFSET_LIGNE_WORLD = 900; IsoWorld.instance.x = 90000; }
 			else{ IsoWorld.instance.x -= IsoWorld.instance.tileW; }
          }

@@ -1,5 +1,7 @@
 package com.lak.utils;
 import flash.geom.Point;
+import openfl.utils.ByteArray;
+import haxe.io.Bytes;
 
 /**
  * ...
@@ -15,7 +17,7 @@ class GameUtils
 		if(angle < 0){ angle = angle + 360; }
 		return angle;
 	}		
-		
+
 	public static function sortByF(a:Dynamic,b:Dynamic):Int{
 		if (a.f < b.f){ return -1; }
 		if (a.f > b.f){ return 1; }
@@ -61,16 +63,22 @@ class GameUtils
 	 * @arg bl @type Bool @desc
 	 * @return Point.
 	 */
-	public static function to2DDimension(str:String,size:Int=100):Array<Dynamic>{
+	public static function to2DDimension(str:String,partName:String, size:Int = 100):Array<Dynamic>{
 		var ar:Array<String> = str.split(",");
 		var dArray:Array<Dynamic> = new Array<Array<Dynamic>>();
 		var indexX:Int =0;
-		var indexY:Int =0;
+		var indexY:Int = 0;
+		
+		var str = ((partName.split("_")[1]).split(".")[0]);
+		
+		var offsetX:Int = Std.parseInt(str.split("-")[0])*100;
+		var offsetY:Int = Std.parseInt(str.split("-")[1])*100;
+		trace(str, offsetX, offsetY);
 		for(i in 0...ar.length){
-			indexX = Math.floor(i/IsoWorld.instance.PART_NUM_TILE_W);
-			indexY = Math.floor(i%IsoWorld.instance.PART_NUM_TILE_H);
+			indexX = Math.floor(i%100);
+			indexY = Math.floor(i/100);
 			if(dArray[indexX] == null ) dArray[indexX] = new Array<Dynamic>();
-			dArray[indexX][indexY] = ar[i];
+			dArray[indexX][indexY] = {ndType:ar[i], f:0, g:0, h:0, direction:"", position:IsoUtils.mapTilePosition(new Point(indexX+offsetX, indexY+offsetY), IsoWorld.instance.tileW, IsoWorld.instance.tileH)};
 		}
 		return dArray;
 	}	

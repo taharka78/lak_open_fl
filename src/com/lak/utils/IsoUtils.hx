@@ -78,10 +78,7 @@ class IsoUtils
 	 * @return Point.
 	 */
 	public static function mapTilePosition(ptMap:Point,iTileWidth:Int=64,iTileHeight:Int=32):Point{
-		var ptPlot:Point = new Point();
-		ptPlot.x = Std.int((ptMap.x*iTileWidth)+(Std.int(ptMap.y) & 1)*(iTileWidth>>1));
-		ptPlot.y = Std.int((Std.int(ptMap.y)*iTileHeight>>1));
-		return ptPlot;
+		return new Point(Std.int((ptMap.x*iTileWidth)+(Std.int(ptMap.y) & 1)*(iTileWidth>>1)),Std.int((Std.int(ptMap.y)*iTileHeight>>1)));
 	}	
 	/*
 	 * @funcname getTileAt @desc permet de récupérer la position d'une tile en fonction d'un point donnée

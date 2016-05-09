@@ -59,22 +59,8 @@ class Main extends Sprite
 		world = new IsoWorld();
 		addChild(world);
 		
-		/*var sprt:Sprite = new Sprite();
-		sprt.graphics.beginFill( 0x458B00, 0.4 );
-		sprt.graphics.lineStyle(3, 0x3B5323, 0.6);
-		sprt.graphics.drawRect(0,0,100,100);
-		sprt.graphics.endFill();
-		world.addChild(sprt);*/
-		
 		simulateur = new Simulator();
-		UnitController.create("king");
-		/*unit = new IsoUnit();
-		//unit.initilizeUnit("general");
-		unit.currentAction = "stay";
-		unit.x = 480;
-		unit.y = 288;
-		world.addChildToWorld(unit);*/
-		
+		UnitController.create("general",96,96);
 		addEventListener(Event.ENTER_FRAME, update);
 		
 		stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -104,10 +90,6 @@ class Main extends Sprite
 	}
 	function onStageClick(me:MouseEvent):Void{
 		state.mouseclick();
-		
-		//trace(IsoWorld.instance.tilesArray[Std.int(pt.x)][Std.int(pt.y)]);
-		//world.levelManager.get9Nodes(unit);
-		//unit.goTo(n.position);
 	}
 	function onstageResized(e:Event){
 		world.worldSize();
@@ -119,5 +101,4 @@ class Main extends Sprite
 		simulateur.run(delta);
 		lastTime = time;
 	}
-
 }

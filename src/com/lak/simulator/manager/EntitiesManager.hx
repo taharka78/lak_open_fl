@@ -61,14 +61,14 @@ class EntitiesManager
 	 * @return Void.
 	 */
 	public function manageVisibility(obj:IsoObject){
-		if(onScreen(pt)){
+		/*if(onScreen(pt)){
 			if (!obj.clone){
 				if(!obj.visible && !world.contains(obj)){ 
 					obj.visible = true;
 					world.addChild(obj);
 				}
 			}else{
-					pt = IsoUtils.getTileAt(new Point(obj.x,obj.y),true);
+					pt = IsoUtils.getTileAt(new Point(obj.x,obj.y),true);*/
 					//var nd:Node = getNode(pt.x,pt.y);
 					/*if(nd.type != "d"){
 						if(obj.visible){ 
@@ -76,11 +76,11 @@ class EntitiesManager
 							if(obj.parent) removeChild(obj); 
 						}
 					}*/
-				}
+				/*}
 			}else{ 
-				obj.visible = false;
+				obj.visible = false;*/
 				//if(obj.parent) world.removeChild(obj);
-			}
+			//}
 	}
 	public function onScreen(pt:Point):Bool{
 		if(pt.x <= (-screen.x+screen.width) && pt.x >= -screen.x  && pt.y <= (-screen.y+screen.height) && pt.y >= -screen.y){ return true; }

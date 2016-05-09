@@ -30,7 +30,8 @@ class IsoUnit extends IsoObject
 	public function new() 
 	{
 		super();
-		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet("mali","king"));
+		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet("mali", "king"));
+		addEventListener(Event.CHANGE, onStateChange);
 	}
 		
 	/*
@@ -43,7 +44,6 @@ class IsoUnit extends IsoObject
 		x = GameUtils.toGridCoord(x, IsoWorld.instance.tileW);
 		y = GameUtils.toGridCoord(y, IsoWorld.instance.tileH);
 		pEnd = targetpt;
-		addEventListener(Event.CHANGE, onStateChange);
 		Astar.findPath(this);
 	}
 	/*
@@ -53,8 +53,6 @@ class IsoUnit extends IsoObject
 		if(nodeTab.length > 0){ 
 			for (i in 0...nodeTab.length){
 				var cost:Int = 0;
-				//if (nodeTab[i].direction == "N"){ nodeTab[i].position.y += IsoWorld.instance.halfH; }
-				//else if (nodeTab[i].direction == "S"){ nodeTab[i].position.y -= IsoWorld.instance.halfH; }
 				nodeTab[i].g = 0;
 				nodeTab[i].h = Astar.heuristic(nodeTab[i].position,pEnd);
 				nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
@@ -63,11 +61,10 @@ class IsoUnit extends IsoObject
 			hasPath = true;
 			lookAtDir(nodeTab[0].direction);
 			currentAction = "walk";
-			//trace(pCurr,nodeTab[0].position);
 		}else{ 
 			trace(" NO NODE IN _unit.nodeTab ");
 			hasPath = false;
-		}		
+		}
 	}
 	/*
 	 * @funcname update (function de mise à jour globale de l'unité) 
@@ -83,8 +80,7 @@ class IsoUnit extends IsoObject
 		distEnd = Math.floor(GameUtils.distanceBetweenPt(pEnd, pCurr));
 		if (xmovement < IsoWorld.instance.tileW && ymovement < IsoWorld.instance.halfH){
 			moveAtDir(nodeTab[0].direction);
-			var pt:Point = IsoUtils.getTileAt(new Point(x,y));
-			pCurr = IsoWorld.instance.tilesArray[Std.int(pt.x)][Std.int(pt.y)].position;
+			pCurr = IsoUtils.mapTilePosition(IsoUtils.getTileAt(new Point(x, y)),IsoWorld.instance.tileW,IsoWorld.instance.tileH);
 		}else{
 			xmovement = 0;
 			ymovement = 0;

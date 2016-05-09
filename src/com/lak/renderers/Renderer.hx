@@ -54,7 +54,10 @@ class Renderer
 			//removeChild(barLife);
 	}
 	public function run(delta:Int){
-		if (canDrawRect){ selectionSprt.drawRect();Simulator.instance.checkForSelection(); }
+		if (canDrawRect){ 
+			selectionSprt.drawRect();
+			Simulator.instance.checkForSelection(); 
+		}
 		IsoWorld.instance.drawView();
 	}
 	

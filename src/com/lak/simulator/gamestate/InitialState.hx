@@ -12,7 +12,8 @@ import com.lak.controllers.GameStateController;
 
 class InitialState implements IGameState
 {
-
+	private var pt:Point;
+	var n:Dynamic;
 	public function new(){}
 	public function mouseover():Void{
 		
@@ -32,14 +33,14 @@ class InitialState implements IGameState
 	public function mouseclick():Void{
 		if (Simulator.instance.armyManager.selectedUnits.length > 0){
 			for (unit in Simulator.instance.armyManager.selectedUnits){
-				var pt:Point = IsoUtils.getTileAt(new Point(IsoWorld.instance.mouseX, IsoWorld.instance.mouseY));
-				//trace(pt+" ----------- OFFSET COLONNE "+IsoWorld.instance.LIGNE_VISIBLE_OFFSET);
-				var n:Dynamic = IsoWorld.instance.tilesArray[Std.int(pt.x-IsoWorld.instance.LIGNE_VISIBLE_OFFSET)][Std.int(pt.y-IsoWorld.instance.COLONNE_VISIBLE_OFFSET)];
+				pt = IsoUtils.getTileAt(new Point(IsoWorld.instance.mouseX, IsoWorld.instance.mouseY));
+				trace(pt);
+				//n = IsoWorld.instance.levelData[Std.int(pt.x+IsoWorld.instance.LIGNE_VISIBLE_OFFSET)][Std.int(pt.y+IsoWorld.instance.COLONNE_VISIBLE_OFFSET)];
+				n = LevelManager.instance.getNodeAt(Std.int(pt.x),Std.int(pt.y));
 				n.index = 99;
-				n.ndType = "o";
-				trace(n.position);
-				LevelManager.instance.get9Nodes(unit);
-				//unit.goTo(n.position);
+				n.ndType = "o";				
+				trace(("unitx = "+unit.x+" unity = "+unit.y),n.position);
+				unit.goTo(n.position);
 			}
 			
 		}

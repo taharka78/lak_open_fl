@@ -3,7 +3,7 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="lak_haxe" package="com.lakhaxe" version="1.0.0" company="Youssouf & Moussa Sissoko" />
+	<meta title="LAK" package="com.lakhaxe" version="1.0.0" company="Youssouf & Moussa Sissoko" />
 	
 	<!-- output -->
 	<app main="Main" file="lakhaxe" path="bin" />
@@ -19,7 +19,7 @@
 	<haxelib name="spritesheet" />
 	
 	<!-- assets -->
-	<icon path="assets/openfl.svg" />
+	<icon path="assets/icon.png" />
 	<assets path="assets/img" rename="img" />
 	<assets path="assets/mali" rename="mali" />
 	<assets path="assets/data" rename="data" />
