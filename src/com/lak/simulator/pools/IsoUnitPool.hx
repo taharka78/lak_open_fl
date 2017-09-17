@@ -4,7 +4,7 @@ package com.lak.simulator.pools;
  * ...
  * @author Youssouf & Moussa Sissoko
  */
-import com.lak.entities.IsoUnit;
+import com.lak.entities.units.IsoUnit;
 
 class IsoUnitPool
 {

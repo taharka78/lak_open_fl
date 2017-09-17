@@ -1,7 +1,8 @@
 package com.lak.simulator;
 
-import com.lak.entities.IsoUnit;
+import com.lak.entities.units.IsoUnit;
 import com.lak.renderers.Renderer;
+import com.lak.simulator.gamestate.IGameState;
 import com.lak.simulator.manager.ArmyManager;
 import com.lak.simulator.manager.AttackMananger;
 import com.lak.simulator.manager.EntitiesManager;
@@ -24,6 +25,7 @@ class Simulator extends DisplayObject
 	public var entitiesManager:EntitiesManager;
 	public var attackMananger:AttackMananger;
 	public var armyManager:ArmyManager;
+	public var state:IGameState;
 	public function new() 
 	{
 		super();
@@ -43,7 +45,7 @@ class Simulator extends DisplayObject
 	public function initilizeUnit(unitType:String,posX:Int,posY:Int):Void{
 		
 		var unit:IsoUnit = IsoUnitPool.getEntity();
-		unit.scaleX = unit.scaleY = .8;
+		unit.scaleX = unit.scaleY = .75;
 		
 		//var unit:IsoUnit = new IsoUnit();
 		var assetName:String = unitType;
@@ -82,7 +84,7 @@ class Simulator extends DisplayObject
 			if(IsoWorld.instance.COLONNE_VISIBLE_OFFSET < 0){ IsoWorld.instance.COLONNE_VISIBLE_OFFSET = 0; }
             if (IsoWorld.instance.OFFSET_COLONNE_WORLD < 0){ IsoWorld.instance.OFFSET_COLONNE_WORLD = 0; IsoWorld.instance.y = 0; }
 			
-			else{ IsoWorld.instance.y+=IsoWorld.instance.halfH; }
+			else{ IsoWorld.instance.y+=Config.OFFSETY; }
 			
          }
          if(aKeyPress[40])
@@ -92,7 +94,7 @@ class Simulator extends DisplayObject
 			IsoWorld.instance.OFFSET_COLONNE_WORLD++;
 			
 			if (IsoWorld.instance.OFFSET_COLONNE_WORLD >= 900){ IsoWorld.instance.OFFSET_COLONNE_WORLD = 900; IsoWorld.instance.y = 90000; }
-			else{ IsoWorld.instance.y -= IsoWorld.instance.halfH; }
+			else{ IsoWorld.instance.y -= Config.OFFSETY; }
 			
          }
          if(aKeyPress[37])

@@ -14,13 +14,13 @@
 	
 	<!-- classpath, haxe libs -->
 	<source path="src" />
+	<haxelib name="stablexui" />
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
 	<haxelib name="spritesheet" />
 	
 	<!-- assets -->
 	<icon path="assets/icon.png" />
-	<assets path="assets/img" rename="img" />
 	<assets path="assets/mali" rename="mali" />
 	<assets path="assets/data" rename="data" />
 	<assets path="assets/data/maps/world1" rename="world1" />

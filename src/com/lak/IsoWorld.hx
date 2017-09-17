@@ -5,11 +5,12 @@ package com.lak;
  * @author Youssouf & Moussa Sissoko
  */
 import com.lak.entities.IsoObject;
-import com.lak.entities.IsoUnit;
+import com.lak.entities.units.IsoUnit;
 import com.lak.simulator.manager.AttackMananger;
 import com.lak.simulator.manager.LevelManager;
 import com.lak.simulator.manager.EntitiesManager;
 import openfl.display.DisplayObject;
+import openfl.display.Shape;
 import openfl.geom.Matrix;
 import spritesheet.Spritesheet;
 import com.lak.isometric.entities.*;
@@ -30,7 +31,7 @@ class IsoWorld extends Sprite
 	private var data:ByteArray;
 	private var floor:Bitmap;
 	//public var aWorld:Array<Array<Dynamic>> = new Array<Array<Dynamic>>();
-	public var tilesArray:Array<Array<Dynamic>> = new Array<Array<Dynamic>>();
+	public var tilesArray:Array<Array<Node>> = new Array<Array<Node>>();
 			
 	private var groundCanvas:BitmapData;
 	public static var instance:IsoWorld;
@@ -63,10 +64,10 @@ class IsoWorld extends Sprite
 	public var COLONNE_VISIBLE_OFFSET:Float;
 	public var LIGNE_VISIBLE_OFFSET:Float;
 	
-	public var tileH:Int = 48;
-	public var tileW:Int = 96;
-	public var halfH:Int;
-	public var halfW:Int;
+	public var tileH:Int;
+	public var tileW:Int;
+	
+	private var centerpt:Shape = new Shape();
 	
 	var pt:Point = new Point();
 	public var worldObject:Array<IsoObject> = new Array<IsoObject>();
@@ -91,8 +92,13 @@ class IsoWorld extends Sprite
 		COLONNE_VISIBLE_OFFSET = 0;
         LIGNE_VISIBLE_OFFSET = 0;
 		
-		halfH = tileH>>1;
-		halfW = tileW>>1;
+		tileH = Config.TILE_HEIGHT;
+		tileW = Config.TILE_WIDTH;
+		
+		
+		centerpt.graphics.beginFill(0xFF0000);
+		centerpt.graphics.drawCircle(2.5, 2.5, 5);
+		
 		levelManager = new LevelManager();
 		worldSize(true);
 		
@@ -112,7 +118,7 @@ class IsoWorld extends Sprite
         NB_LIGNE_WORLD = PART_NUM_TILE_H;
 		
         NB_TILE_W = Math.floor(VIEW_WIDTH/tileW)+2;
-        NB_TILE_H = Math.floor(VIEW_HEIGHT/halfH)+2;
+        NB_TILE_H = Math.floor(VIEW_HEIGHT/Config.OFFSETY)+2;
 		
 		/*trace("NB_TILE_H  = " + NB_TILE_H+" WIDTH "+VIEW_WIDTH);
         trace("NB_TILE_W = " + NB_TILE_W+" HEIGHT "+VIEW_HEIGHT);
@@ -123,8 +129,8 @@ class IsoWorld extends Sprite
 		groundCanvas = new BitmapData((VIEW_WIDTH + tileW), (VIEW_HEIGHT + tileH));
 		
 		floor = new Bitmap(groundCanvas);
-		floor.x = -halfW;
-		floor.y = -halfH;
+		//floor.x = -Config.OFFSETX;
+		//floor.y = -Config.OFFSETY;
 		stage.addChild(floor);
 		stage.setChildIndex(floor, 0);
 	}
@@ -189,18 +195,19 @@ class IsoWorld extends Sprite
 		var pos:Point = new Point();
 		wRowCpt = 0;
 		
-		tilesArray = new Array<Array<Dynamic>>();
-		while(wRowCpt < NB_TILE_W){
+		tilesArray = new Array<Array<Node>>();
+		while (wRowCpt < NB_TILE_W){
 			wColViewCpt = 0;
 			while(wColViewCpt < NB_TILE_H)
 			{
-			  if (tilesArray[wRowCpt] == null ){ tilesArray[wRowCpt] = new Array<Dynamic>(); }
-			  tilesArray[wRowCpt].push({ndType:"none",position:IsoUtils.mapTilePosition(new Point(wColViewCpt, wRowCpt),tileW,tileH),index:-1});
+			  if (tilesArray[wRowCpt] == null ){ tilesArray[wRowCpt] = new Array<Node>(); }
+			  tilesArray[wRowCpt].push(new Node("none",IsoUtils.posToPx(new Point(wColViewCpt, wRowCpt)),-1));
 			  wColViewCpt++;
 			}
 			wRowCpt++;
 		}
 	}
+	
 	/*
 	 * @funcname drawView @desc fonction qui gère le dessin des tiles visible sur l'écran du joueur en fonction la position de la camara sur le world
 	 * @return Void
@@ -225,7 +232,7 @@ class IsoWorld extends Sprite
             colViewCpt = 0;
             while(colViewCpt < NB_TILE_H)
             {
-				pos = IsoUtils.mapTilePosition(new Point(lineViewCpt,colViewCpt), tileW, tileH);
+				pos = IsoUtils.posToPx(new Point(lineViewCpt,colViewCpt));
 				if (COLONNE_VISIBLE_OFFSET > PART_NUM_TILE_W){ 
 					COLONNE_VISIBLE_OFFSET = COLONNE_VISIBLE_OFFSET%PART_NUM_TILE_W; 
 				}
@@ -234,16 +241,31 @@ class IsoWorld extends Sprite
 				}
 				if (lineViewCpt < PART_NUM_TILE_H && colViewCpt < PART_NUM_TILE_W){
 					nW = LevelManager.instance.getNodeAt(Std.int(lineViewCpt + LIGNE_VISIBLE_OFFSET),Std.int(colViewCpt + COLONNE_VISIBLE_OFFSET));
-					//nW = levelData[Std.int(lineViewCpt + LIGNE_VISIBLE_OFFSET)][Std.int(colViewCpt + COLONNE_VISIBLE_OFFSET)];
 					n = tilesArray[lineViewCpt][colViewCpt];
 					if (nW != null && n != null && nW.ndType != n.ndType){
 						n.position  = nW.position;
 						n.ndType = nW.ndType;
-						mtrx.tx = pos.x;
-						mtrx.ty = pos.y;
-						if (n.index == -1){ bmp.bitmapData = worldGrass.getFrame(GameUtils.random(0, 99)).bitmapData; }
+						
+						mtrx.tx = pos.x-Config.OFFSETX;
+						mtrx.ty = pos.y-Config.OFFSETY;
+						
+			
+						if (n.index == -1){ bmp.bitmapData = worldGrass.getFrame(0).bitmapData; }
 						else{ bmp.bitmapData = worldGrass.getFrame(n.index).bitmapData; }
-						groundCanvas.draw(bmp,mtrx);
+						
+						groundCanvas.draw(bmp, mtrx);
+						
+						if (nW.selected){
+							
+							groundCanvas.draw(worldGrass.getFrame(1).bitmapData, mtrx);
+							
+							mtrx.tx = nW.position.x;
+							mtrx.ty = nW.position.y;
+							
+							groundCanvas.draw(centerpt, mtrx);
+							
+						}
+						
 					}
 				}
 				colViewCpt++;

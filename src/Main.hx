@@ -2,7 +2,7 @@ package;
 
 import com.lak.display.FPS_Mem;
 import com.lak.controllers.events.UnitEvent;
-import com.lak.entities.IsoUnit;
+import com.lak.entities.units.IsoUnit;
 import com.lak.simulator.Simulator;
 import com.lak.simulator.gamestate.IGameState;
 import com.lak.simulator.gamestate.InitialState;
@@ -25,6 +25,7 @@ import com.lak.utils.GameUtils;
 import com.lak.controllers.*;
 import com.lak.renderers.Renderer;
 import openfl.events.KeyboardEvent;
+import ru.stablex.ui.UIBuilder;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -56,11 +57,13 @@ class Main extends Sprite
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;
 		
+		UIBuilder.init();
+		
 		world = new IsoWorld();
 		addChild(world);
 		
 		simulateur = new Simulator();
-		UnitController.create("general",96,96);
+		UnitController.create("general",193,193);
 		addEventListener(Event.ENTER_FRAME, update);
 		
 		stage.scaleMode = StageScaleMode.NO_SCALE;

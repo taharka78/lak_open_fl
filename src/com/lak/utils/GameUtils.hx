@@ -1,5 +1,5 @@
 package com.lak.utils;
-import flash.geom.Point;
+import openfl.geom.Point;
 import openfl.utils.ByteArray;
 import haxe.io.Bytes;
 
@@ -9,6 +9,83 @@ import haxe.io.Bytes;
  */
 class GameUtils
 {
+	// cn_PnPoly(): crossing number test for a point in a polygon
+	//      Input:   P = a point,
+	//               V[] = vertex points of a polygon V[n+1] with V[n]=V[0]
+	//      Return:  0 = outside, 1 = inside
+	// This code is patterned after [Franklin, 2000]
+	/*int cn_PnPoly( Point P, Point* V, int n )
+	{
+		int    cn = 0;    // the  crossing number counter
+
+		// loop through all edges of the polygon
+		for (int i=0; i<n; i++) {    // edge from V[i]  to V[i+1]
+		   if (((V[i].y <= P.y) && (V[i+1].y > P.y))     // an upward crossing
+			|| ((V[i].y > P.y) && (V[i+1].y <=  P.y))) { // a downward crossing
+				// compute  the actual edge-ray intersect x-coordinate
+				float vt = (float)(P.y  - V[i].y) / (V[i+1].y - V[i].y);
+				if (P.x <  V[i].x + vt * (V[i+1].x - V[i].x)) // P.x < intersect
+					 ++cn;   // a valid crossing of y=P.y right of P.x
+			}
+		}
+		return (cn&1);    // 0 if even (out), and 1 if  odd (in)
+
+	}*/
+	/**
+	 * 
+	 * @param	pt- The point to test against
+	 * @param	pos - The offset/position/translation of the polygon
+	 * @param	verts - The local(relative) vertices of the polygon
+	 * @return
+	 */
+	public static function ptInnPoly(p:Point,poly:Array<Point>) : Bool {
+        var p1:Point;
+		var p2:Point;
+        var inside:Bool = false;
+
+
+        if (poly.length < 3){ return inside; }
+		
+        var oldPoint = new Point(poly[poly.length - 1].x, poly[poly.length - 1].y);
+        
+		for (i in 0...poly.length)
+        {
+            var newPoint = new Point(poly[i].x, poly[i].y);
+
+
+            if (newPoint.x > oldPoint.y){
+                p1 = oldPoint;
+                p2 = newPoint;
+            }else{
+                p1 = newPoint;
+                p2 = oldPoint;
+            }
+
+            if ((newPoint.x < p.x) == (p.x <= oldPoint.x)
+                && (p.y - p1.y)*(p2.x - p1.x)
+                < (p2.y - p1.y)*(p.x - p1.x))
+            {
+                inside = !inside;
+            }
+            oldPoint = newPoint;
+        }
+
+
+        return inside;
+		/*var cn:Int = 0;    // the  crossing number counter
+
+		// loop through all edges of the polygon
+		for (i in 0...n) {    // edge from V[i]  to V[i+1]
+		   if (((V[i].y <= P.y) && (V[i+1].y > P.y))     // an upward crossing
+			|| ((V[i].y > P.y) && (V[i+1].y <=  P.y))) { // a downward crossing
+				// compute  the actual edge-ray intersect x-coordinate
+				var vt = (P.y  - V[i].y) / (V[i+1].y - V[i].y);
+				if (P.x <  V[i].x + vt * (V[i+1].x - V[i].x)) // P.x < intersect
+					 ++cn;   // a valid crossing of y=P.y right of P.x
+			}
+		}
+		return ((cn & 1) == 1)? true : false;    // 0 if even (out), and 1 if  odd (in)*/
+	}
 	public static function getAngleBetweenPt(pt1:Point,pt2:Point):Float
 	{
 		var dx:Float = pt2.x - pt1.x;
@@ -57,7 +134,7 @@ class GameUtils
 		return Math.round(n1/factor)*factor;
 	}
 	/*
-	 * @funcname getTileAt @desc permet de récupérer la position d'une tile en fonction d'un point donnée
+	 * @funcname pxToPos @desc permet de récupérer la position d'une tile en fonction d'un point donnée
 	 * @arg _x @type Float @desc position x
 	 * @arg _y @type Float @desc position y
 	 * @arg bl @type Bool @desc
@@ -78,7 +155,7 @@ class GameUtils
 			indexX = Math.floor(i%100);
 			indexY = Math.floor(i/100);
 			if(dArray[indexX] == null ) dArray[indexX] = new Array<Dynamic>();
-			dArray[indexX][indexY] = {ndType:ar[i], f:0, g:0, h:0, direction:"", position:IsoUtils.mapTilePosition(new Point(indexX+offsetX, indexY+offsetY), IsoWorld.instance.tileW, IsoWorld.instance.tileH)};
+			dArray[indexX][indexY] = {ndType:ar[i], f:0, g:0, h:0, direction:"", position:IsoUtils.posToPx(new Point(indexX+offsetX, indexY+offsetY))};
 		}
 		return dArray;
 	}	

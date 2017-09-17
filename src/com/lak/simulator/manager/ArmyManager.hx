@@ -1,5 +1,5 @@
 package com.lak.simulator.manager;
-import com.lak.entities.IsoUnit;
+import com.lak.entities.units.IsoUnit;
 import com.lak.renderers.Renderer;
 /**
  * ...

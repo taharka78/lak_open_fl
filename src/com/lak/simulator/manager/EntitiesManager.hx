@@ -3,7 +3,7 @@ import com.lak.entities.IsoObject;
 import flash.geom.Point;
 import openfl.geom.Rectangle;
 import com.lak.IsoWorld;
-import com.lak.entities.IsoUnit;
+import com.lak.entities.units.IsoUnit;
 import com.lak.utils.IsoUtils;
 /**
  * ...
@@ -68,7 +68,7 @@ class EntitiesManager
 					world.addChild(obj);
 				}
 			}else{
-					pt = IsoUtils.getTileAt(new Point(obj.x,obj.y),true);*/
+					pt = IsoUtils.pxToPos(new Point(obj.x,obj.y),true);*/
 					//var nd:Node = getNode(pt.x,pt.y);
 					/*if(nd.type != "d"){
 						if(obj.visible){ 

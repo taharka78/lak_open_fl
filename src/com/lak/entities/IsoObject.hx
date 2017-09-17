@@ -21,7 +21,7 @@ class IsoObject extends Sprite
 	public var angle:Int = 0;
 	public var clone:Bool = false;
 	public var isLive:Bool = true;
-	public var speed:Float = 2;	
+	public var speed:Int = 2;	
 	/*
 	 * Constructeur
 	 * Classe qde base de tous les Objets isométriques

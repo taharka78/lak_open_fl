@@ -1,5 +1,5 @@
 package com.lak.simulator.manager;
-import com.lak.entities.IsoUnit;
+import com.lak.entities.units.IsoUnit;
 import com.lak.utils.IsoUtils;
 import com.lak.utils.GameUtils;
 import openfl.events.Event;
@@ -25,7 +25,7 @@ class LevelManager
 	 * @return Void
 	 */
 	public function get9Nodes(_unit:IsoUnit):Void{
-		getUnitAdjacentNodes(_unit,("part_"+(Math.floor(_unit.x/(IsoWorld.instance.tileW*IsoWorld.instance.PART_NUM_TILE_W)))+"-"+(Math.floor(_unit.y/(IsoWorld.instance.halfH*IsoWorld.instance.PART_NUM_TILE_H))+".txt")));
+		getUnitAdjacentNodes(_unit,("part_"+(Math.floor(_unit.x/(IsoWorld.instance.tileW*IsoWorld.instance.PART_NUM_TILE_W)))+"-"+(Math.floor(_unit.y/(Config.OFFSETY*IsoWorld.instance.PART_NUM_TILE_H))+".txt")));
 	}
 	/*
 	 * @funcname  mapPartArray @desc function qui permet d'aller charger la partie de carte sous la forme de ByteArray et de la transformer en un tableau à deux dimensions
@@ -34,12 +34,13 @@ class LevelManager
 	 */
 	public function mapPartArray(partName:String):Array<Dynamic>{
 		if (registeredMap.get(partName) == null){
+			
 			var bytes:ByteArray = openfl.Assets.getBytes("world1/"+partName);
 			bytes.uncompress();
+			
 			var str:String = bytes.toString();
 			registeredMap.set(partName,GameUtils.to2DDimension(str,partName));
 		}
-		//trace(registeredMap.get(partName).length);
 		return registeredMap.get(partName);
 	}
 	/* @funcname getNodeTypeAt
@@ -60,10 +61,26 @@ class LevelManager
 	 * @arg tempMapAr @type Array<Dynamic> @desc tableau contenant la carte chargé par la fonction  @funcname mapPartArray
 	 * @return Void.
 	 */
+	public function getPointAdjacentNodes(_point:Point):Array<Point>{		
+		
+		var temp_pt:Point = new Point();
+		var nodeTab:Array<Point> = new Array<Point>();
+		var pt:Point;
+		for (i in 0...IsoUtils.spiralWalkStepArray.length){
+			temp_pt = IsoUtils.slideMapTileWalker(_point,IsoUtils.spiralWalkStepArray[i]);			
+			var n:Dynamic = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
+			pt = new Point();
+			pt.x = n.position.x;
+			pt.y = n.position.y;
+			nodeTab.push(pt);
+		}
+		
+		return nodeTab;
+	}
 	//private function getUnitAdjacentNodes(_unit:IsoUnit,tempMapAr:Array<Dynamic>):Void{		
 	private function getUnitAdjacentNodes(_unit:IsoUnit, partName:String):Void{		
 		
-		var pt:Point = IsoUtils.getTileAt(new Point(_unit.x,_unit.y));
+		var pt:Point = IsoUtils.pxToPos(new Point(_unit.x,_unit.y));
 		var temp_pt:Point = new Point();
 		_unit.nodeTab = new Array<Dynamic>();
 		
