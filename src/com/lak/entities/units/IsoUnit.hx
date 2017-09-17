@@ -66,7 +66,7 @@ class IsoUnit extends IsoObject
 		}
 	}
 	function cost(direction:String):Int{
-			var score = null;
+			var score = 0;
 			//var direction = utilGetDirection(currentNode, newNode);
 			//var direction = utilGetDirection(currentNode, newNode);
 			if (direction == "N" || direction == "E" || direction == "S" || direction == "W") score = 14;

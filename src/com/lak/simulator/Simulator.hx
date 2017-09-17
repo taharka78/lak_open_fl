@@ -27,7 +27,6 @@ class Simulator extends DisplayObject
 	public var attackMananger:AttackMananger;
 	public var armyManager:ArmyManager;
 	public var state:IGameState;
-	public var rDescriptor:RessourceDescriptor = new RessourceDescriptor();
 	public function new() 
 	{
 		super();
@@ -56,7 +55,6 @@ class Simulator extends DisplayObject
 		unit.type = "unit";
 		unit.currentAction = "stay";
 		unit.phase = "DL";
-		
 		
 		unit.spriteSheet.spritesheet  = Main.instance.sprSheetManager.getSpritesheet(civ, assetName);
 		unit.spriteSheet.showBehavior(unit.currentAction + "_" + unit.phase);

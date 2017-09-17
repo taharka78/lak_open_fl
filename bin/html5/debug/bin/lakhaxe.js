@@ -1019,7 +1019,7 @@ $hxClasses["ApplicationMain"] = ApplicationMain;
 ApplicationMain.__name__ = ["ApplicationMain"];
 ApplicationMain.main = function() {
 	var projectName = "lakhaxe";
-	var config = { build : "3", company : "Youssouf & Moussa Sissoko", file : "lakhaxe", fps : 60, name : "LAK", orientation : "", packageName : "com.lakhaxe", version : "1.0.0", windows : [{ allowHighDPI : false, alwaysOnTop : false, antialiasing : 0, background : 0, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 768, hidden : null, maximized : null, minimized : null, parameters : { }, resizable : true, stencilBuffer : true, title : "LAK", vsync : false, width : 1024, x : null, y : null}]};
+	var config = { build : "5", company : "Youssouf & Moussa Sissoko", file : "lakhaxe", fps : 60, name : "LAK", orientation : "", packageName : "com.lakhaxe", version : "1.0.0", windows : [{ allowHighDPI : false, alwaysOnTop : false, antialiasing : 0, background : 0, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 768, hidden : null, maximized : null, minimized : null, parameters : { }, resizable : true, stencilBuffer : true, title : "LAK", vsync : false, width : 1024, x : null, y : null}]};
 	lime_system_System.__registerEntryPoint(projectName,ApplicationMain.create,config);
 };
 ApplicationMain.create = function(config) {
@@ -3043,7 +3043,7 @@ Main.prototype = $extend(openfl_display_Sprite.prototype,{
 		this.world = new com_lak_IsoWorld();
 		this.addChild(this.world);
 		this.simulateur = new com_lak_simulator_Simulator();
-		com_lak_controllers_UnitController.create("general",193,193);
+		com_lak_controllers_UnitController.create("general",192,192);
 		this.addEventListener("enterFrame",$bind(this,this.update));
 		this.stage.scaleMode = 2;
 		this.stage.addEventListener("resize",$bind(this,this.onstageResized));
@@ -3393,7 +3393,7 @@ ManifestResources.init = function(config) {
 	var data;
 	var manifest;
 	var library;
-	data = "{\"name\":null,\"assets\":\"aoy4:pathy20:mali%2Fcavalier.jsony4:sizei23526y4:typey4:TEXTy2:idR1y7:preloadtgoR0y19:mali%2Fcavalier.pngR2i964525R3y5:IMAGER5R7R6tgoR0y19:mali%2Fgeneral.jsonR2i24082R3R4R5R9R6tgoR0y18:mali%2Fgeneral.pngR2i998268R3R8R5R10R6tgoR0y16:mali%2Fking.jsonR2i24352R3R4R5R11R6tgoR0y15:mali%2Fking.pngR2i1017095R3R8R5R12R6tgoR0y22:data%2Fanimations.jsonR2i68251R3R4R5R13R6tgoR0y22:data%2Fmaps%2Fdata.txtR2i8916R3R4R5R14R6tgoR0y34:data%2Fmaps%2Fworld1%2Fconfig.jsonR2i73R3R4R5R15R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-0.txtR2i46R3R4R5R16R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-1.txtR2i46R3R4R5R17R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-2.txtR2i46R3R4R5R18R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-3.txtR2i46R3R4R5R19R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-4.txtR2i46R3R4R5R20R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-5.txtR2i46R3R4R5R21R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-6.txtR2i46R3R4R5R22R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-7.txtR2i46R3R4R5R23R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-8.txtR2i46R3R4R5R24R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-9.txtR2i46R3R4R5R25R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-0.txtR2i46R3R4R5R26R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-1.txtR2i46R3R4R5R27R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-2.txtR2i46R3R4R5R28R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-3.txtR2i46R3R4R5R29R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-4.txtR2i46R3R4R5R30R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-5.txtR2i46R3R4R5R31R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-6.txtR2i46R3R4R5R32R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-7.txtR2i46R3R4R5R33R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-8.txtR2i46R3R4R5R34R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-9.txtR2i46R3R4R5R35R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-0.txtR2i46R3R4R5R36R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-1.txtR2i46R3R4R5R37R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-2.txtR2i46R3R4R5R38R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-3.txtR2i46R3R4R5R39R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-4.txtR2i46R3R4R5R40R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-5.txtR2i46R3R4R5R41R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-6.txtR2i46R3R4R5R42R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-7.txtR2i46R3R4R5R43R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-8.txtR2i46R3R4R5R44R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-9.txtR2i46R3R4R5R45R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-0.txtR2i46R3R4R5R46R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-1.txtR2i46R3R4R5R47R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-2.txtR2i46R3R4R5R48R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-3.txtR2i46R3R4R5R49R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-4.txtR2i46R3R4R5R50R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-5.txtR2i46R3R4R5R51R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-6.txtR2i46R3R4R5R52R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-7.txtR2i46R3R4R5R53R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-8.txtR2i46R3R4R5R54R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-9.txtR2i46R3R4R5R55R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-0.txtR2i46R3R4R5R56R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-1.txtR2i46R3R4R5R57R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-2.txtR2i46R3R4R5R58R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-3.txtR2i46R3R4R5R59R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-4.txtR2i46R3R4R5R60R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-5.txtR2i46R3R4R5R61R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-6.txtR2i46R3R4R5R62R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-7.txtR2i46R3R4R5R63R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-8.txtR2i46R3R4R5R64R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-9.txtR2i46R3R4R5R65R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-0.txtR2i46R3R4R5R66R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-1.txtR2i46R3R4R5R67R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-2.txtR2i46R3R4R5R68R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-3.txtR2i46R3R4R5R69R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-4.txtR2i46R3R4R5R70R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-5.txtR2i46R3R4R5R71R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-6.txtR2i46R3R4R5R72R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-7.txtR2i46R3R4R5R73R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-8.txtR2i46R3R4R5R74R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-9.txtR2i46R3R4R5R75R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-0.txtR2i46R3R4R5R76R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-1.txtR2i46R3R4R5R77R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-2.txtR2i46R3R4R5R78R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-3.txtR2i46R3R4R5R79R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-4.txtR2i46R3R4R5R80R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-5.txtR2i46R3R4R5R81R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-6.txtR2i46R3R4R5R82R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-7.txtR2i46R3R4R5R83R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-8.txtR2i46R3R4R5R84R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-9.txtR2i46R3R4R5R85R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-0.txtR2i46R3R4R5R86R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-1.txtR2i46R3R4R5R87R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-2.txtR2i46R3R4R5R88R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-3.txtR2i46R3R4R5R89R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-4.txtR2i46R3R4R5R90R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-5.txtR2i46R3R4R5R91R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-6.txtR2i46R3R4R5R92R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-7.txtR2i46R3R4R5R93R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-8.txtR2i46R3R4R5R94R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-9.txtR2i46R3R4R5R95R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-0.txtR2i46R3R4R5R96R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-1.txtR2i46R3R4R5R97R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-2.txtR2i46R3R4R5R98R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-3.txtR2i46R3R4R5R99R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-4.txtR2i46R3R4R5R100R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-5.txtR2i46R3R4R5R101R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-6.txtR2i46R3R4R5R102R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-7.txtR2i46R3R4R5R103R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-8.txtR2i46R3R4R5R104R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-9.txtR2i46R3R4R5R105R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-0.txtR2i46R3R4R5R106R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-1.txtR2i46R3R4R5R107R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-2.txtR2i46R3R4R5R108R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-3.txtR2i46R3R4R5R109R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-4.txtR2i46R3R4R5R110R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-5.txtR2i46R3R4R5R111R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-6.txtR2i46R3R4R5R112R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-7.txtR2i46R3R4R5R113R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-8.txtR2i46R3R4R5R114R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-9.txtR2i46R3R4R5R115R6tgoR0y28:data%2Fworld_animations.jsonR2i1296R3R4R5R116R6tgoR0y20:world1%2Fconfig.jsonR2i73R3R4R5R117R6tgoR0y21:world1%2Fpart_0-0.txtR2i46R3R4R5R118R6tgoR0y21:world1%2Fpart_0-1.txtR2i46R3R4R5R119R6tgoR0y21:world1%2Fpart_0-2.txtR2i46R3R4R5R120R6tgoR0y21:world1%2Fpart_0-3.txtR2i46R3R4R5R121R6tgoR0y21:world1%2Fpart_0-4.txtR2i46R3R4R5R122R6tgoR0y21:world1%2Fpart_0-5.txtR2i46R3R4R5R123R6tgoR0y21:world1%2Fpart_0-6.txtR2i46R3R4R5R124R6tgoR0y21:world1%2Fpart_0-7.txtR2i46R3R4R5R125R6tgoR0y21:world1%2Fpart_0-8.txtR2i46R3R4R5R126R6tgoR0y21:world1%2Fpart_0-9.txtR2i46R3R4R5R127R6tgoR0y21:world1%2Fpart_1-0.txtR2i46R3R4R5R128R6tgoR0y21:world1%2Fpart_1-1.txtR2i46R3R4R5R129R6tgoR0y21:world1%2Fpart_1-2.txtR2i46R3R4R5R130R6tgoR0y21:world1%2Fpart_1-3.txtR2i46R3R4R5R131R6tgoR0y21:world1%2Fpart_1-4.txtR2i46R3R4R5R132R6tgoR0y21:world1%2Fpart_1-5.txtR2i46R3R4R5R133R6tgoR0y21:world1%2Fpart_1-6.txtR2i46R3R4R5R134R6tgoR0y21:world1%2Fpart_1-7.txtR2i46R3R4R5R135R6tgoR0y21:world1%2Fpart_1-8.txtR2i46R3R4R5R136R6tgoR0y21:world1%2Fpart_1-9.txtR2i46R3R4R5R137R6tgoR0y21:world1%2Fpart_2-0.txtR2i46R3R4R5R138R6tgoR0y21:world1%2Fpart_2-1.txtR2i46R3R4R5R139R6tgoR0y21:world1%2Fpart_2-2.txtR2i46R3R4R5R140R6tgoR0y21:world1%2Fpart_2-3.txtR2i46R3R4R5R141R6tgoR0y21:world1%2Fpart_2-4.txtR2i46R3R4R5R142R6tgoR0y21:world1%2Fpart_2-5.txtR2i46R3R4R5R143R6tgoR0y21:world1%2Fpart_2-6.txtR2i46R3R4R5R144R6tgoR0y21:world1%2Fpart_2-7.txtR2i46R3R4R5R145R6tgoR0y21:world1%2Fpart_2-8.txtR2i46R3R4R5R146R6tgoR0y21:world1%2Fpart_2-9.txtR2i46R3R4R5R147R6tgoR0y21:world1%2Fpart_3-0.txtR2i46R3R4R5R148R6tgoR0y21:world1%2Fpart_3-1.txtR2i46R3R4R5R149R6tgoR0y21:world1%2Fpart_3-2.txtR2i46R3R4R5R150R6tgoR0y21:world1%2Fpart_3-3.txtR2i46R3R4R5R151R6tgoR0y21:world1%2Fpart_3-4.txtR2i46R3R4R5R152R6tgoR0y21:world1%2Fpart_3-5.txtR2i46R3R4R5R153R6tgoR0y21:world1%2Fpart_3-6.txtR2i46R3R4R5R154R6tgoR0y21:world1%2Fpart_3-7.txtR2i46R3R4R5R155R6tgoR0y21:world1%2Fpart_3-8.txtR2i46R3R4R5R156R6tgoR0y21:world1%2Fpart_3-9.txtR2i46R3R4R5R157R6tgoR0y21:world1%2Fpart_4-0.txtR2i46R3R4R5R158R6tgoR0y21:world1%2Fpart_4-1.txtR2i46R3R4R5R159R6tgoR0y21:world1%2Fpart_4-2.txtR2i46R3R4R5R160R6tgoR0y21:world1%2Fpart_4-3.txtR2i46R3R4R5R161R6tgoR0y21:world1%2Fpart_4-4.txtR2i46R3R4R5R162R6tgoR0y21:world1%2Fpart_4-5.txtR2i46R3R4R5R163R6tgoR0y21:world1%2Fpart_4-6.txtR2i46R3R4R5R164R6tgoR0y21:world1%2Fpart_4-7.txtR2i46R3R4R5R165R6tgoR0y21:world1%2Fpart_4-8.txtR2i46R3R4R5R166R6tgoR0y21:world1%2Fpart_4-9.txtR2i46R3R4R5R167R6tgoR0y21:world1%2Fpart_5-0.txtR2i46R3R4R5R168R6tgoR0y21:world1%2Fpart_5-1.txtR2i46R3R4R5R169R6tgoR0y21:world1%2Fpart_5-2.txtR2i46R3R4R5R170R6tgoR0y21:world1%2Fpart_5-3.txtR2i46R3R4R5R171R6tgoR0y21:world1%2Fpart_5-4.txtR2i46R3R4R5R172R6tgoR0y21:world1%2Fpart_5-5.txtR2i46R3R4R5R173R6tgoR0y21:world1%2Fpart_5-6.txtR2i46R3R4R5R174R6tgoR0y21:world1%2Fpart_5-7.txtR2i46R3R4R5R175R6tgoR0y21:world1%2Fpart_5-8.txtR2i46R3R4R5R176R6tgoR0y21:world1%2Fpart_5-9.txtR2i46R3R4R5R177R6tgoR0y21:world1%2Fpart_6-0.txtR2i46R3R4R5R178R6tgoR0y21:world1%2Fpart_6-1.txtR2i46R3R4R5R179R6tgoR0y21:world1%2Fpart_6-2.txtR2i46R3R4R5R180R6tgoR0y21:world1%2Fpart_6-3.txtR2i46R3R4R5R181R6tgoR0y21:world1%2Fpart_6-4.txtR2i46R3R4R5R182R6tgoR0y21:world1%2Fpart_6-5.txtR2i46R3R4R5R183R6tgoR0y21:world1%2Fpart_6-6.txtR2i46R3R4R5R184R6tgoR0y21:world1%2Fpart_6-7.txtR2i46R3R4R5R185R6tgoR0y21:world1%2Fpart_6-8.txtR2i46R3R4R5R186R6tgoR0y21:world1%2Fpart_6-9.txtR2i46R3R4R5R187R6tgoR0y21:world1%2Fpart_7-0.txtR2i46R3R4R5R188R6tgoR0y21:world1%2Fpart_7-1.txtR2i46R3R4R5R189R6tgoR0y21:world1%2Fpart_7-2.txtR2i46R3R4R5R190R6tgoR0y21:world1%2Fpart_7-3.txtR2i46R3R4R5R191R6tgoR0y21:world1%2Fpart_7-4.txtR2i46R3R4R5R192R6tgoR0y21:world1%2Fpart_7-5.txtR2i46R3R4R5R193R6tgoR0y21:world1%2Fpart_7-6.txtR2i46R3R4R5R194R6tgoR0y21:world1%2Fpart_7-7.txtR2i46R3R4R5R195R6tgoR0y21:world1%2Fpart_7-8.txtR2i46R3R4R5R196R6tgoR0y21:world1%2Fpart_7-9.txtR2i46R3R4R5R197R6tgoR0y21:world1%2Fpart_8-0.txtR2i46R3R4R5R198R6tgoR0y21:world1%2Fpart_8-1.txtR2i46R3R4R5R199R6tgoR0y21:world1%2Fpart_8-2.txtR2i46R3R4R5R200R6tgoR0y21:world1%2Fpart_8-3.txtR2i46R3R4R5R201R6tgoR0y21:world1%2Fpart_8-4.txtR2i46R3R4R5R202R6tgoR0y21:world1%2Fpart_8-5.txtR2i46R3R4R5R203R6tgoR0y21:world1%2Fpart_8-6.txtR2i46R3R4R5R204R6tgoR0y21:world1%2Fpart_8-7.txtR2i46R3R4R5R205R6tgoR0y21:world1%2Fpart_8-8.txtR2i46R3R4R5R206R6tgoR0y21:world1%2Fpart_8-9.txtR2i46R3R4R5R207R6tgoR0y21:world1%2Fpart_9-0.txtR2i46R3R4R5R208R6tgoR0y21:world1%2Fpart_9-1.txtR2i46R3R4R5R209R6tgoR0y21:world1%2Fpart_9-2.txtR2i46R3R4R5R210R6tgoR0y21:world1%2Fpart_9-3.txtR2i46R3R4R5R211R6tgoR0y21:world1%2Fpart_9-4.txtR2i46R3R4R5R212R6tgoR0y21:world1%2Fpart_9-5.txtR2i46R3R4R5R213R6tgoR0y21:world1%2Fpart_9-6.txtR2i46R3R4R5R214R6tgoR0y21:world1%2Fpart_9-7.txtR2i46R3R4R5R215R6tgoR0y21:world1%2Fpart_9-8.txtR2i46R3R4R5R216R6tgoR0y21:world1%2Fpart_9-9.txtR2i46R3R4R5R217R6tgoR0y21:world%2Fgrass----.pngR2i334266R3R8R5R218R6tgoR0y19:world%2Fgrass--.pngR2i135194R3R8R5R219R6tgoR0y22:world%2Fgrass-old.jsonR2i3424R3R4R5R220R6tgoR0y18:world%2Fgrass.jsonR2i96R3R4R5R221R6tgoR0y17:world%2Fgrass.pngR2i18859R3R8R5R222R6tgh\",\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	data = "{\"name\":null,\"assets\":\"aoy4:pathy19:mali%2Farchery.jsony4:sizei98y4:typey4:TEXTy2:idR1y7:preloadtgoR0y18:mali%2Farchery.pngR2i36239R3y5:IMAGER5R7R6tgoR0y19:mali%2Fcaserne.jsonR2i100R3R4R5R9R6tgoR0y18:mali%2Fcaserne.pngR2i30630R3R8R5R10R6tgoR0y18:mali%2Fcastle.jsonR2i99R3R4R5R11R6tgoR0y17:mali%2Fcastle.pngR2i70062R3R8R5R12R6tgoR0y20:mali%2Fcavalier.jsonR2i23526R3R4R5R13R6tgoR0y19:mali%2Fcavalier.pngR2i964525R3R8R5R14R6tgoR0y16:mali%2Ffarm.jsonR2i97R3R4R5R15R6tgoR0y15:mali%2Ffarm.pngR2i13756R3R8R5R16R6tgoR0y17:mali%2Fforge.jsonR2i98R3R4R5R17R6tgoR0y16:mali%2Fforge.pngR2i9253R3R8R5R18R6tgoR0y17:mali%2Fforum.jsonR2i98R3R4R5R19R6tgoR0y16:mali%2Fforum.pngR2i45075R3R8R5R20R6tgoR0y19:mali%2Fgeneral.jsonR2i24082R3R4R5R21R6tgoR0y18:mali%2Fgeneral.pngR2i998268R3R8R5R22R6tgoR0y16:mali%2Fhome.jsonR2i96R3R4R5R23R6tgoR0y15:mali%2Fhome.pngR2i7976R3R8R5R24R6tgoR0y16:mali%2Fking.jsonR2i24352R3R4R5R25R6tgoR0y15:mali%2Fking.pngR2i1017095R3R8R5R26R6tgoR0y18:mali%2Fmarket.jsonR2i98R3R4R5R27R6tgoR0y17:mali%2Fmarket.pngR2i23460R3R8R5R28R6tgoR0y16:mali%2Fmine.jsonR2i97R3R4R5R29R6tgoR0y15:mali%2Fmine.pngR2i5656R3R8R5R30R6tgoR0y18:mali%2Fmosque.jsonR2i99R3R4R5R31R6tgoR0y17:mali%2Fmosque.pngR2i57319R3R8R5R32R6tgoR0y18:mali%2Fstable.jsonR2i98R3R4R5R33R6tgoR0y17:mali%2Fstable.pngR2i32591R3R8R5R34R6tgoR0y23:mali%2Fstablebread.jsonR2i104R3R4R5R35R6tgoR0y22:mali%2Fstablebread.pngR2i9576R3R8R5R36R6tgoR0y17:mali%2Ftower.jsonR2i97R3R4R5R37R6tgoR0y16:mali%2Ftower.pngR2i11887R3R8R5R38R6tgoR0y22:data%2Fanimations.jsonR2i68251R3R4R5R39R6tgoR0y22:data%2Fmaps%2Fdata.txtR2i8916R3R4R5R40R6tgoR0y34:data%2Fmaps%2Fworld1%2Fconfig.jsonR2i73R3R4R5R41R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-0.txtR2i46R3R4R5R42R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-1.txtR2i46R3R4R5R43R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-2.txtR2i46R3R4R5R44R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-3.txtR2i46R3R4R5R45R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-4.txtR2i46R3R4R5R46R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-5.txtR2i46R3R4R5R47R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-6.txtR2i46R3R4R5R48R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-7.txtR2i46R3R4R5R49R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-8.txtR2i46R3R4R5R50R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_0-9.txtR2i46R3R4R5R51R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-0.txtR2i46R3R4R5R52R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-1.txtR2i46R3R4R5R53R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-2.txtR2i46R3R4R5R54R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-3.txtR2i46R3R4R5R55R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-4.txtR2i46R3R4R5R56R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-5.txtR2i46R3R4R5R57R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-6.txtR2i46R3R4R5R58R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-7.txtR2i46R3R4R5R59R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-8.txtR2i46R3R4R5R60R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_1-9.txtR2i46R3R4R5R61R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-0.txtR2i46R3R4R5R62R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-1.txtR2i46R3R4R5R63R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-2.txtR2i46R3R4R5R64R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-3.txtR2i46R3R4R5R65R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-4.txtR2i46R3R4R5R66R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-5.txtR2i46R3R4R5R67R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-6.txtR2i46R3R4R5R68R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-7.txtR2i46R3R4R5R69R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-8.txtR2i46R3R4R5R70R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_2-9.txtR2i46R3R4R5R71R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-0.txtR2i46R3R4R5R72R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-1.txtR2i46R3R4R5R73R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-2.txtR2i46R3R4R5R74R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-3.txtR2i46R3R4R5R75R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-4.txtR2i46R3R4R5R76R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-5.txtR2i46R3R4R5R77R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-6.txtR2i46R3R4R5R78R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-7.txtR2i46R3R4R5R79R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-8.txtR2i46R3R4R5R80R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_3-9.txtR2i46R3R4R5R81R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-0.txtR2i46R3R4R5R82R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-1.txtR2i46R3R4R5R83R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-2.txtR2i46R3R4R5R84R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-3.txtR2i46R3R4R5R85R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-4.txtR2i46R3R4R5R86R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-5.txtR2i46R3R4R5R87R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-6.txtR2i46R3R4R5R88R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-7.txtR2i46R3R4R5R89R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-8.txtR2i46R3R4R5R90R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_4-9.txtR2i46R3R4R5R91R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-0.txtR2i46R3R4R5R92R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-1.txtR2i46R3R4R5R93R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-2.txtR2i46R3R4R5R94R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-3.txtR2i46R3R4R5R95R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-4.txtR2i46R3R4R5R96R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-5.txtR2i46R3R4R5R97R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-6.txtR2i46R3R4R5R98R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-7.txtR2i46R3R4R5R99R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-8.txtR2i46R3R4R5R100R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_5-9.txtR2i46R3R4R5R101R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-0.txtR2i46R3R4R5R102R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-1.txtR2i46R3R4R5R103R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-2.txtR2i46R3R4R5R104R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-3.txtR2i46R3R4R5R105R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-4.txtR2i46R3R4R5R106R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-5.txtR2i46R3R4R5R107R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-6.txtR2i46R3R4R5R108R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-7.txtR2i46R3R4R5R109R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-8.txtR2i46R3R4R5R110R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_6-9.txtR2i46R3R4R5R111R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-0.txtR2i46R3R4R5R112R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-1.txtR2i46R3R4R5R113R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-2.txtR2i46R3R4R5R114R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-3.txtR2i46R3R4R5R115R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-4.txtR2i46R3R4R5R116R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-5.txtR2i46R3R4R5R117R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-6.txtR2i46R3R4R5R118R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-7.txtR2i46R3R4R5R119R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-8.txtR2i46R3R4R5R120R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_7-9.txtR2i46R3R4R5R121R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-0.txtR2i46R3R4R5R122R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-1.txtR2i46R3R4R5R123R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-2.txtR2i46R3R4R5R124R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-3.txtR2i46R3R4R5R125R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-4.txtR2i46R3R4R5R126R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-5.txtR2i46R3R4R5R127R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-6.txtR2i46R3R4R5R128R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-7.txtR2i46R3R4R5R129R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-8.txtR2i46R3R4R5R130R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_8-9.txtR2i46R3R4R5R131R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-0.txtR2i46R3R4R5R132R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-1.txtR2i46R3R4R5R133R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-2.txtR2i46R3R4R5R134R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-3.txtR2i46R3R4R5R135R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-4.txtR2i46R3R4R5R136R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-5.txtR2i46R3R4R5R137R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-6.txtR2i46R3R4R5R138R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-7.txtR2i46R3R4R5R139R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-8.txtR2i46R3R4R5R140R6tgoR0y35:data%2Fmaps%2Fworld1%2Fpart_9-9.txtR2i46R3R4R5R141R6tgoR0y28:data%2Fworld_animations.jsonR2i1296R3R4R5R142R6tgoR0y20:world1%2Fconfig.jsonR2i73R3R4R5R143R6tgoR0y21:world1%2Fpart_0-0.txtR2i46R3R4R5R144R6tgoR0y21:world1%2Fpart_0-1.txtR2i46R3R4R5R145R6tgoR0y21:world1%2Fpart_0-2.txtR2i46R3R4R5R146R6tgoR0y21:world1%2Fpart_0-3.txtR2i46R3R4R5R147R6tgoR0y21:world1%2Fpart_0-4.txtR2i46R3R4R5R148R6tgoR0y21:world1%2Fpart_0-5.txtR2i46R3R4R5R149R6tgoR0y21:world1%2Fpart_0-6.txtR2i46R3R4R5R150R6tgoR0y21:world1%2Fpart_0-7.txtR2i46R3R4R5R151R6tgoR0y21:world1%2Fpart_0-8.txtR2i46R3R4R5R152R6tgoR0y21:world1%2Fpart_0-9.txtR2i46R3R4R5R153R6tgoR0y21:world1%2Fpart_1-0.txtR2i46R3R4R5R154R6tgoR0y21:world1%2Fpart_1-1.txtR2i46R3R4R5R155R6tgoR0y21:world1%2Fpart_1-2.txtR2i46R3R4R5R156R6tgoR0y21:world1%2Fpart_1-3.txtR2i46R3R4R5R157R6tgoR0y21:world1%2Fpart_1-4.txtR2i46R3R4R5R158R6tgoR0y21:world1%2Fpart_1-5.txtR2i46R3R4R5R159R6tgoR0y21:world1%2Fpart_1-6.txtR2i46R3R4R5R160R6tgoR0y21:world1%2Fpart_1-7.txtR2i46R3R4R5R161R6tgoR0y21:world1%2Fpart_1-8.txtR2i46R3R4R5R162R6tgoR0y21:world1%2Fpart_1-9.txtR2i46R3R4R5R163R6tgoR0y21:world1%2Fpart_2-0.txtR2i46R3R4R5R164R6tgoR0y21:world1%2Fpart_2-1.txtR2i46R3R4R5R165R6tgoR0y21:world1%2Fpart_2-2.txtR2i46R3R4R5R166R6tgoR0y21:world1%2Fpart_2-3.txtR2i46R3R4R5R167R6tgoR0y21:world1%2Fpart_2-4.txtR2i46R3R4R5R168R6tgoR0y21:world1%2Fpart_2-5.txtR2i46R3R4R5R169R6tgoR0y21:world1%2Fpart_2-6.txtR2i46R3R4R5R170R6tgoR0y21:world1%2Fpart_2-7.txtR2i46R3R4R5R171R6tgoR0y21:world1%2Fpart_2-8.txtR2i46R3R4R5R172R6tgoR0y21:world1%2Fpart_2-9.txtR2i46R3R4R5R173R6tgoR0y21:world1%2Fpart_3-0.txtR2i46R3R4R5R174R6tgoR0y21:world1%2Fpart_3-1.txtR2i46R3R4R5R175R6tgoR0y21:world1%2Fpart_3-2.txtR2i46R3R4R5R176R6tgoR0y21:world1%2Fpart_3-3.txtR2i46R3R4R5R177R6tgoR0y21:world1%2Fpart_3-4.txtR2i46R3R4R5R178R6tgoR0y21:world1%2Fpart_3-5.txtR2i46R3R4R5R179R6tgoR0y21:world1%2Fpart_3-6.txtR2i46R3R4R5R180R6tgoR0y21:world1%2Fpart_3-7.txtR2i46R3R4R5R181R6tgoR0y21:world1%2Fpart_3-8.txtR2i46R3R4R5R182R6tgoR0y21:world1%2Fpart_3-9.txtR2i46R3R4R5R183R6tgoR0y21:world1%2Fpart_4-0.txtR2i46R3R4R5R184R6tgoR0y21:world1%2Fpart_4-1.txtR2i46R3R4R5R185R6tgoR0y21:world1%2Fpart_4-2.txtR2i46R3R4R5R186R6tgoR0y21:world1%2Fpart_4-3.txtR2i46R3R4R5R187R6tgoR0y21:world1%2Fpart_4-4.txtR2i46R3R4R5R188R6tgoR0y21:world1%2Fpart_4-5.txtR2i46R3R4R5R189R6tgoR0y21:world1%2Fpart_4-6.txtR2i46R3R4R5R190R6tgoR0y21:world1%2Fpart_4-7.txtR2i46R3R4R5R191R6tgoR0y21:world1%2Fpart_4-8.txtR2i46R3R4R5R192R6tgoR0y21:world1%2Fpart_4-9.txtR2i46R3R4R5R193R6tgoR0y21:world1%2Fpart_5-0.txtR2i46R3R4R5R194R6tgoR0y21:world1%2Fpart_5-1.txtR2i46R3R4R5R195R6tgoR0y21:world1%2Fpart_5-2.txtR2i46R3R4R5R196R6tgoR0y21:world1%2Fpart_5-3.txtR2i46R3R4R5R197R6tgoR0y21:world1%2Fpart_5-4.txtR2i46R3R4R5R198R6tgoR0y21:world1%2Fpart_5-5.txtR2i46R3R4R5R199R6tgoR0y21:world1%2Fpart_5-6.txtR2i46R3R4R5R200R6tgoR0y21:world1%2Fpart_5-7.txtR2i46R3R4R5R201R6tgoR0y21:world1%2Fpart_5-8.txtR2i46R3R4R5R202R6tgoR0y21:world1%2Fpart_5-9.txtR2i46R3R4R5R203R6tgoR0y21:world1%2Fpart_6-0.txtR2i46R3R4R5R204R6tgoR0y21:world1%2Fpart_6-1.txtR2i46R3R4R5R205R6tgoR0y21:world1%2Fpart_6-2.txtR2i46R3R4R5R206R6tgoR0y21:world1%2Fpart_6-3.txtR2i46R3R4R5R207R6tgoR0y21:world1%2Fpart_6-4.txtR2i46R3R4R5R208R6tgoR0y21:world1%2Fpart_6-5.txtR2i46R3R4R5R209R6tgoR0y21:world1%2Fpart_6-6.txtR2i46R3R4R5R210R6tgoR0y21:world1%2Fpart_6-7.txtR2i46R3R4R5R211R6tgoR0y21:world1%2Fpart_6-8.txtR2i46R3R4R5R212R6tgoR0y21:world1%2Fpart_6-9.txtR2i46R3R4R5R213R6tgoR0y21:world1%2Fpart_7-0.txtR2i46R3R4R5R214R6tgoR0y21:world1%2Fpart_7-1.txtR2i46R3R4R5R215R6tgoR0y21:world1%2Fpart_7-2.txtR2i46R3R4R5R216R6tgoR0y21:world1%2Fpart_7-3.txtR2i46R3R4R5R217R6tgoR0y21:world1%2Fpart_7-4.txtR2i46R3R4R5R218R6tgoR0y21:world1%2Fpart_7-5.txtR2i46R3R4R5R219R6tgoR0y21:world1%2Fpart_7-6.txtR2i46R3R4R5R220R6tgoR0y21:world1%2Fpart_7-7.txtR2i46R3R4R5R221R6tgoR0y21:world1%2Fpart_7-8.txtR2i46R3R4R5R222R6tgoR0y21:world1%2Fpart_7-9.txtR2i46R3R4R5R223R6tgoR0y21:world1%2Fpart_8-0.txtR2i46R3R4R5R224R6tgoR0y21:world1%2Fpart_8-1.txtR2i46R3R4R5R225R6tgoR0y21:world1%2Fpart_8-2.txtR2i46R3R4R5R226R6tgoR0y21:world1%2Fpart_8-3.txtR2i46R3R4R5R227R6tgoR0y21:world1%2Fpart_8-4.txtR2i46R3R4R5R228R6tgoR0y21:world1%2Fpart_8-5.txtR2i46R3R4R5R229R6tgoR0y21:world1%2Fpart_8-6.txtR2i46R3R4R5R230R6tgoR0y21:world1%2Fpart_8-7.txtR2i46R3R4R5R231R6tgoR0y21:world1%2Fpart_8-8.txtR2i46R3R4R5R232R6tgoR0y21:world1%2Fpart_8-9.txtR2i46R3R4R5R233R6tgoR0y21:world1%2Fpart_9-0.txtR2i46R3R4R5R234R6tgoR0y21:world1%2Fpart_9-1.txtR2i46R3R4R5R235R6tgoR0y21:world1%2Fpart_9-2.txtR2i46R3R4R5R236R6tgoR0y21:world1%2Fpart_9-3.txtR2i46R3R4R5R237R6tgoR0y21:world1%2Fpart_9-4.txtR2i46R3R4R5R238R6tgoR0y21:world1%2Fpart_9-5.txtR2i46R3R4R5R239R6tgoR0y21:world1%2Fpart_9-6.txtR2i46R3R4R5R240R6tgoR0y21:world1%2Fpart_9-7.txtR2i46R3R4R5R241R6tgoR0y21:world1%2Fpart_9-8.txtR2i46R3R4R5R242R6tgoR0y21:world1%2Fpart_9-9.txtR2i46R3R4R5R243R6tgoR0y18:world%2Fgrass.jsonR2i121R3R4R5R244R6tgoR0y17:world%2Fgrass.pngR2i10797R3R8R5R245R6tgh\",\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	manifest = lime_utils_AssetManifest.parse(data,rootPath);
 	library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -3804,8 +3804,6 @@ com_lak_IsoWorld.prototype = $extend(openfl_display_Sprite.prototype,{
 	,LIGNE_VISIBLE_OFFSET: null
 	,tileH: null
 	,tileW: null
-	,halfH: null
-	,halfW: null
 	,centerpt: null
 	,pt: null
 	,worldObject: null
@@ -3818,8 +3816,6 @@ com_lak_IsoWorld.prototype = $extend(openfl_display_Sprite.prototype,{
 		this.tileW = com_lak_Config.TILE_WIDTH;
 		this.centerpt.get_graphics().beginFill(16711680);
 		this.centerpt.get_graphics().drawCircle(2.5,2.5,5);
-		this.halfH = this.tileH >> 1;
-		this.halfW = this.tileW >> 1;
 		this.levelManager = new com_lak_simulator_manager_LevelManager();
 		this.worldSize(true);
 	}
@@ -3834,7 +3830,7 @@ com_lak_IsoWorld.prototype = $extend(openfl_display_Sprite.prototype,{
 		this.NB_COLONNE_WORLD = this.PART_NUM_TILE_W;
 		this.NB_LIGNE_WORLD = this.PART_NUM_TILE_H;
 		this.NB_TILE_W = Math.floor(this.VIEW_WIDTH / this.tileW) + 2;
-		this.NB_TILE_H = Math.floor(this.VIEW_HEIGHT / this.halfH) + 2;
+		this.NB_TILE_H = Math.floor(this.VIEW_HEIGHT / com_lak_Config.OFFSETY) + 2;
 		this.setupMapData(this.curentLevel,1,1,true);
 		if(_first == false) {
 			this.stage.removeChild(this.floor);
@@ -3857,7 +3853,7 @@ com_lak_IsoWorld.prototype = $extend(openfl_display_Sprite.prototype,{
 		if(partNum == null) {
 			partNum = "0-0";
 		}
-		haxe_Log.trace("map : part_" + partNum + ".txt" + " SENSY ==> " + (sensY == -1 ? "vers le haut" : "vers le bas ") + " SENSX ==>" + (sensX == -1 ? "vers la gauche" : "vers la droite "),{ fileName : "IsoWorld.hx", lineNumber : 148, className : "com.lak.IsoWorld", methodName : "setupMapData"});
+		haxe_Log.trace("map : part_" + partNum + ".txt" + " SENSY ==> " + (sensY == -1 ? "vers le haut" : "vers le bas ") + " SENSX ==>" + (sensX == -1 ? "vers la gauche" : "vers la droite "),{ fileName : "IsoWorld.hx", lineNumber : 144, className : "com.lak.IsoWorld", methodName : "setupMapData"});
 		if(sensX == 1) {
 			this.LIGNE_VISIBLE_OFFSET = this.OFFSET_LIGNE_WORLD - this.PART_NUM_TILE_W * parseFloat(partNum.split("-")[0]);
 			if(this.LIGNE_VISIBLE_OFFSET < 0) {
@@ -3955,22 +3951,20 @@ com_lak_IsoWorld.prototype = $extend(openfl_display_Sprite.prototype,{
 					if(nW != null && n != null && nW.ndType != n.ndType) {
 						n.position = nW.position;
 						n.ndType = nW.ndType;
-						this.mtrx.tx = pos.x - this.halfW;
-						this.mtrx.ty = pos.y - this.halfH;
+						this.mtrx.tx = pos.x - com_lak_Config.OFFSETX;
+						this.mtrx.ty = pos.y - com_lak_Config.OFFSETY;
 						if(n.index == -1) {
 							bmp.set_bitmapData(this.worldGrass.getFrame(0).bitmapData);
 						} else {
 							bmp.set_bitmapData(this.worldGrass.getFrame(n.index).bitmapData);
 						}
 						this.groundCanvas.draw(bmp,this.mtrx);
-						this.mtrx.tx = pos.x;
-						this.mtrx.ty = pos.y;
-					}
-					if(n.selected) {
-						haxe_Log.trace("selected",{ fileName : "IsoWorld.hx", lineNumber : 265, className : "com.lak.IsoWorld", methodName : "drawView"});
-						this.mtrx.tx = pos.x;
-						this.mtrx.ty = pos.y;
-						this.groundCanvas.draw(this.centerpt,this.mtrx);
+						if(nW.selected) {
+							this.groundCanvas.draw(this.worldGrass.getFrame(1).bitmapData,this.mtrx);
+							this.mtrx.tx = nW.position.x;
+							this.mtrx.ty = nW.position.y;
+							this.groundCanvas.draw(this.centerpt,this.mtrx);
+						}
 					}
 				}
 				++colViewCpt;
@@ -4162,6 +4156,25 @@ com_lak_controllers_events_UnitEvent.prototype = $extend(openfl_events_Event.pro
 	}
 	,__class__: com_lak_controllers_events_UnitEvent
 });
+var com_lak_core_player_RessourceDescriptor = function() {
+	this.types = com_lak_core_services_GameService.getTypes();
+	haxe_Log.trace(this.types.toString(),{ fileName : "RessourceDescriptor.hx", lineNumber : 15, className : "com.lak.core.player.RessourceDescriptor", methodName : "new"});
+};
+$hxClasses["com.lak.core.player.RessourceDescriptor"] = com_lak_core_player_RessourceDescriptor;
+com_lak_core_player_RessourceDescriptor.__name__ = ["com","lak","core","player","RessourceDescriptor"];
+com_lak_core_player_RessourceDescriptor.prototype = {
+	types: null
+	,__class__: com_lak_core_player_RessourceDescriptor
+};
+var com_lak_core_services_GameService = function() { };
+$hxClasses["com.lak.core.services.GameService"] = com_lak_core_services_GameService;
+com_lak_core_services_GameService.__name__ = ["com","lak","core","services","GameService"];
+com_lak_core_services_GameService.getTypes = function() {
+	return { "food" : 100, "wood" : 100, "gold" : 100, "horse" : 100, "stone" : 100};
+};
+com_lak_core_services_GameService.getBuildingOptions = function() {
+	return { forum : { name : "frm", shape : [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]], timeConstruction : 80, production : [1], research : [1,5,3], needs : { techs : [], buildings : []}, cost : [{ id : 30, value : 300},{ id : 5, value : 300}], give : { id : 1, value : 10, time : 100, repeat : -1}, consumption : [{ id : 5, value : 5, time : 100}], life : 500, defense : 0, armorTypeID : 15, height : 32, vision : 5, canAttack : true, isProduction : true}};
+};
 var openfl_text_TextField = function() {
 	openfl_display_InteractiveObject.call(this);
 	this.__caretIndex = -1;
@@ -6236,8 +6249,6 @@ var com_lak_entities_units_IsoUnit = function() {
 	this.pEnd = new openfl_geom_Point();
 	this.pCurr = new openfl_geom_Point();
 	com_lak_entities_IsoObject.call(this);
-	this.spriteSheet = new spritesheet_AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet("mali","king"));
-	this.addEventListener("change",$bind(this,this.onStateChange));
 };
 $hxClasses["com.lak.entities.units.IsoUnit"] = com_lak_entities_units_IsoUnit;
 com_lak_entities_units_IsoUnit.__name__ = ["com","lak","entities","units","IsoUnit"];
@@ -6249,6 +6260,10 @@ com_lak_entities_units_IsoUnit.prototype = $extend(com_lak_entities_IsoObject.pr
 	,lastNode: null
 	,xmovement: null
 	,ymovement: null
+	,init: function(civ,un) {
+		this.spriteSheet = new spritesheet_AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ,un));
+		this.addEventListener("change",$bind(this,this.onStateChange));
+	}
 	,goTo: function(targetpt) {
 		this.pCurr = com_lak_utils_IsoUtils.posToPx(com_lak_utils_IsoUtils.pxToPos(new openfl_geom_Point(this.get_x(),this.get_y())));
 		this.pEnd = targetpt;
@@ -6269,12 +6284,12 @@ com_lak_entities_units_IsoUnit.prototype = $extend(com_lak_entities_IsoObject.pr
 			this.lookAtDir(this.nodeTab[0].direction);
 			this.currentAction = "walk";
 		} else {
-			haxe_Log.trace(" NO NODE IN _unit.nodeTab ",{ fileName : "IsoUnit.hx", lineNumber : 63, className : "com.lak.entities.units.IsoUnit", methodName : "onStateChange"});
+			haxe_Log.trace(" NO NODE IN _unit.nodeTab ",{ fileName : "IsoUnit.hx", lineNumber : 64, className : "com.lak.entities.units.IsoUnit", methodName : "onStateChange"});
 			this.hasPath = false;
 		}
 	}
 	,cost: function(direction) {
-		var score = null;
+		var score = 0;
 		if(direction == "N" || direction == "E" || direction == "S" || direction == "W") {
 			score = 14;
 		} else {
@@ -6429,6 +6444,7 @@ com_lak_renderers_Renderer.prototype = {
 	,__class__: com_lak_renderers_Renderer
 };
 var com_lak_simulator_Simulator = function() {
+	this.rDescriptor = new com_lak_core_player_RessourceDescriptor();
 	this.aKeyPress = [];
 	openfl_display_DisplayObject.call(this);
 	com_lak_simulator_pools_IsoUnitPool.initialize(200,100);
@@ -6448,8 +6464,10 @@ com_lak_simulator_Simulator.prototype = $extend(openfl_display_DisplayObject.pro
 	,attackMananger: null
 	,armyManager: null
 	,state: null
+	,rDescriptor: null
 	,initilizeUnit: function(unitType,posX,posY) {
 		var unit = com_lak_simulator_pools_IsoUnitPool.getEntity();
+		unit.init("mali",unitType);
 		unit.set_scaleX(unit.set_scaleY(.75));
 		var assetName = unitType;
 		var civ = "mali";
@@ -6477,7 +6495,7 @@ com_lak_simulator_Simulator.prototype = $extend(openfl_display_DisplayObject.pro
 				com_lak_IsoWorld.instance.set_y(0);
 			} else {
 				var _g = com_lak_IsoWorld.instance;
-				_g.set_y(_g.get_y() + com_lak_IsoWorld.instance.halfH);
+				_g.set_y(_g.get_y() + com_lak_Config.OFFSETY);
 			}
 		}
 		if(this.aKeyPress[40]) {
@@ -6488,7 +6506,7 @@ com_lak_simulator_Simulator.prototype = $extend(openfl_display_DisplayObject.pro
 				com_lak_IsoWorld.instance.set_y(90000);
 			} else {
 				var _g1 = com_lak_IsoWorld.instance;
-				_g1.set_y(_g1.get_y() - com_lak_IsoWorld.instance.halfH);
+				_g1.set_y(_g1.get_y() - com_lak_Config.OFFSETY);
 			}
 		}
 		if(this.aKeyPress[37]) {
@@ -6597,12 +6615,13 @@ com_lak_simulator_gamestate_InitialState.prototype = {
 			while(_g < _g1.length) {
 				var unit = _g1[_g];
 				++_g;
-				var posx = com_lak_utils_GameUtils.toGridCoord(com_lak_IsoWorld.instance.get_mouseX() - com_lak_IsoWorld.instance.halfW,com_lak_Config.TILE_WIDTH);
-				var posy = com_lak_utils_GameUtils.toGridCoord(com_lak_IsoWorld.instance.get_mouseY() - com_lak_IsoWorld.instance.halfH,com_lak_Config.TILE_HEIGHT);
+				var posx = com_lak_utils_GameUtils.toGridCoord(com_lak_IsoWorld.instance.get_mouseX(),com_lak_Config.TILE_WIDTH);
+				var posy = com_lak_utils_GameUtils.toGridCoord(com_lak_IsoWorld.instance.get_mouseY(),com_lak_Config.TILE_HEIGHT);
 				this.pt = com_lak_utils_IsoUtils.pxToPos(new openfl_geom_Point(posx,posy));
 				this.n = com_lak_simulator_manager_LevelManager.instance.getNodeAt(this.pt.x | 0,this.pt.y | 0);
-				this.n.index = -1;
-				this.n.ndType = "o";
+				this.n.index = 1;
+				haxe_Log.trace(this.n.index,{ fileName : "InitialState.hx", lineNumber : 43, className : "com.lak.simulator.gamestate.InitialState", methodName : "mouseclick"});
+				this.n.ndType = "rtees";
 				this.n.selected = true;
 				haxe_Log.trace("unitx = " + unit.get_x() + " unity = " + unit.get_y(),{ fileName : "InitialState.hx", lineNumber : 46, className : "com.lak.simulator.gamestate.InitialState", methodName : "mouseclick", customParams : [this.n.position]});
 				unit.goTo(this.n.position);
@@ -6704,7 +6723,7 @@ com_lak_simulator_manager_LevelManager.prototype = {
 	registeredMap: null
 	,tempUnit: null
 	,get9Nodes: function(_unit) {
-		this.getUnitAdjacentNodes(_unit,"part_" + Math.floor(_unit.get_x() / (com_lak_IsoWorld.instance.tileW * com_lak_IsoWorld.instance.PART_NUM_TILE_W)) + "-" + (Math.floor(_unit.get_y() / (com_lak_IsoWorld.instance.halfH * com_lak_IsoWorld.instance.PART_NUM_TILE_H)) + ".txt"));
+		this.getUnitAdjacentNodes(_unit,"part_" + Math.floor(_unit.get_x() / (com_lak_IsoWorld.instance.tileW * com_lak_IsoWorld.instance.PART_NUM_TILE_W)) + "-" + (Math.floor(_unit.get_y() / (com_lak_Config.OFFSETY * com_lak_IsoWorld.instance.PART_NUM_TILE_H)) + ".txt"));
 	}
 	,mapPartArray: function(partName) {
 		var _this = this.registeredMap;
@@ -8280,6 +8299,25 @@ haxe_ds_StringMap.prototype = {
 			}
 		}
 		return out;
+	}
+	,toString: function() {
+		var s_b = "";
+		s_b += "{";
+		var keys = this.arrayKeys();
+		var _g1 = 0;
+		var _g = keys.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var k = keys[i];
+			s_b += k == null ? "null" : "" + k;
+			s_b += " => ";
+			s_b += Std.string(Std.string(__map_reserved[k] != null ? this.getReserved(k) : this.h[k]));
+			if(i < keys.length - 1) {
+				s_b += ", ";
+			}
+		}
+		s_b += "}";
+		return s_b;
 	}
 	,__class__: haxe_ds_StringMap
 };
@@ -33101,7 +33139,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 857193;
+	this.version = 624913;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = ["lime","utils","AssetCache"];
@@ -75129,6 +75167,8 @@ openfl_display_DisplayObject.__broadcastEvents = new haxe_ds_StringMap();
 openfl_display_DisplayObject.__instanceCount = 0;
 com_lak_Config.TILE_WIDTH = 96;
 com_lak_Config.TILE_HEIGHT = 48;
+com_lak_Config.OFFSETX = 48;
+com_lak_Config.OFFSETY = 24;
 openfl_events_Event.ACTIVATE = "activate";
 openfl_events_Event.ADDED = "added";
 openfl_events_Event.ADDED_TO_STAGE = "addedToStage";

@@ -1,4 +1,9 @@
 -main ApplicationMain 
+-cp C:/HaxeToolkit/haxe/lib/stablexui/1,2,1/src
+-D stablexui=1.2.1
+--macro keep('IntIterator')
+-cp C:/HaxeToolkit/haxe/lib/hscript/2,1,1
+-D hscript=2.1.1
 --macro openfl._internal.utils.ExtraParams.include()
 -cp C:/HaxeToolkit/haxe/lib/openfl/5,1,5
 -D openfl=5.1.5

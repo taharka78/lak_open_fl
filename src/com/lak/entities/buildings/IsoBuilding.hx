@@ -7,7 +7,8 @@ import com.lak.entities.IsoObject;
  */
 class IsoBuilding extends IsoObject
 {
-
+	public var shape:Array<Int>;
+	
 	public function new() 
 	{
 		
