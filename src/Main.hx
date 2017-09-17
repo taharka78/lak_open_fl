@@ -63,7 +63,7 @@ class Main extends Sprite
 		addChild(world);
 		
 		simulateur = new Simulator();
-		UnitController.create("general",193,193);
+		UnitController.create("general",192,192);		
 		addEventListener(Event.ENTER_FRAME, update);
 		
 		stage.scaleMode = StageScaleMode.NO_SCALE;

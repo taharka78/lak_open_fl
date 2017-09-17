@@ -30,10 +30,11 @@ class IsoUnit extends IsoObject
 	public function new() 
 	{
 		super();
-		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet("mali", "king"));
+	}
+	public function init(civ:String,un:String){
+		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ,un));
 		addEventListener(Event.CHANGE, onStateChange);
 	}
-		
 	/*
 	 *  @funcname goTo (definir le point de destination de l'unité pour faire une recherche AStar)
 	 * 	@arg targetPoint:Point

@@ -1,6 +1,7 @@
 package com.lak.simulator;
 
 import com.lak.entities.units.IsoUnit;
+import com.lak.core.player.RessourceDescriptor;
 import com.lak.renderers.Renderer;
 import com.lak.simulator.gamestate.IGameState;
 import com.lak.simulator.manager.ArmyManager;
@@ -26,6 +27,7 @@ class Simulator extends DisplayObject
 	public var attackMananger:AttackMananger;
 	public var armyManager:ArmyManager;
 	public var state:IGameState;
+	public var rDescriptor:RessourceDescriptor = new RessourceDescriptor();
 	public function new() 
 	{
 		super();
@@ -45,9 +47,9 @@ class Simulator extends DisplayObject
 	public function initilizeUnit(unitType:String,posX:Int,posY:Int):Void{
 		
 		var unit:IsoUnit = IsoUnitPool.getEntity();
+		unit.init("mali", unitType);
 		unit.scaleX = unit.scaleY = .75;
 		
-		//var unit:IsoUnit = new IsoUnit();
 		var assetName:String = unitType;
 		var civ:String = "mali";
 		
