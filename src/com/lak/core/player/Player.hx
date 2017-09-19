@@ -9,7 +9,8 @@ class Player
 	public var teamID:Int;
 	public var realmID:Int;
 	public var civID:Int;
-	public var ressources:RessourceDescriptor;
+	public var name:String;
+	
 	public function new() 
 	{
 		

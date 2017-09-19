@@ -1,6 +1,6 @@
 package com.lak.simulator.manager;
-import com.lak.IsoWorld;
-import com.lak.entities.IsoObject;
+import com.lak.simulator.isometric.world.IsoWorld;
+import com.lak.simulator.isometric.entities.IsoObject;
 
 /**
  * ...

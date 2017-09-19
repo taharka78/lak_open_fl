@@ -1,8 +1,8 @@
 package com.lak.simulator.algorithm;
 
-import com.lak.entities.units.IsoUnit;
+import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.manager.LevelManager;
-import com.lak.utils.IsoUtils;
+import com.lak.simulator.isometric.utils.IsoUtils;
 import openfl.geom.Point;
 import openfl.events.Event;
 /**

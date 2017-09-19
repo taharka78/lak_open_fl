@@ -1,6 +1,6 @@
 package com.lak.simulator.manager;
-import com.lak.entities.units.IsoUnit;
-import com.lak.renderers.Renderer;
+import com.lak.simulator.isometric.entities.units.IsoUnit;
+import com.lak.simulator.renderers.GraphicRenderer;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -22,7 +22,7 @@ class ArmyManager
 	}
 	public function deselectUnits(){
 		for(i in 0...selectedUnits.length){
-			Renderer.instance.destroyEllipse(selectedUnits[i]);
+			GraphicRenderer.instance.destroyEllipse(selectedUnits[i]);
 		}
 		selectedUnits = new Array<IsoUnit>();
 	}

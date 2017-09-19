@@ -1,6 +1,6 @@
 package com.lak.controllers;
 
-import com.lak.renderers.Renderer;
+import com.lak.simulator.renderers.GraphicRenderer;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -9,11 +9,11 @@ class GameStateController
 {
 
 	public static function enableSelection(){
-		Renderer.instance.canDrawRect = true;
+		GraphicRenderer.instance.canDrawRect = true;
 	}
 	public static function disabledSelection(){
-		Renderer.instance.selectionSprt.graphics.clear();
-		Renderer.instance.canDrawRect = false;
+		GraphicRenderer.instance.selectionSprt.graphics.clear();
+		GraphicRenderer.instance.canDrawRect = false;
 	}
 	
 }

@@ -1,8 +1,8 @@
 package;
 
-import com.lak.display.FPS_Mem;
-import com.lak.controllers.events.UnitEvent;
-import com.lak.entities.units.IsoUnit;
+import com.lak.core.display.FPS_Mem;
+import com.lak.simulator.isometric.entities.units.events.UnitEvent;
+import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.Simulator;
 import com.lak.simulator.gamestate.IGameState;
 import com.lak.simulator.gamestate.InitialState;
@@ -18,12 +18,12 @@ import openfl.Lib;
 import spritesheet.AnimatedSprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
-import com.lak.IsoWorld;
+import com.lak.simulator.isometric.world.IsoWorld;
 import com.lak.simulator.manager.*;
-import com.lak.utils.IsoUtils;
-import com.lak.utils.GameUtils;
+import com.lak.simulator.isometric.utils.IsoUtils;
+import com.lak.core.utils.GameUtils;
 import com.lak.controllers.*;
-import com.lak.renderers.Renderer;
+import com.lak.simulator.renderers.GraphicRenderer;
 import openfl.events.KeyboardEvent;
 import ru.stablex.ui.UIBuilder;
 /**
@@ -52,21 +52,23 @@ class Main extends Sprite
 	}
 	
 	function onMainAdded(e:Event){
+		
 		removeEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 		
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;
 		
+		// initialisation de stablexui
 		UIBuilder.init();
 		
 		world = new IsoWorld();
 		addChild(world);
 		
-		simulateur = new Simulator();
-		UnitController.create("general",192,192);		
+		simulateur = new Simulator();		
 		addEventListener(Event.ENTER_FRAME, update);
 		
 		stage.scaleMode = StageScaleMode.NO_SCALE;
+		
 		stage.addEventListener(Event.RESIZE, onstageResized);
 		stage.addEventListener(MouseEvent.CLICK,onStageClick);
 		stage.addEventListener(MouseEvent.MOUSE_DOWN,onStageMouseDown);
@@ -74,6 +76,9 @@ class Main extends Sprite
 		stage.addEventListener(MouseEvent.MOUSE_MOVE, onStageMouseMove);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
+		
+		//addChild(UIBuilder.buildFn('assets/ui/test.xml')());
+		//UnitController.create("general",192,192);
 	}
 	private function keyDownListener(kevt:KeyboardEvent):Void{ 
 		simulateur.aKeyPress[kevt.keyCode] = true; 

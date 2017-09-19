@@ -1,4 +1,5 @@
 package com.lak.display;
+import com.lak.simulator.isometric.world.IsoWorld;
 import openfl.display.Sprite;
 import openfl.geom.Rectangle;
 

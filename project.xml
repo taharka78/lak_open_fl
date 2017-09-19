@@ -25,6 +25,7 @@
 	<assets path="assets/data" rename="data" />
 	<assets path="assets/data/maps/world1" rename="world1" />
 	<assets path="assets/world" rename="world" />
+	<assets path="assets/ui" rename="ui" />
 	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->

@@ -1,8 +1,10 @@
 package com.lak.simulator;
 
-import com.lak.entities.units.IsoUnit;
-import com.lak.core.player.RessourceDescriptor;
-import com.lak.renderers.Renderer;
+import com.lak.simulator.data.GameData;
+import com.lak.simulator.isometric.Config;
+import com.lak.simulator.isometric.world.IsoWorld;
+import com.lak.simulator.isometric.entities.units.IsoUnit;
+import com.lak.simulator.renderers.GraphicRenderer;
 import com.lak.simulator.gamestate.IGameState;
 import com.lak.simulator.manager.ArmyManager;
 import com.lak.simulator.manager.AttackMananger;
@@ -20,22 +22,27 @@ import com.lak.simulator.pools.IsoUnitPool;
  */
 class Simulator extends DisplayObject
 {
-	var renderer:Renderer;
+	public var renderer:GraphicRenderer;
 	public static var instance:Simulator;
 	public var aKeyPress:Array<Bool> = new Array<Bool>();
 	public var entitiesManager:EntitiesManager;
 	public var attackMananger:AttackMananger;
 	public var armyManager:ArmyManager;
+	public var gameData:GameData;
 	public var state:IGameState;
+	
 	public function new() 
 	{
 		super();
+		
 		IsoUnitPool.initialize(200, 100);
 		instance = this;
-		renderer = new Renderer();
+		
+		renderer = new GraphicRenderer();
 		entitiesManager = new EntitiesManager(IsoWorld.instance);
 		attackMananger = new AttackMananger(IsoWorld.instance);
 		armyManager = new ArmyManager();
+		gameData = new GameData();
 	}
 	
 	/*
@@ -120,9 +127,9 @@ class Simulator extends DisplayObject
 	{
 		for(obj in IsoWorld.instance.worldObject)
 		{
-			if(Std.is(obj,IsoUnit) && obj.visible && Renderer.instance.selectionSprt.selectionRect.contains(obj.x,obj.y)/*&& obj.isLive && obj.owner == joueur.properties.username && onRect(obj.x,obj.y) == 1*/)
+			if(Std.is(obj,IsoUnit) && obj.visible && GraphicRenderer.instance.selectionSprt.selectionRect.contains(obj.x,obj.y)/*&& obj.isLive && obj.owner == joueur.properties.username && onRect(obj.x,obj.y) == 1*/)
 			{
-				Renderer.instance.createEllipse(obj, 0xFF00FF);
+				GraphicRenderer.instance.createEllipse(obj, 0xFF00FF);
 				armyManager.selectUnit(cast(obj,IsoUnit));
 			}
 		}

@@ -1,0 +1,6 @@
+{
+"framerate":24,
+"images":["grass.png"],
+"frames":[[0, 0, 96, 48, 0, 0, 0],[96, 0, 96, 48, 0, 0, 0]],
+"animations":{}
+}

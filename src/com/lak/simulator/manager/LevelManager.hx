@@ -1,7 +1,9 @@
 package com.lak.simulator.manager;
-import com.lak.entities.units.IsoUnit;
-import com.lak.utils.IsoUtils;
-import com.lak.utils.GameUtils;
+import com.lak.simulator.isometric.Config;
+import com.lak.simulator.isometric.world.IsoWorld;
+import com.lak.simulator.isometric.entities.units.IsoUnit;
+import com.lak.simulator.isometric.utils.IsoUtils;
+import com.lak.core.utils.GameUtils;
 import openfl.events.Event;
 import openfl.geom.Point;
 import openfl.utils.ByteArray;

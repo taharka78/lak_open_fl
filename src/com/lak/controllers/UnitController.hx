@@ -1,5 +1,5 @@
 package com.lak.controllers;
-import com.lak.entities.units.IsoUnit;
+import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.Simulator;
 
 /**
