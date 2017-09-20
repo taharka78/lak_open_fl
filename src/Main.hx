@@ -60,7 +60,7 @@ class Main extends Sprite
 		addEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 	}
 	
-	function onMainAdded(e:Event){
+	private function onMainAdded(e:Event){
 		
 		removeEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 		
@@ -88,6 +88,7 @@ class Main extends Sprite
 		//CreateUnitCommand.execute("general",192,192);
 		//CreateBuildingCommand.execute("caserne", new Point(192, 192));
 	}
+		
 	private function keyDownListener(kevt:KeyboardEvent):Void{ 
 		simulateur.aKeyPress[kevt.keyCode] = true; 
 	}

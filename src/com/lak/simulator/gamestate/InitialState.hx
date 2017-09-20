@@ -21,12 +21,12 @@ class InitialState implements IGameState
 	public function new(){}
 	
 	public function enter():Void{
-		if (Main.instance.world != null){
+		if (Main.instance.world == null){
 			var world:IsoWorld = new IsoWorld();
 			Main.instance.world = world;
 			Main.instance.addChild(world);
 		}
-		
+				
 	}
 	
 	public function mouseover():Void{

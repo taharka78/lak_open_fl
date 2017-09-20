@@ -16,7 +16,7 @@ class GameStateController
 	
 	public static function initial(){
 		Main.instance.state = new InitialState();
-		//Main.instance.state.enter();
+		Main.instance.state.enter();
 		trace("INITIAL MODE");
 	}
 	
