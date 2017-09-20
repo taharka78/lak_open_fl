@@ -9,7 +9,7 @@ import com.lak.simulator.Simulator;
 class UnitController
 {
 	
-	public static function create(unitType:String,posX:Int=100,posY:Int=100 ){ 
+	public static function create(unitType:String, posX:Int=0, posY:Int=0){ 
 		Simulator.instance.initilizeUnit(unitType,posX,posY);
 	}
 	
