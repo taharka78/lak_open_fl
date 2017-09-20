@@ -1,6 +1,11 @@
 {
 "framerate":24,
-"images":["grass.png"],
+"images":["market.png"],
 "frames":[[0, 0, 235, 198, 0, 0, 0]],
-"animations":{}
+"animations": {
+		"construct": {
+			"speed": 1,
+			"frames": [0]
+		}
+	}
 }

@@ -4,11 +4,15 @@ package com.lak.simulator.gamestate;
  * ...
  * @author Youssouf & Moussa Sissoko
  */
+// vue zoomé à l'intérieur d'une ville avec la possibilitée de construire des bâtiments déplacer les troupes en garnison ect...
 class BuilderState implements IGameState
 {
 
 	public function new() 
 	{
+		
+	}
+	public function enter():Void{
 		
 	}
 	public function mouseover():Void{
@@ -26,5 +30,7 @@ class BuilderState implements IGameState
 	public function mouseclick():Void{
 		
 	}
-	
+	public function exit():Void{
+		
+	}
 }

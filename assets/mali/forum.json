@@ -1,6 +1,13 @@
 {
-"framerate":24,
-"images":["grass.png"],
-"frames":[[0, 0, 420, 289, 0, 0, 0]],
-"animations":{}
+	"framerate": 24,
+	"images": ["forum.png"],
+	"frames": [
+		[0, 0, 420, 289, 0, 0, 0]
+	],
+	"animations": {
+		"construct": {
+			"speed": 1,
+			"frames": [0]
+		}
+	}
 }

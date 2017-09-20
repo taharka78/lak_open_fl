@@ -7,12 +7,12 @@ import com.lak.services.GameService;
  */
 class GameData 
 {
-	public var types:Map<Int,String>;
-	public var buildings:Dynamic;
-	public var unitTypes:Map <Int,Dynamic>;
-	public var armorTypes:Map<Int,Dynamic>;
-	public var mountTypes:Map<Int,Dynamic>;
-	public static var instance;
+	public var types:Array<Dynamic>;
+	public var buildings:Array<Dynamic>;
+	public var unitTypes:Array<Dynamic>;
+	public var armorTypes:Array<Dynamic>;
+	public var mountTypes:Array<Dynamic>;
+	public static var instance:GameData;
 	
 	public function new(){
 		instance = this;

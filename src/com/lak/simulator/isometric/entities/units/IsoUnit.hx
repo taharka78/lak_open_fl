@@ -33,8 +33,12 @@ class IsoUnit extends IsoObject
 	{
 		super();
 	}
+	
 	public function init(civ:String,un:String){
-		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ,un));
+		
+		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ, un));
+		addChild(spriteSheet);
+		
 		addEventListener(Event.CHANGE, onStateChange);
 	}
 	/*

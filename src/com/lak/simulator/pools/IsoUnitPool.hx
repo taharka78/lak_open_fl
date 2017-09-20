@@ -24,7 +24,8 @@ class IsoUnitPool
           
         pool = new Array<IsoUnit>(); 
         while( --i > -1 ) pool[i] = new IsoUnit(); 
-    } 
+    }
+	
 	public static function getEntity():IsoUnit 
         { 
             if ( counter > 0 ) 

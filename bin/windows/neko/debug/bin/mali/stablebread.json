@@ -2,5 +2,10 @@
 "framerate":24,
 "images":["stablebread.png"],
 "frames":[[0, 0, 150, 116, 0, 0, 0]],
-"animations":{}
+"animations": {
+		"construct": {
+			"speed": 1,
+			"frames": [0]
+		}
+	}
 }

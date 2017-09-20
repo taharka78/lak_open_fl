@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VBox w="300">
+    <!-- on-click="trace($this.left);" -->
+    <meta:repeat counter="cnt" times="simulateur.gameData.buildings.length">
+        <Button left="10" top="120" on-click="GameStateController.builder();" text="'Construire '+simulateur.gameData.buildings[cnt].name"/>
+    </meta:repeat>
+</VBox>
