@@ -1,12 +1,21 @@
 package;
 
+import com.lak.core.managers.SpritesheetManager;
 import com.lak.core.display.FPS_Mem;
 import com.lak.simulator.isometric.entities.units.events.UnitEvent;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.Simulator;
 import com.lak.simulator.gamestate.IGameState;
 import com.lak.simulator.gamestate.InitialState;
+import com.lak.simulator.isometric.world.IsoWorld;
+import com.lak.simulator.manager.*;
+import com.lak.simulator.isometric.utils.IsoUtils;
+import com.lak.core.utils.GameUtils;
+import com.lak.controllers.*;
+import com.lak.simulator.renderers.GraphicRenderer;
+
 import haxe.Log.trace;
+
 import openfl.display.BitmapData;
 import openfl.display.Bitmap;
 import openfl.display.FPS;
@@ -15,17 +24,15 @@ import openfl.display.Sprite;
 import openfl.geom.Point;
 import openfl.Assets;
 import openfl.Lib;
-import spritesheet.AnimatedSprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
-import com.lak.simulator.isometric.world.IsoWorld;
-import com.lak.simulator.manager.*;
-import com.lak.simulator.isometric.utils.IsoUtils;
-import com.lak.core.utils.GameUtils;
-import com.lak.controllers.*;
-import com.lak.simulator.renderers.GraphicRenderer;
 import openfl.events.KeyboardEvent;
+
+import spritesheet.AnimatedSprite;
 import ru.stablex.ui.UIBuilder;
+import com.lak.simulator.command.CreateUnitCommand;
+import com.lak.simulator.command.CreateBuildingCommand;
+import com.lak.simulator.controllers.GameStateController;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -35,19 +42,21 @@ class Main extends Sprite
 	var lastTime:Int = 0;
 	var unit:IsoUnit;
 	public var sprSheetManager:SpritesheetManager = new SpritesheetManager();
-	public var world:IsoWorld;
+	public var world:IsoWorld = null;
 	public static var instance:Main;
 	public var realWidth:Int;
 	public var realHeight:Int;
 	public var simulateur:Simulator;
 	public var state:IGameState;
-	private var initState:InitialState = new InitialState();
+	public var initState:InitialState = new InitialState();
 	public function new() 
 	{
 		super();
-		addChild(new FPS_Mem());
-		state = initState; 
 		instance = this;
+		addChild(new FPS_Mem());
+		
+		GameStateController.initial();
+		
 		addEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 	}
 	
@@ -59,10 +68,8 @@ class Main extends Sprite
 		realHeight = stage.stageHeight;
 		
 		// initialisation de stablexui
+		UIBuilder.setTheme('ru.stablex.ui.themes.android4');
 		UIBuilder.init();
-		
-		world = new IsoWorld();
-		addChild(world);
 		
 		simulateur = new Simulator();		
 		addEventListener(Event.ENTER_FRAME, update);
@@ -77,8 +84,9 @@ class Main extends Sprite
 		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
 		
-		//addChild(UIBuilder.buildFn('assets/ui/test.xml')());
-		//UnitController.create("general",192,192);
+		addChild(UIBuilder.buildFn('assets/ui/main.xml')());
+		//CreateUnitCommand.execute("general",192,192);
+		//CreateBuildingCommand.execute("caserne", new Point(192, 192));
 	}
 	private function keyDownListener(kevt:KeyboardEvent):Void{ 
 		simulateur.aKeyPress[kevt.keyCode] = true; 
@@ -86,7 +94,6 @@ class Main extends Sprite
 	private function keyUpListener(kevt:KeyboardEvent):Void{ 
 		simulateur.aKeyPress[kevt.keyCode] = false; 
 	}
-	
 	function onStageMouseDown(me:MouseEvent){
 		state.mousedown();
 	}

@@ -2,10 +2,12 @@ package com.lak.simulator.gamestate;
 
 /**
  * ...
- * @author Youssouf & Moussa Sissoko
+ * @author Moussa & Youssouf Sissoko
  */
-// vue zoomé à l'intérieur d'une ville avec la possibilitée de construire des bâtiments déplacer les troupes en garnison ect...
-class BuilderState implements IGameState
+// vue d'enssemble de la carte du monde avec les royaume ect....
+// gestion de la diplomatie
+// deplacements des armées.
+class StrategicState implements IGameState
 {
 
 	public function new() 

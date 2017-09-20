@@ -1,4 +1,4 @@
-package com.lak.controllers;
+package com.lak.simulator.controllers;
 
 /**
  * ...

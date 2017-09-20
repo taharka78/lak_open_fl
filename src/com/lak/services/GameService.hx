@@ -17,80 +17,78 @@ class GameService
 		}
 	}
 	
-	public static function getRessourceTypes():Map<Int,Dynamic>{
-		return [
-					1 => {name:"food",icon:"food_ico"},
-					2 => {name:"wood",icon:"wood_ico"},
-					3 => {name:"gold",icon:"gold_ico"},
-					4 => {name:"horse",icon:"horse_ico"},
-					5 => {name:"stone",icon:"stone_ico"}
+	public static function getRessourceTypes():Array<Dynamic>{
+		return [ 	{name:"food",icon:"food_ico"},
+					{name:"wood",icon:"wood_ico"},
+					{name:"gold",icon:"gold_ico"},
+					{name:"horse",icon:"horse_ico"},
+					{name:"stone",icon:"stone_ico"}
 				];
 	}
 	
-	public  static function getBodyParts():Map<Int,String>{
-		return [
-					1 => "head",
-					2 => "arms",
-					3 => "hand",
-					4 => "shoulder",
-					5 => "hand",
-					6 => "chest",
-					7 => "legs",
-					8 => "feet"
+	public  static function getBodyParts():Array<Dynamic>{
+		return ["head",
+					"arms",
+					"hand",
+					"shoulder",
+					"hand",
+					"chest",
+					"legs",
+					"feet"
 				];
 	}
-	public static function getUnitsType():Map<Int,Dynamic>{
-		return [ 1 => {
+	public static function getUnitsType():Array<Dynamic>{
+		return [ {
 						type : "onFoot",
 						weakness : [],
 						strengh : []
 					},
-				 2 => {
+				 {
 					type : "mounted",
 					weakness : [],
 					strengh : []
 				 },
-				 3 => {
+				 {
 					type : "melee",
 					weakness : [],
 					strengh : []
 				 },
-				 4 => {
+				 {
 					type : "distance",
 					weakness : [],
 					strengh : []
 				 },
-				 5 => {
+				 {
 					type : "siege",
 					weakness : [],
 					strengh : []
 				 }
 		];
 	}
-	public static function getMountType():Map<Int,Dynamic>{
+	public static function getMountType():Array<Dynamic>{
 		return [
-				1 => { 
+				{ 
 						type:"horse",
 						speed : 3,
 						defense : 2,
 						attack : 0,
 						stamina : 100
 				},
-				2 => { 
+				{ 
 						type:"donkey",
 						speed : 3,
 						defense : 2,
 						attack : 0,
 						stamina : 100
 				},
-				3 => { 
+				{ 
 						type:"camel",
 						speed : 3,
 						defense : 2,
 						attack : 0,
 						stamina : 100
 					},
-				4 => { 
+				{ 
 						type:"elephant",
 						speed : 3,
 						defense : 2,
@@ -100,9 +98,9 @@ class GameService
 			];
 	}
 	
-	public static function getWeaponTypes():Map<Int,Dynamic>{
+	public static function getWeaponTypes():Array<Dynamic>{
 		return [
-			 1 => {
+			 {
 				type : "sword",
 				targetBodyPart : 1,
 				// IDs du type d'unité.
@@ -118,9 +116,9 @@ class GameService
 			}			
 		];
 	}
-	public static function getArmorTypes():Map<Int,Dynamic>{
+	public static function getArmorTypes():Array<Dynamic>{
 		return [
-			1 => {
+			{
 				type : "helmet",
 				targetBodyPart : 1,
 				bonus : {
@@ -131,10 +129,9 @@ class GameService
 			}			
 		];
 	}
-	public static function getBuildingOptions():Dynamic{
-		return {
-			forum: {
-				name: 'frm',
+	public static function getBuildingOptions():Array<Dynamic>{
+		return [{
+				name: 'forum',
 				// disposition des tiles walkable
 				shape: [[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]],
 				// temps de construction
@@ -165,7 +162,7 @@ class GameService
 				// bâtiment productif.
 				isProduction: true
 			}
-		}
+		];
 	}
 	
 }

@@ -8,7 +8,7 @@ import com.lak.simulator.isometric.entities.IsoObject;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.Config;
 import com.lak.simulator.manager.AttackMananger;
-import com.lak.simulator.manager.LevelManager;
+import com.lak.core.managers.LevelManager;
 import com.lak.simulator.manager.EntitiesManager;
 import openfl.display.DisplayObject;
 import openfl.display.Shape;
@@ -177,12 +177,12 @@ class IsoWorld extends Sprite
 	 */
 	public function addChildToWorld(child:IsoObject):Void
 	{
-		var len:Int = worldObject.length;
-		worldObject.insert(len,child);
+		worldObject.insert(worldObject.length, child);
+		
 		pt.x = child.x;
 		pt.y = child.y;
 			
-		if(Std.is(child,IsoUnit)){ child.scale = child.scaleX; }
+		if (Std.is(child, IsoUnit)){ child.scale = child.scaleX; }
 		addChild(child);
 	}
 	/*

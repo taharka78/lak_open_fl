@@ -1,4 +1,4 @@
-package com.lak.simulator.manager;
+package com.lak.core.managers;
 import com.lak.simulator.isometric.Config;
 import com.lak.simulator.isometric.world.IsoWorld;
 import com.lak.simulator.isometric.entities.units.IsoUnit;

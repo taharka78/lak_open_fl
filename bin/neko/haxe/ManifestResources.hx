@@ -309,7 +309,7 @@ import sys.FileSystem;
 @:keep @:bind #if display private #end class __ASSET__world1_part_9_9_txt extends null { }
 @:keep @:bind #if display private #end class __ASSET__world_grass_json extends null { }
 @:keep @:bind #if display private #end class __ASSET__world_grass_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
-@:keep @:bind #if display private #end class __ASSET__ui_test_xml extends null { }
+@:keep @:bind #if display private #end class __ASSET__ui_main_xml extends null { }
 @:keep @:bind #if display private #end class __ASSET__manifest_default_json extends null { }
 
 

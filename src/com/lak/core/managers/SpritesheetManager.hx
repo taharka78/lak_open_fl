@@ -1,4 +1,4 @@
-package com.lak.simulator.manager;
+package com.lak.core.managers;
 
 /**
  * ...
