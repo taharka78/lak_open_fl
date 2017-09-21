@@ -33,7 +33,10 @@ import ru.stablex.ui.UIBuilder;
 import com.lak.simulator.command.CreateUnitCommand;
 import com.lak.simulator.command.CreateBuildingCommand;
 import com.lak.simulator.controllers.GameStateController;
+import com.lak.simulator.gamestate.BuilderState;
+import com.lak.simulator.gamestate.InitialState;
 import ru.stablex.ui.widgets.VBox;
+import com.lak.ui.LAKUI;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -49,13 +52,16 @@ class Main extends Sprite
 	public var realHeight:Int;
 	public var simulateur:Simulator;
 	public var state:IGameState;
-	public var initState:InitialState = new InitialState();
+	public var initialState:InitialState = new InitialState();
+	public var builderState:BuilderState = new BuilderState();
+	public var gameUI:LAKUI;
 	public function new() 
 	{
 		super();
 		instance = this;
 		addChild(new FPS_Mem());
 		
+		gameUI = new LAKUI();
 		GameStateController.initial();
 		addEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 	}
@@ -68,8 +74,6 @@ class Main extends Sprite
 		realHeight = stage.stageHeight;
 		
 		// initialisation de stablexui
-		UIBuilder.setTheme('ru.stablex.ui.themes.android4');
-		UIBuilder.init();
 		
 		simulateur = new Simulator();		
 		addEventListener(Event.ENTER_FRAME, update);

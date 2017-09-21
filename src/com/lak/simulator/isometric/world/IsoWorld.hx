@@ -175,6 +175,16 @@ class IsoWorld extends Sprite
 	 * @arg child @type IsoObject @desc object iso à ajouter au world 
 	 * @return Void
 	 */
+	public function removeChildFromWorld(child:IsoObject):Void
+	{
+		worldObject.remove(child);
+		removeChild(child);
+	}
+	/*
+	 * @funcname addChildToWorld @desc fonction qui gère l'ajout au monde iso d'objet isometrique
+	 * @arg child @type IsoObject @desc object iso à ajouter au world 
+	 * @return Void
+	 */
 	public function addChildToWorld(child:IsoObject):Void
 	{
 		worldObject.insert(worldObject.length, child);

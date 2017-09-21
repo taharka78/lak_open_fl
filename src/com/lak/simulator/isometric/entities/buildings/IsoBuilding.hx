@@ -15,8 +15,9 @@ class IsoBuilding extends IsoObject
 		super();
 	}
 	
-	public function init(civ:String,un:String){
-		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ, un));
+	public function init(civ:String,type:String){
+		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ, type));
+		this.type = type;
 		scaleX = scaleY = .75;
 		addChild(spriteSheet);
 	}
