@@ -10,6 +10,8 @@ import com.lak.core.utils.GameUtils;
 import com.lak.simulator.command.MoveUnitCommand;
 import com.lak.simulator.handler.SelectionHandler;
 import openfl.display.Shape;
+import ru.stablex.ui.UIBuilder;
+import ru.stablex.ui.widgets.VBox;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -21,12 +23,13 @@ class InitialState implements IGameState
 	public function new(){}
 	
 	public function enter():Void{
-		if (Main.instance.world != null){
+		if (Main.instance.world == null){
 			var world:IsoWorld = new IsoWorld();
 			Main.instance.world = world;
 			Main.instance.addChild(world);
 		}
-		
+		var mainInterface = UIBuilder.buildFn('assets/ui/main.xml');
+		Main.instance.addChild(mainInterface());
 	}
 	
 	public function mouseover():Void{
@@ -54,6 +57,6 @@ class InitialState implements IGameState
 	}
 	
 	public function exit():Void{
-		
+		Main.instance.removeChild(UIBuilder.get("main"));
 	}
 }

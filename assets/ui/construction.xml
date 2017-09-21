@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
+<VBox w="300">
+    <meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.buildings.length">
+        <Button left="10" top="120" text="Main.instance.simulateur.gameData.buildings[cnt].name"/>
+    </meta:repeat>
+</VBox>

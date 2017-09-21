@@ -33,6 +33,7 @@ import ru.stablex.ui.UIBuilder;
 import com.lak.simulator.command.CreateUnitCommand;
 import com.lak.simulator.command.CreateBuildingCommand;
 import com.lak.simulator.controllers.GameStateController;
+import ru.stablex.ui.widgets.VBox;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -56,7 +57,6 @@ class Main extends Sprite
 		addChild(new FPS_Mem());
 		
 		GameStateController.initial();
-		
 		addEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 	}
 	
@@ -84,7 +84,6 @@ class Main extends Sprite
 		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
 		
-		addChild(UIBuilder.buildFn('assets/ui/main.xml')());
 		//CreateUnitCommand.execute("general",192,192);
 		//CreateBuildingCommand.execute("caserne", new Point(192, 192));
 	}

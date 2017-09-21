@@ -9,14 +9,16 @@ import com.lak.simulator.gamestate.InitialState;
 class GameStateController
 {
 	public static function builder(){
+		if(Main.instance.state != null ) Main.instance.state.exit();
 		Main.instance.state = new BuilderState();
 		Main.instance.state.enter();
 		trace("BUILDER MODE");
 	}
 	
 	public static function initial(){
+		if(Main.instance.state != null ) Main.instance.state.exit();
 		Main.instance.state = new InitialState();
-		//Main.instance.state.enter();
+		Main.instance.state.enter();
 		trace("INITIAL MODE");
 	}
 	

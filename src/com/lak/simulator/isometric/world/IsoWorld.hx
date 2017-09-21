@@ -7,7 +7,7 @@ package com.lak.simulator.isometric.world;
 import com.lak.simulator.isometric.entities.IsoObject;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.Config;
-import com.lak.simulator.manager.AttackMananger;
+import com.lak.simulator.manager.AttackManager;
 import com.lak.core.managers.LevelManager;
 import com.lak.simulator.manager.EntitiesManager;
 import openfl.display.DisplayObject;
