@@ -28,8 +28,12 @@ class InitialState implements IGameState
 			Main.instance.world = world;
 			Main.instance.addChild(world);
 		}
+<<<<<<< HEAD
 		var mainInterface = UIBuilder.buildFn('assets/ui/main.xml');
 		Main.instance.addChild(mainInterface());
+=======
+				
+>>>>>>> 7b55151d63eeadb3194ef0db2d68dfdee5ef14f0
 	}
 	
 	public function mouseover():Void{
