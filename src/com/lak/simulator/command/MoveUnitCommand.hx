@@ -3,7 +3,7 @@ import com.lak.core.actions.ICommand;
 import com.lak.simulator.isometric.world.IsoWorld;
 import com.lak.core.utils.GameUtils;
 import com.lak.simulator.isometric.Config;
-import com.lak.simulator.isometric.world.Node;
+import com.lak.simulator.isometric.grid.Node;
 import com.lak.core.managers.LevelManager;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.utils.IsoUtils;
@@ -23,7 +23,6 @@ class MoveUnitCommand
 		
 		var n:Node = LevelManager.instance.getNodeAt(Std.int(pt.x),Std.int(pt.y));
 		n.index = 1;
-		
 		//trace(n.index);
 		
 		n.ndType = "rtees";

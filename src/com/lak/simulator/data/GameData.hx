@@ -23,5 +23,13 @@ class GameData
 		this.armorTypes = GameService.getArmorTypes();
 		this.mountTypes = GameService.getMountType();
 	}
+	public function getBuildingData(name:String):Dynamic{
+		for ( i in 0...this.buildings.length){
+			if (this.buildings[i].name == name ){
+				return this.buildings[i];
+			}
+		}
+		return null;
+	}
 	
 }

@@ -7,6 +7,7 @@ package com.lak.simulator.isometric.world;
 import com.lak.simulator.isometric.entities.IsoObject;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.Config;
+import com.lak.simulator.isometric.grid.Node;
 import com.lak.simulator.manager.AttackManager;
 import com.lak.core.managers.LevelManager;
 import com.lak.simulator.manager.EntitiesManager;
@@ -267,13 +268,10 @@ class IsoWorld extends Sprite
 						groundCanvas.draw(bmp, mtrx);
 						
 						if (nW.selected){
-							
 							groundCanvas.draw(worldGrass.getFrame(1).bitmapData, mtrx);
-							
-							mtrx.tx = nW.position.x;
-							mtrx.ty = nW.position.y;
-							
-							groundCanvas.draw(centerpt, mtrx);
+							/*mtrx.tx = nW.position.x;
+							mtrx.ty = nW.position.y;							
+							groundCanvas.draw(centerpt, mtrx);*/
 							
 						}
 						

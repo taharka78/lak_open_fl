@@ -133,7 +133,10 @@ class GameService
 		return [{
 				name: 'forum',
 				// disposition des tiles walkable
-				shape: [[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]],
+				shape: [[1, 1, 1, 1, 1],
+						[1, 1, 1, 1, 1],
+						[1, 1, 1, 1, 1],
+						[1, 1, 1, 1, 1]],
 				// temps de construction
 				timeConstruction: 80,
 				// ids des unités à produire
@@ -155,6 +158,10 @@ class GameService
 				// type d'armure
 				armorTypeID : 15,
 				height: 32,
+				offset:{
+					x : 160,
+					y : 86
+				},
 				// champs de vision
 				vision: 5,
 				// bâtiment defensif.

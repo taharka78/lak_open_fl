@@ -88,7 +88,7 @@ class Main extends Sprite
 		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
 		
-		//CreateUnitCommand.execute("general",192,192);
+		CreateUnitCommand.execute("general",192,192);
 		//CreateBuildingCommand.execute("caserne", new Point(192, 192));
 	}
 		

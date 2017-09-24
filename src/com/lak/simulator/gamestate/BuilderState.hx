@@ -6,6 +6,11 @@ import com.lak.simulator.controllers.GameStateController;
 import com.lak.simulator.isometric.world.IsoWorld;
 import openfl.geom.Point;
 import ru.stablex.ui.UIBuilder;
+import motion.Actuate;
+import motion.easing.Quad;
+import com.lak.core.utils.GameUtils;
+import com.lak.simulator.isometric.Config;
+import com.lak.simulator.isometric.utils.IsoUtils;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -23,11 +28,11 @@ class BuilderState implements IGameState
 		if (building == null){
 			building = IsoBuildingPool.getEntity();
 			building.init("mali",bdType);
-			building.alpha = .5;
+			building.alpha = .65;
 			building.spriteSheet.showBehavior("construct");
 			IsoWorld.instance.addChildToWorld(building);
+			Actuate.tween(building,.5, {alpha:.25}).ease(Quad.easeInOut).repeat().reflect();
 		}
-		trace(building);
 	}
 	public function enter():Void{
 		var mn = UIBuilder.get("const");
@@ -41,10 +46,9 @@ class BuilderState implements IGameState
 	public function mousemove():Void{
 		if (building != null){
 			placed = true;
-			building.x = IsoWorld.instance.mouseX;
-			building.y = IsoWorld.instance.mouseY;
+			building.x = GameUtils.toGridCoord(IsoWorld.instance.mouseX, Config.TILE_WIDTH);
+			building.y = GameUtils.toGridCoord(IsoWorld.instance.mouseY,Config.TILE_HEIGHT);
 		}
-		trace(placed);
 	}
 	
 	public function cancel(){
@@ -63,7 +67,7 @@ class BuilderState implements IGameState
 	
 	public function mouseclick():Void{
 		if (building != null && placed){
-			CreateBuildingCommand.execute(building.type, new Point(building.x, building.y));
+			CreateBuildingCommand.execute(building.type, IsoUtils.pxToPos(new Point(building.x,building.y)));
 			IsoWorld.instance.removeChildFromWorld(building);
 			building = null;
 			placed = false;

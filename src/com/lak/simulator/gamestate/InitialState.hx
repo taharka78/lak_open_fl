@@ -1,7 +1,7 @@
 package com.lak.simulator.gamestate;
 import com.lak.simulator.isometric.Config;
 import com.lak.simulator.isometric.entities.buildings.IsoBuilding;
-import com.lak.simulator.isometric.world.Node;
+import com.lak.simulator.isometric.grid.Node;
 import com.lak.simulator.isometric.world.IsoWorld;
 import flash.geom.Point;
 import com.lak.simulator.isometric.utils.IsoUtils;

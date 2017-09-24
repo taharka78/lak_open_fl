@@ -1,4 +1,4 @@
-package com.lak.simulator.isometric.world;
+package com.lak.simulator.isometric.grid;
 
 /**
  * ...

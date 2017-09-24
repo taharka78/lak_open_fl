@@ -5,6 +5,7 @@ import com.lak.simulator.controllers.BuildingController;
 import com.lak.simulator.isometric.world.IsoWorld;
 import com.lak.simulator.pools.IsoBuildingPool;
 import openfl.geom.Point;
+import com.lak.simulator.isometric.utils.IsoUtils;
 /**
  * ...
  * @author Moussa & Youssouf Sissoko
@@ -15,8 +16,9 @@ class CreateBuildingCommand
 		if (BuildingController.enableToPlace(pt,type)){
 			var b:IsoBuilding = IsoBuildingPool.getEntity();
 			b.init("mali", type);
-			b.x = pt.x;
-			b.y = pt.y;
+			var bpos:Point = IsoUtils.posToPx(new Point(pt.x, pt.y));	
+			b.x = bpos.x;
+			b.y = bpos.y;
 			b.spriteSheet.showBehavior("construct");
 			IsoWorld.instance.addChildToWorld(b);
 		}

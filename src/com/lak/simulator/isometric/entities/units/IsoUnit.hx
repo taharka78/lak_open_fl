@@ -92,7 +92,6 @@ class IsoUnit extends IsoObject
 	{
 		var distEnd:Float;
 		distEnd = Math.floor(GameUtils.distanceBetweenPt(pEnd, pCurr));
-		//trace(xmovement + " ------ " + ymovement);
 		if (xmovement < IsoWorld.instance.tileW && ymovement < IsoWorld.instance.tileH){
 			moveAtDir(nodeTab[0].direction);
 			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));

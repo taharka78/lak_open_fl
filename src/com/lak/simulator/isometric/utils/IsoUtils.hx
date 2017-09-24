@@ -11,34 +11,15 @@ import com.lak.simulator.isometric.world.IsoWorld;
 class IsoUtils
 {
 	public static var spiralWalkStepArray:Array<String> = ["N","NE","E","SE","S","SW","W","NW"];
-	static var ISO_NORTH = "N";
-	static var ISO_NORTHEAST = "NE";
-	static var ISO_EAST = "E";
-	static var ISO_SOUTHEAST = "SE";
-	static var ISO_SOUTH = "S";
-	static var ISO_SOUTHWEST = "SW";
-	static var ISO_WEST = "W";
-	static var ISO_NORTHWEST = "NW";
+	public static var ISO_NORTH = "N";
+	public static var ISO_NORTHEAST = "NE";
+	public static var ISO_EAST = "E";
+	public static var ISO_SOUTHEAST = "SE";
+	public static var ISO_SOUTH = "S";
+	public static var ISO_SOUTHWEST = "SW";
+	public static var ISO_WEST = "W";
+	public static var ISO_NORTHWEST = "NW";
 	
-	public static function makePolygon(position:Point):Shape{
-		
-		var polygonShapePoints:Array<Point> = new Array<Point>();
-		
-		polygonShapePoints.push(new Point(position.x,position.y-(Config.TILE_HEIGHT>>1)));
-		polygonShapePoints.push(new Point(position.x+(Config.TILE_WIDTH>>1),position.y));
-		polygonShapePoints.push(new Point(position.x,position.y-(Config.TILE_HEIGHT>>1)));
-		polygonShapePoints.push(new Point(position.x - (Config.TILE_WIDTH >> 1), position.y));
-		
-		var s:Shape = new Shape();
-		s.graphics.beginFill(0xFF0000);
-		s.graphics.moveTo(polygonShapePoints[0].x, polygonShapePoints[0].y);
-		s.graphics.lineTo(polygonShapePoints[1].x, polygonShapePoints[1].y);
-		s.graphics.lineTo(polygonShapePoints[2].x, polygonShapePoints[2].y);
-		s.graphics.lineTo(polygonShapePoints[3].x, polygonShapePoints[3].y);
-		s.graphics.lineTo(polygonShapePoints[0].x, polygonShapePoints[0].y);
-		s.graphics.endFill();
-		return s;
-	}
 	/*
 	 * @funcname slideMapTileWalker @desc en fonction du point de départ redefinir un point à une position cardinale donnée
 	 * @arg ptStart @type Point @desc point de départ
@@ -55,6 +36,7 @@ class IsoUtils
 		}
 		else if (dir == ISO_NORTHEAST){ 
 			pDest.y--;
+			pDest.x += ((Std.int(ptStart.y)&1));
 			str = ISO_NORTHEAST;
 		}
 		else if (dir == ISO_EAST){ 
@@ -63,6 +45,7 @@ class IsoUtils
 		}
 		else if (dir == ISO_SOUTHEAST ){ 
 			pDest.y++;
+			pDest.x += ((Std.int(ptStart.y)&1));
 			str = ISO_SOUTHEAST; 
 		}
 		else if (dir == ISO_SOUTH){ 
@@ -70,8 +53,8 @@ class IsoUtils
 			str = ISO_SOUTH; 
 		}
 		else if (dir == ISO_SOUTHWEST){ 
-			pDest.x--;
 			pDest.y++;
+			pDest.x += ((Std.int(ptStart.y)&1)-1);
 			str = ISO_SOUTHWEST; 
 		}
 		else if (dir == ISO_WEST){ 
@@ -79,8 +62,8 @@ class IsoUtils
 			str = ISO_WEST; 
 		}
 		else if (dir == ISO_NORTHWEST){ 
-			pDest.x--;
 			pDest.y--;
+			pDest.x += ((Std.int(ptStart.y)&1)-1);
 			str = ISO_NORTHWEST; 
 		}
 		else{ str = " PAS DE DIRECTION "; }
