@@ -6,7 +6,7 @@ import com.lak.simulator.isometric.entities.IsoObject;
  * ...
  * @author Youssouf & Moussa Sissoko
  */
-class AttackMananger
+class AttackManager
 {
 	private var world:IsoWorld;
 	/*

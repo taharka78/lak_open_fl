@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Widget w="300" id="'const'">
+	<VBox>
+    <meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.buildings.length">
+        <Button left="10" top="120" on-click="makeBuilding($this.text);" text="Main.instance.simulateur.gameData.buildings[cnt].name"/>
+    </meta:repeat>
+	<Button left="10" top="120" on-click="cancel();" text="'terminé'"/>
+</VBox>
+</Widget>

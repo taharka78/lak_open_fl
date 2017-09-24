@@ -54,8 +54,11 @@ class LevelManager
 		var lineIndex:Int = Std.int(Math.floor(line/IsoWorld.instance.PART_NUM_TILE_W));
 		var colIndex:Int = Std.int(Math.floor(col/IsoWorld.instance.PART_NUM_TILE_H));
 		//trace("part_" + lineIndex + "-" + colIndex + ".txt");
-		var tempLevel:Array<Dynamic> = mapPartArray("part_" + lineIndex + "-" + colIndex + ".txt");
-		return tempLevel[line%100][col%100];
+		if (lineIndex >= 0 && colIndex >= 0){
+			var tempLevel:Array<Dynamic> = mapPartArray("part_" + lineIndex + "-" + colIndex + ".txt");
+			return tempLevel[line%100][col%100];
+		}
+		return null;
 	}
 	/*
 	 * @funcname getUnitAdjacentNodes @desc function qui va chercher les 9 nodes adjacente en fonction de la position de l'unité spécifiée.
@@ -69,14 +72,15 @@ class LevelManager
 		var nodeTab:Array<Point> = new Array<Point>();
 		var pt:Point;
 		for (i in 0...IsoUtils.spiralWalkStepArray.length){
-			temp_pt = IsoUtils.slideMapTileWalker(_point,IsoUtils.spiralWalkStepArray[i]);			
+			temp_pt = IsoUtils.slideMapTileWalker(_point, IsoUtils.spiralWalkStepArray[i]);
 			var n:Dynamic = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
-			pt = new Point();
-			pt.x = n.position.x;
-			pt.y = n.position.y;
-			nodeTab.push(pt);
-		}
-		
+			if (n != null ){
+				pt = new Point();
+				pt.x = n.position.x;
+				pt.y = n.position.y;
+				nodeTab.push(pt);
+			}
+		}		
 		return nodeTab;
 	}
 	//private function getUnitAdjacentNodes(_unit:IsoUnit,tempMapAr:Array<Dynamic>):Void{		
@@ -88,9 +92,12 @@ class LevelManager
 		
 		for (i in 0...IsoUtils.spiralWalkStepArray.length){
 			temp_pt = IsoUtils.slideMapTileWalker(pt, IsoUtils.spiralWalkStepArray[i]);			
-			var n:Dynamic = getNodeAt(Std.int(temp_pt.x),Std.int(temp_pt.y));
-			n.direction = IsoUtils.spiralWalkStepArray[i];
-			_unit.nodeTab.push(n);
+			var n:Dynamic = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
+			if (n != null){
+				n.direction = IsoUtils.spiralWalkStepArray[i];
+				_unit.nodeTab.push(n);
+			}
+			
 		}
 		_unit.dispatchEvent(new Event(Event.CHANGE));
 	}

@@ -7,7 +7,8 @@ package com.lak.simulator.isometric.world;
 import com.lak.simulator.isometric.entities.IsoObject;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.Config;
-import com.lak.simulator.manager.AttackMananger;
+import com.lak.simulator.isometric.grid.Node;
+import com.lak.simulator.manager.AttackManager;
 import com.lak.core.managers.LevelManager;
 import com.lak.simulator.manager.EntitiesManager;
 import openfl.display.DisplayObject;
@@ -175,6 +176,16 @@ class IsoWorld extends Sprite
 	 * @arg child @type IsoObject @desc object iso à ajouter au world 
 	 * @return Void
 	 */
+	public function removeChildFromWorld(child:IsoObject):Void
+	{
+		worldObject.remove(child);
+		removeChild(child);
+	}
+	/*
+	 * @funcname addChildToWorld @desc fonction qui gère l'ajout au monde iso d'objet isometrique
+	 * @arg child @type IsoObject @desc object iso à ajouter au world 
+	 * @return Void
+	 */
 	public function addChildToWorld(child:IsoObject):Void
 	{
 		worldObject.insert(worldObject.length, child);
@@ -257,13 +268,10 @@ class IsoWorld extends Sprite
 						groundCanvas.draw(bmp, mtrx);
 						
 						if (nW.selected){
-							
 							groundCanvas.draw(worldGrass.getFrame(1).bitmapData, mtrx);
-							
-							mtrx.tx = nW.position.x;
-							mtrx.ty = nW.position.y;
-							
-							groundCanvas.draw(centerpt, mtrx);
+							/*mtrx.tx = nW.position.x;
+							mtrx.ty = nW.position.y;							
+							groundCanvas.draw(centerpt, mtrx);*/
 							
 						}
 						

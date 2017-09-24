@@ -1,6 +1,7 @@
 package com.lak.simulator.gamestate;
 import com.lak.simulator.isometric.Config;
-import com.lak.simulator.isometric.world.Node;
+import com.lak.simulator.isometric.entities.buildings.IsoBuilding;
+import com.lak.simulator.isometric.grid.Node;
 import com.lak.simulator.isometric.world.IsoWorld;
 import flash.geom.Point;
 import com.lak.simulator.isometric.utils.IsoUtils;
@@ -10,6 +11,8 @@ import com.lak.core.utils.GameUtils;
 import com.lak.simulator.command.MoveUnitCommand;
 import com.lak.simulator.handler.SelectionHandler;
 import openfl.display.Shape;
+import ru.stablex.ui.UIBuilder;
+import ru.stablex.ui.widgets.VBox;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -26,9 +29,9 @@ class InitialState implements IGameState
 			Main.instance.world = world;
 			Main.instance.addChild(world);
 		}
-				
+		var mn = UIBuilder.get("main");
+		(mn == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/main.xml')()) : Main.instance.addChild(mn);
 	}
-	
 	public function mouseover():Void{
 		
 	}
@@ -54,6 +57,6 @@ class InitialState implements IGameState
 	}
 	
 	public function exit():Void{
-		
+		Main.instance.removeChild(UIBuilder.get("main"));
 	}
 }

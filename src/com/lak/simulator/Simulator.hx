@@ -7,7 +7,7 @@ import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.renderers.GraphicRenderer;
 import com.lak.simulator.gamestate.IGameState;
 import com.lak.simulator.manager.ArmyManager;
-import com.lak.simulator.manager.AttackMananger;
+import com.lak.simulator.manager.AttackManager;
 import com.lak.simulator.manager.EntitiesManager;
 import com.lak.core.managers.LevelManager;
 import openfl.display.DisplayObject;
@@ -28,7 +28,7 @@ class Simulator extends DisplayObject
 	public static var instance:Simulator;
 	public var aKeyPress:Array<Bool> = new Array<Bool>();
 	public var entitiesManager:EntitiesManager;
-	public var attackMananger:AttackMananger;
+	public var attackManager:AttackManager;
 	public var armyManager:ArmyManager;
 	public var gameData:GameData;
 	public var state:IGameState;
@@ -42,8 +42,8 @@ class Simulator extends DisplayObject
 		instance = this;
 		
 		renderer = new GraphicRenderer();
-		entitiesManager = new EntitiesManager(IsoWorld.instance);
-		attackMananger = new AttackMananger(IsoWorld.instance);
+		entitiesManager = new EntitiesManager(Main.instance.world);
+		attackManager = new AttackManager(Main.instance.world);
 		armyManager = new ArmyManager();
 		gameData = new GameData();
 	}
@@ -64,7 +64,7 @@ class Simulator extends DisplayObject
 		renderer.run(delta);
 		InputHandler.checkKeys(aKeyPress);
 		entitiesManager.run(delta);
-		attackMananger.run(delta);
+		attackManager.run(delta);
 	}
 	
 }
