@@ -37,6 +37,8 @@ import com.lak.simulator.gamestate.BuilderState;
 import com.lak.simulator.gamestate.InitialState;
 import ru.stablex.ui.widgets.VBox;
 import com.lak.ui.LAKUI;
+import com.lak.network.PusherProxy;
+
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -55,6 +57,7 @@ class Main extends Sprite
 	public var initialState:InitialState = new InitialState();
 	public var builderState:BuilderState = new BuilderState();
 	public var gameUI:LAKUI;
+	
 	public function new() 
 	{
 		super();
@@ -80,6 +83,7 @@ class Main extends Sprite
 		
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		
+		PusherProxy.instance;
 		stage.addEventListener(Event.RESIZE, onstageResized);
 		stage.addEventListener(MouseEvent.CLICK,onStageClick);
 		stage.addEventListener(MouseEvent.MOUSE_DOWN,onStageMouseDown);

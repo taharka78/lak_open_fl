@@ -18,6 +18,9 @@
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
 	<haxelib name="spritesheet" />
+	<haxelib name="tjson" />
+	<haxelib name="openfl-websocket" />
+	<haxelib name="haxe-ws" />
 	
 	<!-- assets -->
 	<icon path="assets/icon.png" />

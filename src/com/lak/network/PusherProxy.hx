@@ -12,7 +12,6 @@ import openfl.utils.Timer;
 import tjson.TJSON;
 
 /**
- * ...
  * @author Youssouf & Moussa SISSOKO
  * Le proxy pusher permet de communiquer avec la base de données temps réel
  * C'est un singleton toute les requete temps reel passe par cette classe
@@ -20,7 +19,7 @@ import tjson.TJSON;
 class PusherProxy 
 {
 
-	static var APP_KEY:String = 'de504dc5763aeef9ff52';
+	static var APP_KEY:String = '074e53daf70b6f0f4a43';
 	static var ORIGIN:String = 'http://localhost/';
 	
 	static var AUTH_ENDPOINT:String = 'https://myserver/auth.php';
@@ -58,8 +57,7 @@ class PusherProxy
 		reconnectTimer.start();
 	}
 	
-	function reconnectTimer_TIMER_COMPLETE(event:TimerEvent):Void {
-		
+	function reconnectTimer_TIMER_COMPLETE(event:TimerEvent):Void {	
 		pusher.connect();
 	}
 	
@@ -98,7 +96,6 @@ class PusherProxy
 	}
 	
 	function onData( event:PusherEvent ):Void {
-		
 		trace( event.data );
 	}
 }
