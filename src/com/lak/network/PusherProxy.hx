@@ -28,12 +28,11 @@ class PusherProxy
 	var reconnectTimer:Timer;
 	var pusher:Pusher;
 	
-	public static var instance(default, null):MySingleton = new MySingleton();
+	public static var instance(default, null):PusherProxy = new PusherProxy();
 	
 	private function new() {
 		initPusher();
 	}
-	
 	
 	public function initPusher():Void {
 		

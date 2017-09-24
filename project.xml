@@ -21,7 +21,7 @@
 	<haxelib name="tjson" />
 	<haxelib name="openfl-websocket" />
 	<haxelib name="haxe-ws" />
-	
+	<haxelib name="haxe-crypto" />
 	<!-- assets -->
 	<icon path="assets/icon.png" />
 	<assets path="assets/mali" rename="mali" />
