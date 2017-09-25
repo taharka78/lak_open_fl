@@ -24,7 +24,7 @@ import haxe.macro.Expr;
 		
 		var config = {
 			
-			build: "16",
+			build: "17",
 			company: "Youssouf & Moussa Sissoko",
 			file: "lakhaxe",
 			fps: 60,

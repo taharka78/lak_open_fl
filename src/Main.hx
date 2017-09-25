@@ -37,14 +37,20 @@ import com.lak.simulator.gamestate.BuilderState;
 import com.lak.simulator.gamestate.InitialState;
 import ru.stablex.ui.widgets.VBox;
 import com.lak.ui.LAKUI;
+
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
  */
 class Main extends Sprite 
-{
-	var lastTime:Int = 0;
-	var unit:IsoUnit;
+{	
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+	private var lastTime:Int = 0;
+	private var unit:IsoUnit;
 	public var sprSheetManager:SpritesheetManager = new SpritesheetManager();
 	public var world:IsoWorld = null;
 	public static var instance:Main;
@@ -55,6 +61,13 @@ class Main extends Sprite
 	public var initialState:InitialState = new InitialState();
 	public var builderState:BuilderState = new BuilderState();
 	public var gameUI:LAKUI;
+	//----------------------------------
+	//  CONSTANTS
+	//----------------------------------
+	//Notice: You need to define a cross domain policy file at your remote server root document, or have a policy file server on the target. 
+	private static var MY_HOST:String="test.mosquitto.org"; //You'd better change it to your private ip address! //test.mosquitto.org//16.157.65.23(Ubuntu)//15.185.106.72(hp cs instance)
+	private static var MY_PORT:Int=1883; //Socket port.
+	
 	public function new() 
 	{
 		super();
@@ -79,7 +92,6 @@ class Main extends Sprite
 		addEventListener(Event.ENTER_FRAME, update);
 		
 		stage.scaleMode = StageScaleMode.NO_SCALE;
-		
 		stage.addEventListener(Event.RESIZE, onstageResized);
 		stage.addEventListener(MouseEvent.CLICK,onStageClick);
 		stage.addEventListener(MouseEvent.MOUSE_DOWN,onStageMouseDown);
@@ -90,7 +102,16 @@ class Main extends Sprite
 		
 		CreateUnitCommand.execute("general",192,192);
 		//CreateBuildingCommand.execute("caserne", new Point(192, 192));
+		
+		
 	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Private methods
+	//
+	//--------------------------------------------------------------------------
+	//
 		
 	private function keyDownListener(kevt:KeyboardEvent):Void{ 
 		simulateur.aKeyPress[kevt.keyCode] = true; 

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Widget id="'main'" w="300">
-	<VBox>
-    <Button left="10" top="120" on-click="GameStateController.builder();" text="'Construire'"/>
-</VBox>
-</Widget>
