@@ -26,7 +26,6 @@
     <class path="C:\HaxeToolkit\haxe\lib\openfl-websocket\0,2,0\src" />
     <class path="C:\HaxeToolkit\haxe\lib\haxe-ws\0,0,4\src" />
     <class path="C:\HaxeToolkit\haxe\lib\hxssl\3,0,0-alpha" />
-    <class path="C:\HaxeToolkit\haxe\lib\haxe-ws\1,0,5\src" />
     <class path="C:\HaxeToolkit\haxe\lib\haxe-crypto\0,0,7\src" />
     <class path="src" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\6,1,2\externs\core\openfl" />
@@ -35,7 +34,7 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="stablexui=1.2.1&#xA;hscript=2.1.1&#xA;openfl=6.1.2&#xA;lime=5.5.0&#xA;actuate=1.8.7&#xA;spritesheet=1.2.0&#xA;tjson=1.4.0&#xA;openfl-websocket=0.2.0&#xA;haxe-ws=0.0.4&#xA;hxssl=3.0.0-alpha&#xA;haxe-ws=1.0.5&#xA;haxe-crypto=0.0.7&#xA;tools=5.5.0&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;lime-vorbis&#xA;openfl-native&#xA;lime-cffi&#xA;windows&#xA;desktop&#xA;display" />
+    <option directives="stablexui=1.2.1&#xA;hscript=2.1.1&#xA;openfl=6.1.2&#xA;lime=5.5.0&#xA;actuate=1.8.7&#xA;spritesheet=1.2.0&#xA;tjson=1.4.0&#xA;openfl-websocket=0.2.0&#xA;haxe-ws=0.0.4&#xA;hxssl=3.0.0-alpha&#xA;haxe-crypto=0.0.7&#xA;tools=5.5.0&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;lime-vorbis&#xA;openfl-native&#xA;lime-cffi&#xA;windows&#xA;desktop&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
