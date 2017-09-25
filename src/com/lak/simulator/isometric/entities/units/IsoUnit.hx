@@ -48,7 +48,6 @@ class IsoUnit extends IsoObject
 	 */
 	public function goTo(targetpt:Point){
 		pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));
-		//trace(pCurr);
 		pEnd = targetpt;
 		Astar.findPath(this);
 	}
@@ -72,13 +71,10 @@ class IsoUnit extends IsoObject
 		}
 	}
 	function cost(direction:String):Int{
-			var score = 0;
-			//var direction = utilGetDirection(currentNode, newNode);
-			//var direction = utilGetDirection(currentNode, newNode);
-			if (direction == "N" || direction == "E" || direction == "S" || direction == "W") score = 14;
-			else score = 10;
-			return score;
-		}
+		var score = 10;
+		if (direction == "N" || direction == "E" || direction == "S" || direction == "W") score = 14;
+		return score;
+	}
 		
 	/*
 	 * @funcname update (function de mise à jour globale de l'unité) 
