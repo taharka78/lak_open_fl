@@ -20,25 +20,30 @@ class BuildingController
 		var linePos:Point;
 		var linecount:Int = 0;
 		var colCount:Int = 0;
+		
 		if (bShape != null){
+			
 			for ( i in 0...bShape.length){
+				
 				if (i != 0) colPos = IsoUtils.slideMapTileWalker(colPos, IsoUtils.ISO_SOUTHWEST);				
 				n = LevelManager.instance.getNodeAt(Std.int(colPos.x), Std.int(colPos.y));				
 				
 				if (n != null){
 					
 					n.index = 1;		
-					n.ndType = "rtees";
+					n.ndType = "d";
 					n.selected = true;
+					n.walkable = false;
 					colLEn = bShape[i].length;
-					
 					linePos = colPos.clone();
+					
 					for ( j in 0...colLEn){
 						linePos = IsoUtils.slideMapTileWalker(linePos, IsoUtils.ISO_SOUTHEAST);
 						n = LevelManager.instance.getNodeAt(Std.int(linePos.x), Std.int(linePos.y));
-						n.index = 1;		
-						n.ndType = "rtees";
+						n.index = 1;
+						n.ndType = "d";
 						n.selected = true;
+						n.walkable = false;
 					}
 				}				
 			}

@@ -37,64 +37,73 @@ class GameService
 					"feet"
 				];
 	}
-	public static function getUnitsType():Array<Dynamic>{
-		return [ {
-						type : "onFoot",
-						weakness : [],
-						strengh : []
-					},
-				 {
-					type : "mounted",
+	public static function getUnitsDescription():Map<String,Dynamic>{
+		return [ "cavalier" => {
+					types : ["melee", "mounted"],
+					lineOfSight : 3,
+					mountType : "horse"
+				},
+				"king" => {
+					types : ["melee", "mounted"],
+					lineOfSight : 3,
+					mountType : "horse"
+				},
+				"general" => {
+					types : ["melee", "mounted"],
+					lineOfSight : 2,
+					mountType : "horse"
+				}
+			];
+	}
+	public static function getUnitsType():Map<String,Dynamic>{
+		return [ "onFoot" => {
 					weakness : [],
 					strengh : []
-				 },
-				 {
-					type : "melee",
+				},
+				"mounted" => {
 					weakness : [],
 					strengh : []
-				 },
-				 {
-					type : "distance",
+				},
+				"melee" => {
 					weakness : [],
 					strengh : []
-				 },
-				 {
-					type : "siege",
+				},
+				"distance" => {
 					weakness : [],
 					strengh : []
-				 }
+				},
+				"siege" => {
+					weakness : [],
+					strengh : []
+				}
 		];
 	}
-	public static function getMountType():Array<Dynamic>{
+	public static function getMountType():Map<String,Dynamic>{
 		return [
-				{ 
-						type:"horse",
-						speed : 3,
-						defense : 2,
-						attack : 0,
-						stamina : 100
+				"horse" => {
+					speed : 3,
+					defense : 2,
+					attack : 0,
+					stamina : 100
 				},
-				{ 
-						type:"donkey",
-						speed : 3,
-						defense : 2,
-						attack : 0,
-						stamina : 100
+				"donkey" => {
+					speed : 3,
+					defense : 2,
+					attack : 0,
+					stamina : 100
 				},
-				{ 
-						type:"camel",
-						speed : 3,
-						defense : 2,
-						attack : 0,
-						stamina : 100
+				"camel" => {
+					speed : 3,
+					defense : 2,
+					attack : 0,
+					stamina : 100
 					},
-				{ 
-						type:"elephant",
-						speed : 3,
-						defense : 2,
-						attack : 0,
-						stamina : 100
-					}
+				"elephant" => {
+					speed : 3,
+					defense : 2,
+					attack : 0,
+					stamina : 100
+				}
 			];
 	}
 	

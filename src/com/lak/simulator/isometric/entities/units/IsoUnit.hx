@@ -25,6 +25,8 @@ class IsoUnit extends IsoObject
 	public var lastNode:String = "";
 	private var xmovement:Float = 0;
 	private var ymovement:Float = 0;
+	public var unitType:String = "";
+	public var parentNode:Dynamic;
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -35,7 +37,7 @@ class IsoUnit extends IsoObject
 	}
 	
 	public function init(civ:String,un:String){
-		
+		unitType = un;
 		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ, un));
 		addChild(spriteSheet);
 		
@@ -95,10 +97,12 @@ class IsoUnit extends IsoObject
 			xmovement = 0;
 			ymovement = 0;
 			if (distEnd == 0){ 
+				parentNode = null;
 				hasPath = false;
 				currentAction = "stay"; 
 			}
-			else{ 
+			else{
+				parentNode = nodeTab[0];
 				Astar.findPath(this); 
 			}
 		}

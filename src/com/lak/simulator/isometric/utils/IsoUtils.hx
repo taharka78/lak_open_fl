@@ -10,7 +10,8 @@ import openfl.geom.Point;
 import com.lak.simulator.isometric.world.IsoWorld;
 class IsoUtils
 {
-	public static var spiralWalkStepArray:Array<String> = ["N","NE","E","SE","S","SW","W","NW"];
+	public static var spiralWalkStepArray:Array<String> = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+	public static var spiralStepArray:Array<String> = ["SE","SW","NW","NE"];
 	public static var ISO_NORTH = "N";
 	public static var ISO_NORTHEAST = "NE";
 	public static var ISO_EAST = "E";
@@ -20,6 +21,47 @@ class IsoUtils
 	public static var ISO_WEST = "W";
 	public static var ISO_NORTHWEST = "NW";
 	
+	public static function spiralSearch(deptPoint:Point,numTileSearch:Int=10,maxY:Int=1,maxX:Int=0):Array<Point>
+	{
+		var pointsArray:Array<Point> = new Array<Point>();
+		var index:Int = -1;
+		maxY=1;
+		maxX=0;
+		var iX = 0;
+		var iY = 0;
+		var XOrY = 0;
+		var sign = 1;
+		for(i in 0...numTileSearch){	
+			if (i > 0){ 
+				if (XOrY == 0){ 
+					deptPoint = IsoUtils.slideMapTileWalker(deptPoint, IsoUtils.spiralStepArray[index]);
+					pointsArray.push(deptPoint.clone());
+					iX++;
+					if (iX >= maxX){ 
+					iX = 0;
+					maxX +=  1;XOrY = 1;
+					index++;
+						if (index > IsoUtils.spiralStepArray.length - 1){ 
+							index = 0; 
+						}
+					}
+				}else{ 
+					deptPoint = IsoUtils.slideMapTileWalker(deptPoint, IsoUtils.spiralStepArray[index]);
+					pointsArray.push(deptPoint.clone());
+					iY++;
+					if (iY >= maxY){ 
+						sign *=  -1;
+						iY = 0;
+						maxY +=  1;
+						XOrY = 0;
+						index++;
+						if(index > IsoUtils.spiralStepArray.length-1){ index = 0; }
+					}
+				}
+			}
+		}
+		return pointsArray;
+	}
 	/*
 	 * @funcname slideMapTileWalker @desc en fonction du point de départ redefinir un point à une position cardinale donnée
 	 * @arg ptStart @type Point @desc point de départ

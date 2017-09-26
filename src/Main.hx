@@ -30,6 +30,7 @@ import openfl.events.KeyboardEvent;
 
 import spritesheet.AnimatedSprite;
 import ru.stablex.ui.UIBuilder;
+import com.lak.core.managers.LevelManager;
 import com.lak.simulator.command.CreateUnitCommand;
 import com.lak.simulator.command.CreateBuildingCommand;
 import com.lak.simulator.controllers.GameStateController;
@@ -64,9 +65,6 @@ class Main extends Sprite
 	//----------------------------------
 	//  CONSTANTS
 	//----------------------------------
-	//Notice: You need to define a cross domain policy file at your remote server root document, or have a policy file server on the target. 
-	private static var MY_HOST:String="test.mosquitto.org"; //You'd better change it to your private ip address! //test.mosquitto.org//16.157.65.23(Ubuntu)//15.185.106.72(hp cs instance)
-	private static var MY_PORT:Int=1883; //Socket port.
 	
 	public function new() 
 	{
@@ -87,11 +85,11 @@ class Main extends Sprite
 		realHeight = stage.stageHeight;
 		
 		// initialisation de stablexui
-		
 		simulateur = new Simulator();		
-		addEventListener(Event.ENTER_FRAME, update);
 		
+		// Event's listener
 		stage.scaleMode = StageScaleMode.NO_SCALE;
+		this.addEventListener(Event.ENTER_FRAME, update);
 		stage.addEventListener(Event.RESIZE, onstageResized);
 		stage.addEventListener(MouseEvent.CLICK,onStageClick);
 		stage.addEventListener(MouseEvent.MOUSE_DOWN,onStageMouseDown);
@@ -101,6 +99,12 @@ class Main extends Sprite
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
 		
 		CreateUnitCommand.execute("general",192,192);
+		//CreateUnitCommand.execute("cavalier", 384, 192);
+		
+		var temp_pt = IsoUtils.pxToPos(new Point(384, 192));
+		//var n = LevelManager.instance.getNodeAt(Std.int(temp_pt.x),Std.int(temp_pt.y));
+		//n.unit = "cavalier";
+		
 		//CreateBuildingCommand.execute("caserne", new Point(192, 192));
 		
 		
@@ -116,29 +120,37 @@ class Main extends Sprite
 	private function keyDownListener(kevt:KeyboardEvent):Void{ 
 		simulateur.aKeyPress[kevt.keyCode] = true; 
 	}
+	
 	private function keyUpListener(kevt:KeyboardEvent):Void{ 
 		simulateur.aKeyPress[kevt.keyCode] = false; 
 	}
+	
 	function onStageMouseDown(me:MouseEvent){
 		state.mousedown();
 	}
+	
 	function onStageMouseUp(me:MouseEvent){
 		state.mouseup();
 	}
+	
 	function onStageMouseMove(me:MouseEvent){
 		state.mousemove();
 	}
+	
 	function onStageClick(me:MouseEvent):Void{
 		state.mouseclick();
 	}
+	
 	function onstageResized(e:Event){
 		world.worldSize();
 		simulateur.entitiesManager.updateViewBounds();
 	}
+	
 	function update(e:Event){
 		var time = Lib.getTimer();
 		var delta = time - lastTime;
 		simulateur.run(delta);
 		lastTime = time;
 	}
+	
 }

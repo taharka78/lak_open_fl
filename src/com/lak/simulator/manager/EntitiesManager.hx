@@ -27,13 +27,27 @@ class EntitiesManager
 	 * @return Void.
 	 */
 	public function run(delta:Int):Void{
-		for ( obj in world.worldObject){
+		world.worldObject.sort(sortByY);
+		var i:Int =  0;
+		for (obj in world.worldObject){
+			i++;
 			pt.x = obj.x;
 			pt.y = obj.y;
+			world.setChildIndex(obj, i);
 			manageVisibility(obj);
+			
 			obj.update(delta);
-			if (Std.is(obj, IsoUnit) && obj.visible == true){ manageShadow(obj); }
+			
+			if (Std.is(obj, IsoUnit) && obj.visible == true){ 
+				manageShadow(obj); 	
+			}
 		}
+	}
+	
+	private function sortByY(a:IsoObject, b:IsoObject):Int {
+		if (a.y == b.y) return 0;
+		if (a.y > b.y) return 1;
+		return -1;
 	}
 	/*
 	 * @funcname  updateViewBounds fonction de mise à jour de la taille de l'écran du joueur.
