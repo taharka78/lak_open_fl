@@ -4,7 +4,7 @@ import haxe.Unserializer;
 import haxe.io.Bytes;
 
 #if flash9
-import flash.utils.ByteArray;
+import openfl.utils.ByteArray;
 class DataReader {
     var b:ByteArray;
 

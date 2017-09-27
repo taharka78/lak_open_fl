@@ -19,9 +19,9 @@ package org.amqp.headers;
 
 
     #if flash9
-    import flash.Error;
-    import flash.utils.IDataOutput;
-    import flash.utils.ByteArray;
+    import openfl.Error;
+    import openfl.utils.IDataOutput;
+    import openfl.utils.ByteArray;
     #elseif neko
     import org.amqp.Error;
     import haxe.io.Bytes;
@@ -198,12 +198,12 @@ package org.amqp.headers;
         }
 
         /** Protected API - Writes a table value to the stream, if it's non-null */
-        public function writeTable(x:Hash<Dynamic>):Void {
+        public function writeTable(x:Array<Dynamic>):Void {
             if(argPresent(x)){
                 _writeTable(x);
             }
         }
-        public function _writeTable(table:Hash<Dynamic>):Void {
+        public function _writeTable(table:Array<Dynamic>):Void {
             #if flash9
             outBytes.writeInt( FrameHelper.tableSize(table) );
             #elseif neko
@@ -244,7 +244,7 @@ package org.amqp.headers;
                 }
                 else if(Std.is( value, Hash)) {
                     _writeOctet(70); // 'F"
-                    _writeTable(cast( value, Hash<Dynamic>));
+                    _writeTable(cast( value, Array<Dynamic>));
                 }
                 else if (value == null) {
                     throw new Error("Value for key {" + key + "} was null");

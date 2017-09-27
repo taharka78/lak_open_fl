@@ -17,15 +17,15 @@
  **/
 package org.amqp.util;
 
-    #if flash9
-    import flash.Error;
-    import flash.utils.IDataOutput;
-    import flash.utils.ByteArray;
-    #elseif neko
+    //#if flash9
+    import openfl.errors.Error;
+    import openfl.utils.IDataOutput;
+    import openfl.utils.ByteArray;
+    /*#elseif neko
     import org.amqp.Error;
     import haxe.io.BytesOutput;
     import haxe.io.Output;
-    #end
+    #end*/
 
     import org.amqp.FrameHelper;
     import org.amqp.LongString;
@@ -33,11 +33,11 @@ package org.amqp.util;
 
     class BinaryGenerator {
 
-        #if flash9
+        //#if flash9
         var output:IDataOutput;
-        #elseif neko
+        /*#elseif neko
         var output:Output;
-        #end
+        #end*/
 
         var needBitFlush:Bool;
         /** The current group of bits */
@@ -45,11 +45,11 @@ package org.amqp.util;
         /** The current position within the group of bits */
         var bitMask:Int;
 
-        #if flash9
+        //#if flash9
         public function new(output:IDataOutput) {
-        #elseif neko
+        /*#elseif neko
         public function new(output:Output) {
-        #end 
+        #end*/ 
             this.output = output;
             resetBitAccumulator();
         }
@@ -77,22 +77,22 @@ package org.amqp.util;
             //byte [] bytes = str.getBytes("utf-8");
 
             output.writeByte(str.length);
-            #if flash9
+            //#if flash9
             output.writeUTFBytes(str);
-            #elseif neko
-            output.writeString(str);
-            #end
+            //#elseif neko
+            //output.writeString(str);
+            //#end
         }
 
         /** Public API - encodes a long string argument from a LongString. */
         public function writeLongstr(str:LongString):Void {
             bitflush();
             writeLong(str.length());
-            #if flash9
+            //#if flash9
             output.writeBytes(str.getBytes());
-            #elseif neko
-            output.write(str.getBytes());
-            #end
+            //#elseif neko
+            //output.write(str.getBytes());
+            //#end
         }
 
         /** Public API - encodes a long string argument from a String. */
@@ -100,21 +100,21 @@ package org.amqp.util;
             bitflush();
             //byte [] bytes = str.getBytes("utf-8");
             writeLong(str.length);
-            #if flash9
+            //#if flash9
             output.writeUTFBytes(str);
-            #elseif neko
-            output.writeString(str);
-            #end
+            //#elseif neko
+            //output.writeString(str);
+            //#end
         }
 
         /** Public API - encodes a short integer argument. */
         public function writeShort(s:Int):Void {
             bitflush();
-            #if flash9
+            //#if flash9
             output.writeShort(s);
-            #elseif neko
-            output.writeUInt16(s);
-            #end
+            //#elseif neko
+            //output.writeUInt16(s);
+            //#end
         }
 
         /** Public API - encodes an integer argument. */
@@ -124,20 +124,20 @@ package org.amqp.util;
             // reasonable to use ints to represent the unsigned long
             // type - for values < Integer.MAX_VALUE everything works
             // as expected
-            #if flash9
+            //#if flash9
             output.writeInt(l);
-            #elseif neko
-            output.writeInt31(l);
-            #end
+            //#elseif neko
+            //output.writeInt31(l);
+            //#end
         }
 
         /** Public API - encodes a long integer argument. */
         public function writeLonglong(ll:Int):Void {
-            #if flash9
+            //#if flash9
             throw new Error("No 64 bit integers in Flash");
-            #elseif neko
-            throw new Error("No 64 bit integers in Neko");
-            #end
+            //#elseif neko
+            //throw new Error("No 64 bit integers in Neko");
+            //#end
             //bitflush();
             //output.writeInt(ll);
         }
@@ -158,23 +158,23 @@ package org.amqp.util;
         }
 
         /** Public API - encodes a table argument. */
-        public function writeTable(table:Hash<Dynamic>, ?encodeSize:Bool = true):Void {
+        public function writeTable(table:Array<Dynamic>, ?encodeSize:Bool = true):Void {
 
             bitflush();
             if (table == null) {
                 // Convenience.
-                #if flash9
+                //#if flash9
                 output.writeInt(0);
-                #elseif neko
-                output.writeInt31(0);
-                #end
+                //#elseif neko
+                //output.writeInt31(0);
+                //#end
             } else {
                 if (encodeSize) {
-                    #if flash9
+                    //#if flash9
                     output.writeInt( FrameHelper.tableSize(table) );
-                    #elseif neko
-                    output.writeInt31( FrameHelper.tableSize(table) );
-                    #end
+                    //#elseif neko
+                    //output.writeInt31( FrameHelper.tableSize(table) );
+                    //#end
                  }
                 for (key in table.keys()) {
                     writeShortstr(key);
@@ -210,7 +210,7 @@ package org.amqp.util;
                     }
                     else if(Std.is( value, Hash)) {
                         writeOctet(70); // 'F"
-                        writeTable(cast( value, Hash<Dynamic>));
+                        writeTable(cast( value, Array<Dynamic>));
                     }
                     else if (value == null) {
                         throw new Error("Value for key {" + key + "} was null");

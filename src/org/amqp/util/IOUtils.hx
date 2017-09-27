@@ -18,8 +18,8 @@
 package org.amqp.util;
 
     #if flash9
-    import flash.utils.IDataOutput;
-    import flash.utils.ByteArray;
+    import openfl.utils.IDataOutput;
+    import openfl.utils.ByteArray;
 
     class IOUtils {
         public static function copy(input:ByteArray, output:IDataOutput):Void {

@@ -18,18 +18,10 @@
 package org.amqp.methods;
 
 
-    #if flash9
-    import flash.Error;
-    import flash.utils.IDataInput;
-    import flash.utils.IDataOutput;
-    import flash.utils.ByteArray;
-    #elseif neko
-    import org.amqp.Error;
-    import haxe.io.BytesInput;
-    import haxe.io.BytesOutput;
-    import haxe.io.Input;
-    import haxe.io.Bytes;
-    #end
+    import openfl.Error;
+    import openfl.utils.IDataInput;
+    import openfl.utils.IDataOutput;
+    import openfl.utils.ByteArray;
 
     import org.amqp.LongString;
     import org.amqp.impl.ByteArrayLongString;
@@ -38,22 +30,14 @@ package org.amqp.methods;
     class MethodArgumentReader {
 
         inline static var INT_MASK:Int = 0xffff;
-        #if flash9
         var input:IDataInput;
-        #elseif neko
-        var input:Input;
-        #end
 
         /** If we are reading one or more bits, holds the current packed collection of bits */
         var bits:Int;
         /** If we are reading one or more bits, keeps track of which bit position we are reading from */
         var bit:Int;
 
-        #if flash9
         public function new(input:IDataInput) {
-        #elseif neko
-        public function new(input:Input) {
-        #end
             this.input = input;
             clearBits();
         }
@@ -71,17 +55,8 @@ package org.amqp.methods;
             return value & INT_MASK;
         }
 
-        #if flash9
         public static function _readLongstr(input:IDataInput):LongString {
-        #elseif neko
-        public static function _readLongstr(input:Input):LongString {
-        #end
             //final long contentLength = unsignedExtend(in.readInt());
-            #if flash9
-            var contentLength:Int = input.readInt();
-            #elseif neko
-            var contentLength:Int = input.readInt31();
-            #end
             if(contentLength < 0xfffffff) { // Int max is platform specific Flash9 28 bits 3 used for typing. 1 missing? Neko 31 bits
                 //final byte [] buffer = new byte[(int)contentLength];
                 //in.readFully(buffer);
@@ -171,7 +146,7 @@ package org.amqp.methods;
         }
 
         /** Public API - reads a table argument. */
-        public function readTable():Hash<Dynamic> {
+        public function readTable():Array<Dynamic> {
             clearBits();
             return _readTable(this.input);
         }
@@ -181,11 +156,11 @@ package org.amqp.methods;
          * called by {@link ContentHeaderPropertyReader}.
          */
         #if flash9
-        public static function _readTable(input:IDataInput):Hash<Dynamic> {
+        public static function _readTable(input:IDataInput):Array<Dynamic> {
         #elseif neko
-        public static function _readTable(input:Input):Hash<Dynamic> {
+        public static function _readTable(input:Input):Array<Dynamic> {
         #end
-            var table:Hash<Dynamic> = new Hash();
+            var table:Array<Dynamic> = new Hash();
             #if flash9
             var tableLength:Int = input.readInt();
             var tableIn:ByteArray = new ByteArray();

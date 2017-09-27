@@ -1,6 +1,6 @@
 package com.lak.simulator.manager;
 import com.lak.simulator.isometric.entities.IsoObject;
-import flash.geom.Point;
+import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import com.lak.simulator.isometric.world.IsoWorld;
 import com.lak.simulator.isometric.entities.units.IsoUnit;

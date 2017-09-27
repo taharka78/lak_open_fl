@@ -6,7 +6,7 @@ import com.lak.simulator.isometric.entities.IsoObject;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.utils.IsoUtils;
 import com.lak.simulator.data.GameData;
-import flash.geom.Point;
+import openfl.geom.Point;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko

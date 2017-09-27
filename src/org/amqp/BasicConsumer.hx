@@ -18,7 +18,7 @@
 package org.amqp;
 
     #if flash9
-    import flash.utils.ByteArray;
+    import openfl.utils.ByteArray;
     #elseif neko
     import haxe.io.BytesInput;
     #end

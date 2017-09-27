@@ -18,7 +18,7 @@
 package org.amqp.headers;
 
     #if flash9
-    import flash.utils.IDataInput;
+    import openfl.utils.IDataInput;
     #elseif neko
     import haxe.io.Input;
     #end
@@ -130,7 +130,7 @@ package org.amqp.headers;
         }
 
         /** Reads and returns an AMQP table content header field, or null if absent. */
-        public function readTable():Hash<Dynamic>{
+        public function readTable():Array<Dynamic>{
             if (!argPresent()) return null;
             return MethodArgumentReader._readTable(input);
         }

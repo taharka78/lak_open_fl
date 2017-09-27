@@ -3,7 +3,7 @@ package org.amqp.fast.utils;
 import haxe.Serializer;
 
 #if flash9
-import flash.utils.ByteArray;
+import openfl.utils.ByteArray;
 class DataWriter {
     var b:ByteArray;
 

@@ -19,12 +19,12 @@ package org.amqp;
 
 
     #if flash9
-    import flash.events.Event;
-    import flash.events.IOErrorEvent;
-    import flash.events.ProgressEvent;
-    import flash.events.SecurityErrorEvent;
-    //import flash.Vector;
-    import flash.utils.ByteArray;
+    import openfl.events.Event;
+    import openfl.events.IOErrorEvent;
+    import openfl.events.ProgressEvent;
+    import openfl.events.SecurityErrorEvent;
+    //import openfl.Vector;
+    import openfl.utils.ByteArray;
     #elseif neko
     import org.amqp.Error;
     import neko.vm.Thread;

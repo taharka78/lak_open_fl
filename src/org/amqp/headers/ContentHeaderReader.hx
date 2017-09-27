@@ -18,7 +18,7 @@
 package org.amqp.headers;
 
     #if flash9
-    import flash.utils.IDataInput;
+    import openfl.utils.IDataInput;
     #elseif neko
     import haxe.io.Input;
     #end

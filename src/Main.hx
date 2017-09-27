@@ -2,6 +2,7 @@ package;
 
 import com.lak.core.managers.SpritesheetManager;
 import com.lak.core.display.FPS_Mem;
+import com.lak.network.Producer;
 import com.lak.simulator.isometric.entities.units.events.UnitEvent;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.Simulator;
@@ -80,6 +81,8 @@ class Main extends Sprite
 	private function onMainAdded(e:Event){
 		
 		removeEventListener(Event.ADDED_TO_STAGE, onMainAdded);
+		
+		var prdc:Producer = new Producer();
 		
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;

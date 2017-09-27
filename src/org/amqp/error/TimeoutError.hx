@@ -17,7 +17,7 @@
  **/
 package org.amqp.error;
 
-    import flash.events.ErrorEvent;
+    import openfl.events.ErrorEvent;
 
     class TimeoutError extends ErrorEvent {
         inline public static var TIMEOUT_ERROR:String = "timeoutError";

@@ -41,12 +41,12 @@ enum ExchangeType {
 }
 
 #if flash9
-typedef ByteArray = flash.utils.ByteArray;
+typedef ByteArray = openfl.utils.ByteArray;
 typedef Delivery = { method:Deliver, properties:BasicProperties, body:ByteArray }
 
 // put these at the bottom to avoid recursive def issues
-typedef AmqpConnection = org.amqp.fast.flash.AmqpConnection
-typedef Channel = org.amqp.fast.flash.Channel
+typedef AmqpConnection = org.amqp.fast.openfl.AmqpConnection
+typedef Channel = org.amqp.fast.openfl.Channel
 
 #elseif neko
 

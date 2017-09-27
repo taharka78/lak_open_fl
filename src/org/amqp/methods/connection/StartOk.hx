@@ -25,15 +25,15 @@ package org.amqp.methods.connection;
     import org.amqp.methods.MethodArgumentWriter;
     import org.amqp.impl.ByteArrayLongString;
 
-    class StartOk extends Method, implements ArgumentReader, implements ArgumentWriter {
-         public var clientproperties : Hash<Dynamic>;
+    class StartOk extends Method{
+         public var clientproperties : Map<String,Dynamic>;
          public var locale : String;
          public var mechanism : String;
          public var response : LongString;
 
          public function new() {
              super();
-             clientproperties = new Hash();
+             clientproperties = new Map<String,Dynamic>();
              mechanism = "";
              response = new ByteArrayLongString();
              locale = "";

@@ -17,17 +17,13 @@
  **/
 package org.amqp.error;
 
-    #if flash9
-    import flash.events.ErrorEvent;
-    #elseif neko
+    //#if flash9
+    import openfl.events.ErrorEvent;
+    /*#elseif neko
     import org.amqp.events.Event;
-    #end
+    #end*/
 
-    #if flash9
     class ConnectionError extends ErrorEvent {
-    #elseif neko
-    class ConnectionError extends Event {
-    #end
     	inline public static var CONNECTION_ERROR:String = "connectionError";
         public var message:String ;
         

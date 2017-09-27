@@ -24,7 +24,7 @@ import haxe.macro.Expr;
 		
 		var config = {
 			
-			build: "17",
+			build: "26",
 			company: "Youssouf & Moussa Sissoko",
 			file: "lakhaxe",
 			fps: 60,
@@ -280,7 +280,7 @@ class DocumentClass {
 		
 		while (searchTypes != null) {
 			
-			if (searchTypes.module == "openfl.display.DisplayObject" || searchTypes.module == "flash.display.DisplayObject") {
+			if (searchTypes.module == "openfl.display.DisplayObject" || searchTypes.module == "openfl.display.DisplayObject") {
 				
 				var fields = Context.getBuildFields ();
 				

@@ -1,5 +1,5 @@
 package com.lak.simulator.isometric.entities;
-import flash.geom.Point;
+import openfl.geom.Point;
 import openfl.display.Sprite;
 import spritesheet.AnimatedSprite;
 

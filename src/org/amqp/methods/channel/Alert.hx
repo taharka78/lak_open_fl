@@ -23,8 +23,8 @@ package org.amqp.methods.channel;
     import org.amqp.methods.MethodArgumentReader;
     import org.amqp.methods.MethodArgumentWriter;
 
-    class Alert extends Method, implements ArgumentReader, implements ArgumentWriter {
-         public var details : Hash<Dynamic>;
+    class Alert extends Method{
+         public var details : Array<Dynamic>;
          public var replycode : Int;
          public var replytext : String;
 

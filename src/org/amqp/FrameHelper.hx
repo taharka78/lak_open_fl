@@ -32,7 +32,7 @@ package org.amqp;
             //str.getBytes("utf-8").length + 4;
         }
 
-        public static function tableSize(table:Hash<Dynamic>):Int{
+        public static function tableSize(table:Array<Dynamic>):Int{
             var acc:Int = 0;
 
             for (key in table.keys()) {
@@ -61,7 +61,7 @@ package org.amqp;
                 }
                 else if(Std.is( value, Hash)) {
                     acc += 4;
-                    acc += tableSize(cast( value, Hash<Dynamic>));
+                    acc += tableSize(cast( value, Array<Dynamic>));
                 }
                 else {
                     throw new IllegalArgumentError("invalid value in table");

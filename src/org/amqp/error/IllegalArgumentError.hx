@@ -20,7 +20,7 @@ package org.amqp.error;
     #if neko
     import org.amqp.Error;
     #elseif flash9
-    import flash.Error;
+    import openfl.Error;
     #end
 
     class IllegalArgumentError extends Error {

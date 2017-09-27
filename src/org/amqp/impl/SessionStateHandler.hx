@@ -17,11 +17,7 @@
  **/
 package org.amqp.impl;
 
-    #if flash9
-    import flash.utils.ByteArray;
-    #elseif neko
-    import haxe.io.BytesInput;
-    #end
+    import openfl.utils.ByteArray;
 
     import org.amqp.BaseCommandReceiver;
     import org.amqp.BasicConsumer;
@@ -43,7 +39,7 @@ package org.amqp.impl;
     import org.amqp.methods.channel.CloseOk;
     import org.amqp.methods.channel.OpenOk;
 
-    class SessionStateHandler extends BaseCommandReceiver, implements SynchronousCommandClient, implements ConsumerRegistry {
+    class SessionStateHandler extends BaseCommandReceiver{
         inline static var STATE_CLOSED:Int = 0;
         static var STATE_CONNECTION:Int = new ConnectionProperties().classId;
         static var STATE_CHANNEL:Int = new ChannelProperties().classId;
@@ -52,7 +48,7 @@ package org.amqp.impl;
         var state:Int ;
         var QUEUE_SIZE:Int ;
 
-        var consumers:Hash<BasicConsumer>;
+        var consumers:Array<BasicConsumer>;
         var returnCallback:Command->Return->Void;
 
         public var channel(getSessionChannel, null):Int;

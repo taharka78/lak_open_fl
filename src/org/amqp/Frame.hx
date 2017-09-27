@@ -18,10 +18,10 @@
 package org.amqp;
 
     #if flash9
-    import flash.Error;
-    import flash.utils.ByteArray;
-    import flash.utils.IDataInput;
-    import flash.utils.IDataOutput;
+    import openfl.Error;
+    import openfl.utils.ByteArray;
+    import openfl.utils.IDataInput;
+    import openfl.utils.IDataOutput;
     #elseif neko
     import org.amqp.Error;
 

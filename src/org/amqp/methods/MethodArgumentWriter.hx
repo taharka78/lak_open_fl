@@ -17,15 +17,9 @@
  **/
 package org.amqp.methods;
 
-    #if flash9
-    import flash.Error;
-    import flash.utils.ByteArray;
-    import flash.utils.IDataOutput;
-    #elseif neko
-    import org.amqp.Error;
-    import haxe.io.Bytes;
-    import haxe.io.Output;
-    #end
+    import openfl.errors.Error;
+    import openfl.utils.ByteArray;
+    import openfl.utils.IDataOutput;
 
 
     import org.amqp.FrameHelper;
@@ -36,11 +30,7 @@ package org.amqp.methods;
 
     class MethodArgumentWriter {
         
-        #if flash9
         var output:IDataOutput;
-        #elseif neko
-        var output:Output;
-        #end
 
         var needBitFlush:Bool;
         /** The current group of bits */
@@ -48,11 +38,7 @@ package org.amqp.methods;
         /** The current position within the group of bits */
         var bitMask:Int;
 
-        #if flash9
         public function new(output:IDataOutput) {
-        #elseif neko
-        public function new(output:Output) {
-        #end
             this.output = output;
             resetBitAccumulator();
         }
@@ -78,24 +64,15 @@ package org.amqp.methods;
         public function writeShortstr(str:String):Void {
             bitflush();
             //byte [] bytes = str.getBytes("utf-8");
-            #if flash9
             output.writeByte(str.length);
             output.writeUTFBytes(str);
-            #elseif neko
-            output.writeByte(str.length);
-            output.writeString(str);
-            #end
         }
 
         /** Public API - encodes a long string argument from a LongString. */
         public function writeLongstr(str:LongString):Void {
             bitflush();
             writeLong(str.length());
-            #if flash9
             output.writeBytes(str.getBytes());
-            #elseif neko
-            output.write(str.getBytes());
-            #end
         }
 
         /** Public API - encodes a long string argument from a String. */
@@ -103,21 +80,13 @@ package org.amqp.methods;
             bitflush();
             //byte [] bytes = str.getBytes("utf-8");
             writeLong(str.length);
-            #if flash9
             output.writeUTFBytes(str);
-            #elseif neko
-            output.writeString(str);
-            #end
         }
 
         /** Public API - encodes a short integer argument. */
         public function writeShort(s:Int):Void {
             bitflush();
-            #if flash9
             output.writeShort(s);
-            #elseif neko
-            output.writeUInt16(s);
-            #end
         }
 
         /** Public API - encodes an integer argument. */
@@ -127,11 +96,7 @@ package org.amqp.methods;
             // reasonable to use ints to represent the unsigned long
             // type - for values < Integer.MAX_VALUE everything works
             // as expected
-            #if flash9
             output.writeInt(l);
-            #elseif neko
-            output.writeInt31(l);
-            #end
         }
 
         /** Public API - encodes a long integer argument. */
@@ -157,23 +122,14 @@ package org.amqp.methods;
         }
 
         /** Public API - encodes a table argument. */
-        public function writeTable(table:Hash<Dynamic>):Void {
+        public function writeTable(table:Map<String,Dynamic>):Void {
 
             bitflush();
             if (table == null) {
                 // Convenience.
-                #if flash9
                 output.writeInt(0);
-                #elseif neko
-                output.writeInt31(0);
-                #end
             } else {
-                #if flash9
                 output.writeInt( FrameHelper.tableSize(table) );
-                #elseif neko
-                output.writeInt31( FrameHelper.tableSize(table) );
-                #end
-
                 for (key in table.keys()) {
                     writeShortstr(key);
                     var value:Dynamic = table.get(key);
@@ -208,7 +164,7 @@ package org.amqp.methods;
                     }
                     else if(Std.is( value, Hash)) {
                         writeOctet(70); // 'F"
-                        writeTable(cast( value, Hash<Dynamic>));
+                        writeTable(cast( value, Array<Dynamic>));
                     }
                     else if (value == null) {
                         throw new Error("Value for key {" + key + "} was null");

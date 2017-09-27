@@ -23,7 +23,7 @@ package org.amqp;
     class SessionManager
      {
         var connection:Connection;
-        var sessions:IntHash<Session> ;
+        var sessions:Map<Int,Session> ;
         var nextChannel:Int ;
 
         public function new(con:Connection) {

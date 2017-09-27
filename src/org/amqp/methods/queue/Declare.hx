@@ -23,8 +23,8 @@ package org.amqp.methods.queue;
     import org.amqp.methods.MethodArgumentReader;
     import org.amqp.methods.MethodArgumentWriter;
 
-    class Declare extends Method, implements ArgumentReader, implements ArgumentWriter {
-         public var arguments : Hash<Dynamic>;
+    class Declare extends Method{
+         public var arguments : Array<Dynamic>;
          public var autodelete : Bool;
          public var durable : Bool;
          public var exclusive : Bool;

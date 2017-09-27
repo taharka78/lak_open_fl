@@ -4,7 +4,7 @@ package org.amqp.fast.utils;
 
 import org.amqp.BasicConsumer;
 #if flash9
-import flash.utils.ByteArray;
+import openfl.utils.ByteArray;
 #elseif neko
 import haxe.io.BytesInput;
 #end

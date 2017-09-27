@@ -23,8 +23,8 @@ package org.amqp.methods.queue;
     import org.amqp.methods.MethodArgumentReader;
     import org.amqp.methods.MethodArgumentWriter;
 
-    class Bind extends Method, implements ArgumentReader, implements ArgumentWriter {
-         public var arguments : Hash<Dynamic>;
+    class Bind extends Method{
+         public var arguments : Array<Dynamic>;
          public var exchange : String;
          public var nowait : Bool;
          public var queue : String;

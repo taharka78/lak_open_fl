@@ -50,8 +50,8 @@ package org.amqp.methods;
     import org.amqp.methods.tx.Rollback;
 
     #if flash9
-    import flash.Error;
-    import flash.utils.IDataInput;
+    import openfl.Error;
+    import openfl.utils.IDataInput;
     #elseif neko
     import org.amqp.Error;
     import haxe.io.Input;
