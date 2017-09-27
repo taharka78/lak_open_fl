@@ -24,7 +24,7 @@ package org.amqp.methods.queue;
     import org.amqp.methods.MethodArgumentWriter;
 
     class Bind extends Method{
-         public var arguments : Array<Dynamic>;
+         public var arguments : Map<String,Dynamic>;
          public var exchange : String;
          public var nowait : Bool;
          public var queue : String;
@@ -38,7 +38,7 @@ package org.amqp.methods.queue;
              exchange = "";
              routingkey = "";
              nowait = false;
-             arguments = new Hash();
+             arguments = new Map<String,Dynamic>();
              hasResponse = true;
              classId = 50;
              methodId = 20;

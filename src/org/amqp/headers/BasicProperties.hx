@@ -33,7 +33,7 @@ package org.amqp.headers;
         public var correlationid : String;
         public var deliverymode : Int;
         public var expiration : String;
-        public var headers : Array<Dynamic>;
+        public var headers : Map<String,Dynamic>;
         public var messageid : String;
         public var priority : Int;
         public var replyto : String;

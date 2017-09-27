@@ -162,9 +162,9 @@ package org.amqp.methods;
                         writeOctet(84);//'T'
                         writeTimestamp(cast( value, Date));
                     }
-                    else if(Std.is( value, Hash)) {
+                    else if(Std.is( value, Map)) {
                         writeOctet(70); // 'F"
-                        writeTable(cast( value, Array<Dynamic>));
+                        writeTable(cast( value, Map<String,Dynamic>));
                     }
                     else if (value == null) {
                         throw new Error("Value for key {" + key + "} was null");

@@ -25,7 +25,7 @@ package org.amqp.methods.exchange;
 
     class Declare extends Method{
          public var Internal : Bool;
-         public var arguments : Array<Dynamic>;
+         public var arguments : Map<String,Dynamic>;
          public var autodelete : Bool;
          public var durable : Bool;
          public var exchange : String;
@@ -44,7 +44,7 @@ package org.amqp.methods.exchange;
              autodelete = false;
              Internal = false;
              nowait = false;
-             arguments = new Hash();
+             arguments = new Map<String,Dynamic>();
              hasResponse = true;
              classId = 40;
              methodId = 10;

@@ -49,34 +49,19 @@ package org.amqp.methods;
     import org.amqp.methods.tx.Commit;
     import org.amqp.methods.tx.Rollback;
 
-    #if flash9
-    import openfl.Error;
+    import openfl.errors.Error;
     import openfl.utils.IDataInput;
-    #elseif neko
-    import org.amqp.Error;
-    import haxe.io.Input;
-    #end
 
     /**
      *   THIS IS AUTO-GENERATED CODE. DO NOT EDIT!
      **/
     class MethodReader
      {
-        
-        #if flash9
         public static function readMethodFrom(input:IDataInput):Method {
-        #elseif neko
-        public static function readMethodFrom(input:Input):Method {
-        #end
         //    trace("readMethodFrom");
 
-            #if flash9
             var classId:Int = input.readShort();
             var methodId:Int = input.readShort();
-            #elseif neko
-            var classId:Int = input.readUInt16();
-            var methodId:Int = input.readUInt16();
-            #end
               //trace("classId "+classId+ " methodId: "+methodId);
             var method:Method;
 

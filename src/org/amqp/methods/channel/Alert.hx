@@ -24,7 +24,7 @@ package org.amqp.methods.channel;
     import org.amqp.methods.MethodArgumentWriter;
 
     class Alert extends Method{
-         public var details : Array<Dynamic>;
+         public var details : Map<String,Dynamic>;
          public var replycode : Int;
          public var replytext : String;
 
@@ -32,7 +32,7 @@ package org.amqp.methods.channel;
              super();
              replycode = 0;
              replytext = "";
-             details = new Hash();
+             details = new Map<String,Dynamic>();
              classId = 20;
              methodId = 30;
          }

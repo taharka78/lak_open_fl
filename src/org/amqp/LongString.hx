@@ -17,22 +17,12 @@
  **/
 package org.amqp;
 
-    #if flash9
     import openfl.utils.IDataInput;
     import openfl.utils.ByteArray;
-    #elseif neko
-    import haxe.io.Input;
-    import haxe.io.Bytes;
-    #end
 
     interface LongString
     {
         function length():Int;
-        #if flash9
         function getStream():IDataInput;
         function getBytes():ByteArray;
-        #elseif neko
-        function getStream():Input;
-        function getBytes():Bytes;
-        #end
     }

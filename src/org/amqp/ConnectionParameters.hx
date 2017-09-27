@@ -19,7 +19,7 @@ package org.amqp;
 
     class ConnectionParameters
      {
-        public var port(getPort, null) : Int ;
+        public var port: Int ;
         public var username:String;
         public var password:String;
         public var serverhost:String;

@@ -18,16 +18,9 @@
 package org.amqp.headers;
 
 
-    #if flash9
-    import openfl.Error;
+    import openfl.errors.Error;
     import openfl.utils.IDataOutput;
     import openfl.utils.ByteArray;
-    #elseif neko
-    import org.amqp.Error;
-    import haxe.io.Bytes;
-    import haxe.io.Output;
-    import haxe.io.BytesOutput;
-    #end
 
     import org.amqp.FrameHelper;
     import org.amqp.LongString;
@@ -37,11 +30,7 @@ package org.amqp.headers;
      {
         public var flags:Array<Dynamic>;
         /** Output stream collecting the packet as it is generated */
-        #if flash9
         public var outBytes:ByteArray; 
-        #elseif neko
-        public var outBytes:BytesOutput; 
-        #end
 
         /** Current flags word being accumulated */
         public var flagWord:Int;
@@ -50,11 +39,7 @@ package org.amqp.headers;
 
         public function new(){
             this.flags = new Array();
-            #if flash9
             this.outBytes = new ByteArray();
-            #elseif neko
-            this.outBytes = new BytesOutput(); outBytes.bigEndian = true;
-            #end
             this.flagWord = 0;
             this.bitCount = 0;
         }
@@ -82,7 +67,6 @@ package org.amqp.headers;
             }
         }
 
-        #if flash9
         public function dumpTo(output:IDataOutput):Void {
             if (bitCount > 0) {
                 flags.push(flagWord);
@@ -92,18 +76,6 @@ package org.amqp.headers;
             }
             output.writeBytes(outBytes);
         } 
-        #elseif neko
-        public function dumpTo(output:Output):Void {
-
-            if (bitCount > 0) {
-                flags.push(flagWord);
-            }
-            for (i in 0...flags.length ) {
-                output.writeUInt16(flags[i]);
-            }
-            output.write(outBytes.getBytes());
-        }
-        #end
 
         /** Protected API - Writes a String value as a short-string to the stream, if it's non-null */
         public function writeShortstr(x:String):Void {
@@ -114,11 +86,7 @@ package org.amqp.headers;
 
         public function _writeShortstr(x:String):Void {
             outBytes.writeByte(x.length);
-            #if flash9
             outBytes.writeUTFBytes(x);
-            #elseif neko
-            outBytes.writeString(x);
-            #end
         }
 
         /** Protected API - Writes a String value as a long-string to the stream, if it's non-null */
@@ -129,13 +97,8 @@ package org.amqp.headers;
         }
 
         public function _writeLongstr(x:String):Void {
-            #if flash9
             outBytes.writeInt(x.length);
             outBytes.writeUTFBytes(x);
-            #elseif neko
-            outBytes.writeInt31(x.length);
-            outBytes.writeString(x);
-            #end
         }
 
         /** Protected API - Writes a LongString value to the stream, if it's non-null */
@@ -146,13 +109,8 @@ package org.amqp.headers;
         }
 
         public function ___writeLongstr(x:LongString):Void {
-            #if flash9
             outBytes.writeInt(x.length());
             outBytes.writeBytes(x.getBytes());
-            #elseif neko
-            outBytes.writeInt31(x.length());
-            outBytes.write(x.getBytes());
-            #end
         }
 
         /** Protected API - Writes a short integer value to the stream, if it's non-null */
@@ -164,11 +122,7 @@ package org.amqp.headers;
 
         /** Protected API - Writes a short integer value to the stream, if it's non-null */
         public function _writeShort(x:Int):Void {
-            #if flash9
             outBytes.writeShort(x);
-            #elseif neko
-            outBytes.writeUInt16(x);
-            #end
         }
 
         /** Protected API - Writes an integer value to the stream, if it's non-null */
@@ -179,11 +133,7 @@ package org.amqp.headers;
         }
 
         public function _writeLong(x:Int):Void {
-            #if flash9
             outBytes.writeInt(x);
-            #elseif neko
-            outBytes.writeInt31(x);
-            #end
         }
 
         /** Protected API - Writes a long integer value to the stream, if it's non-null */
@@ -198,18 +148,13 @@ package org.amqp.headers;
         }
 
         /** Protected API - Writes a table value to the stream, if it's non-null */
-        public function writeTable(x:Array<Dynamic>):Void {
+        public function writeTable(x:Map<String,Dynamic>):Void {
             if(argPresent(x)){
                 _writeTable(x);
             }
         }
-        public function _writeTable(table:Array<Dynamic>):Void {
-            #if flash9
+        public function _writeTable(table:Map<String,Dynamic>):Void {
             outBytes.writeInt( FrameHelper.tableSize(table) );
-            #elseif neko
-            outBytes.writeInt31( FrameHelper.tableSize(table) );
-            #end
-
             for (key in table.keys()) {
                 writeShortstr(key);
                 var value:Dynamic = table.get(key);
@@ -242,9 +187,9 @@ package org.amqp.headers;
                     _writeOctet(84);//'T'
                     _writeTimestamp(cast( value, Date));
                 }
-                else if(Std.is( value, Hash)) {
+                else if(Std.is( value, Map)) {
                     _writeOctet(70); // 'F"
-                    _writeTable(cast( value, Array<Dynamic>));
+                    _writeTable(cast( value, Map<String,Dynamic>));
                 }
                 else if (value == null) {
                     throw new Error("Value for key {" + key + "} was null");
@@ -277,10 +222,6 @@ package org.amqp.headers;
         }
 
         public function _writeTimestamp(x:Date):Void {
-            #if flash9
             outBytes.writeInt( Math.floor(x.getTime() / 1000));
-            #elseif neko
-            outBytes.writeInt31( Math.floor(x.getTime() / 1000));
-            #end
         }
     }

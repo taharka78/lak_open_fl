@@ -16,12 +16,10 @@ class Producer
 	
 	public function run(){
 		conn.start();
-		
 	}
 	
 	private function buildConnectionParams():ConnectionParameters{
 			var params:ConnectionParameters = new ConnectionParameters();
-			
             params.username = "lak-dev";
             params.password = "lak-dev";
             params.vhostpath = "lak-dev-vhost";

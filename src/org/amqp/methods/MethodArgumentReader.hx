@@ -18,7 +18,7 @@
 package org.amqp.methods;
 
 
-    import openfl.Error;
+    import openfl.errors.Error;
     import openfl.utils.IDataInput;
     import openfl.utils.IDataOutput;
     import openfl.utils.ByteArray;
@@ -56,19 +56,13 @@ package org.amqp.methods;
         }
 
         public static function _readLongstr(input:IDataInput):LongString {
-            //final long contentLength = unsignedExtend(in.readInt());
+            var contentLength = unsignedExtend(input.readInt());
             if(contentLength < 0xfffffff) { // Int max is platform specific Flash9 28 bits 3 used for typing. 1 missing? Neko 31 bits
                 //final byte [] buffer = new byte[(int)contentLength];
                 //in.readFully(buffer);
 
-                #if flash9
                 var buf:ByteArray = new ByteArray();
                 input.readBytes(buf, 0, contentLength);
-                #elseif neko
-                var buf:BytesOutput = new BytesOutput(); buf.bigEndian = true;
-                buf.write(input.read(contentLength));
-                #end
-
                 return new ByteArrayLongString(buf);
             }
             else {
@@ -78,18 +72,11 @@ package org.amqp.methods;
             return new ByteArrayLongString();
         }
 
-        #if flash9
         public static function _readShortstr(input:IDataInput):String {
             var length:Int = input.readUnsignedByte();
             return input.readUTFBytes(length);
         }
-        #elseif neko
-        public static function _readShortstr(input:Input):String {
-            var length:Int = input.readByte();
-            return input.readString(length);
-        }
-        #end
-
+      
         public function readLongstr():LongString {
             clearBits();
             return _readLongstr(input);
@@ -103,21 +90,13 @@ package org.amqp.methods;
         /** Public API - reads a short integer argument. */
         public function readShort():Int {
             clearBits();
-            #if flash9
             return input.readShort();
-            #elseif neko
-            return input.readUInt16();
-            #end
         }
 
         /** Public API - reads an integer argument. */
         public function readLong():Int{
             clearBits();
-            #if flash9
             return input.readInt();
-            #elseif neko
-            return input.readInt31();
-            #end
         }
 
         /** Public API - reads a long integer argument. */
@@ -132,11 +111,7 @@ package org.amqp.methods;
         /** Public API - reads a bit/boolean argument. */
         public function readBit():Bool {
             if (bit > 0x80) {
-                #if flash9
                 bits = input.readUnsignedByte();
-                #elseif
-                bits = input.readByte();
-                #end
                 bit = 0x01;
             }
 
@@ -146,7 +121,7 @@ package org.amqp.methods;
         }
 
         /** Public API - reads a table argument. */
-        public function readTable():Array<Dynamic> {
+        public function readTable():Map<String,Dynamic> {
             clearBits();
             return _readTable(this.input);
         }
@@ -155,45 +130,23 @@ package org.amqp.methods;
          * Public API - reads a table argument from a given stream. Also
          * called by {@link ContentHeaderPropertyReader}.
          */
-        #if flash9
-        public static function _readTable(input:IDataInput):Array<Dynamic> {
-        #elseif neko
-        public static function _readTable(input:Input):Array<Dynamic> {
-        #end
-            var table:Array<Dynamic> = new Hash();
-            #if flash9
+        public static function _readTable(input:IDataInput):Map<String,Dynamic> {
+            var table:Map<String,Dynamic> = new Map<String,Dynamic>();
             var tableLength:Int = input.readInt();
             var tableIn:ByteArray = new ByteArray();
             input.readBytes(tableIn, 0, tableLength);
-            #elseif neko
-            var tableLength:Int = input.readInt31();
-            var tableIn:BytesInput = new BytesInput(input.read(tableLength)); tableIn.bigEndian = true;
-            #end
             var value:Dynamic = null;
 
-            #if flash9
             while(tableIn.bytesAvailable >0) {
-            #elseif neko
-            try { while(true) {
-            #end
-
                 var name:String = _readShortstr(tableIn);
-                #if flash9
                 var type:Int = tableIn.readUnsignedByte();
-                #elseif neko
-                var type:Int = tableIn.readByte();
-                #end
             
                 switch(type) {
                     case 83 : //'S'
                         value = _readLongstr(tableIn);
                         break;
                     case 73: //'I'
-                        #if flash9
                         value = tableIn.readInt();
-                        #elseif neko
-                        value = tableIn.readInt31();
-                        #end
                         break;
                     /*
                     case 68: //'D':
@@ -215,34 +168,19 @@ package org.amqp.methods;
 
                 if(!table.exists(name))
                     table.set(name, value);
-
-            #if flash9
             }
-            #elseif neko
-            } } catch (eof:haxe.io.Eof) { }
-            #end
-
             return table;
         }
 
         /** Public API - reads an octet argument. */
         public function readOctet():Int{
             clearBits();
-            #if flash9
             return input.readUnsignedByte();
-            #elseif neko
-            return input.readByte();
-            #end
         }
 
         /** Public API - convenience method - reads a timestamp argument from the DataInputStream. */
-        #if flash9
         public static function _readTimestamp(input:IDataInput):Date {
             var date:Date = Date.fromTime(input.readInt() * 1000);
-        #elseif neko
-        public static function _readTimestamp(input:Input):Date {
-            var date:Date = Date.fromTime(input.readInt31() * 1000);
-        #end
             return date;
             //return new Date(in.readLong() * 1000);
         }

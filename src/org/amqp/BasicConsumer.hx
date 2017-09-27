@@ -17,11 +17,7 @@
  **/
 package org.amqp;
 
-    #if flash9
     import openfl.utils.ByteArray;
-    #elseif neko
-    import haxe.io.BytesInput;
-    #end
 
     import org.amqp.headers.BasicProperties;
     import org.amqp.methods.basic.Deliver;
@@ -30,9 +26,5 @@ package org.amqp;
     {
         function onConsumeOk(tag:String):Void;
         function onCancelOk(tag:String):Void;
-        #if flash9
         function onDeliver(method:Deliver, properties:BasicProperties, body:ByteArray):Void;
-        #elseif neko
-        function onDeliver(method:Deliver, properties:BasicProperties, body:BytesInput):Void;
-        #end
     }

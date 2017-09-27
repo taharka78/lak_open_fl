@@ -83,6 +83,7 @@ class Main extends Sprite
 		removeEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 		
 		var prdc:Producer = new Producer();
+		prdc.run();
 		
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;

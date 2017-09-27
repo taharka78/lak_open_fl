@@ -17,11 +17,8 @@
  **/
 package org.amqp.error;
 
-    #if neko
-    import org.amqp.Error;
-    #elseif flash9
-    import openfl.Error;
-    #end
+    
+    import openfl.errors.Error;
 
     class MalformedFrameError extends Error {
         public function new(?message:String="", ?id:Int=0)

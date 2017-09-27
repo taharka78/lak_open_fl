@@ -28,7 +28,7 @@ package org.amqp;
 
         public function new(con:Connection) {
             
-            sessions = new IntHash();
+            sessions = new Map<Int,Session>();
             nextChannel = 1;
             connection = con;
         }
@@ -67,7 +67,7 @@ package org.amqp;
             for (session in sessions) {
                 session.closeGracefully();
             }
-            sessions = new IntHash();
+            sessions = new Map<Int,Session>();
         }
 
         public function forceClose():Void {
@@ -75,6 +75,6 @@ package org.amqp;
                 session.closeGracefully();
                 session.forceClose();
             }
-            sessions = new IntHash();
+            sessions = new Map<Int,Session>();
         }
     }

@@ -24,7 +24,7 @@ package org.amqp.methods.queue;
     import org.amqp.methods.MethodArgumentWriter;
 
     class Declare extends Method{
-         public var arguments : Array<Dynamic>;
+         public var arguments : Map<String,Dynamic>;
          public var autodelete : Bool;
          public var durable : Bool;
          public var exclusive : Bool;
@@ -42,7 +42,7 @@ package org.amqp.methods.queue;
              exclusive = false;
              autodelete = false;
              nowait = false;
-             arguments = new Hash();
+             arguments = new Map<String,Dynamic>();
              hasResponse = true;
              classId = 50;
              methodId = 10;

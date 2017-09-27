@@ -17,11 +17,7 @@
  **/
 package org.amqp.impl;
 
-    #if flash9
     import openfl.utils.ByteArray;
-    #elseif neko
-    import haxe.io.BytesOutput;
-    #end
 
     import org.amqp.BaseCommandReceiver;
     import org.amqp.Command;
@@ -106,14 +102,12 @@ package org.amqp.impl;
             startOk.clientproperties = props;
             startOk.mechanism = "AMQPLAIN";
 
-            var credentials:Array<Dynamic> = new Array<Dynamic>();
+            var credentials:Map<String,Dynamic> = new Map<String,Dynamic>();
             credentials.set("LOGIN", LongStringHelper.asLongString(connectionParams.username));
             credentials.set("PASSWORD", LongStringHelper.asLongString(connectionParams.password));
-            #if flash9
+			
             var buf:ByteArray = new ByteArray();
-            #elseif neko
-            var buf:BytesOutput = new BytesOutput(); buf.bigEndian = true;
-            #end
+           
             var generator:BinaryGenerator = new BinaryGenerator(buf);
             generator.writeTable(credentials, false);
             startOk.response = new ByteArrayLongString(buf);

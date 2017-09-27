@@ -110,11 +110,7 @@ package org.amqp.util;
         /** Public API - encodes a short integer argument. */
         public function writeShort(s:Int):Void {
             bitflush();
-            //#if flash9
             output.writeShort(s);
-            //#elseif neko
-            //output.writeUInt16(s);
-            //#end
         }
 
         /** Public API - encodes an integer argument. */
@@ -124,11 +120,7 @@ package org.amqp.util;
             // reasonable to use ints to represent the unsigned long
             // type - for values < Integer.MAX_VALUE everything works
             // as expected
-            //#if flash9
             output.writeInt(l);
-            //#elseif neko
-            //output.writeInt31(l);
-            //#end
         }
 
         /** Public API - encodes a long integer argument. */
@@ -158,23 +150,15 @@ package org.amqp.util;
         }
 
         /** Public API - encodes a table argument. */
-        public function writeTable(table:Array<Dynamic>, ?encodeSize:Bool = true):Void {
+        public function writeTable(table:Map<String,Dynamic>, ?encodeSize:Bool = true):Void {
 
             bitflush();
             if (table == null) {
                 // Convenience.
-                //#if flash9
                 output.writeInt(0);
-                //#elseif neko
-                //output.writeInt31(0);
-                //#end
             } else {
                 if (encodeSize) {
-                    //#if flash9
                     output.writeInt( FrameHelper.tableSize(table) );
-                    //#elseif neko
-                    //output.writeInt31( FrameHelper.tableSize(table) );
-                    //#end
                  }
                 for (key in table.keys()) {
                     writeShortstr(key);
@@ -208,9 +192,9 @@ package org.amqp.util;
                         writeOctet(84);//'T'
                         writeTimestamp(cast( value, Date));
                     }
-                    else if(Std.is( value, Hash)) {
+                    else if(Std.is( value, Map)) {
                         writeOctet(70); // 'F"
-                        writeTable(cast( value, Array<Dynamic>));
+                        writeTable(cast( value, Map<String,Dynamic>));
                     }
                     else if (value == null) {
                         throw new Error("Value for key {" + key + "} was null");

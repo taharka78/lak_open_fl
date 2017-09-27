@@ -17,19 +17,12 @@
  **/
 package org.amqp;
 
-
-    #if flash9
     import openfl.events.Event;
     import openfl.events.IOErrorEvent;
     import openfl.events.ProgressEvent;
     import openfl.events.SecurityErrorEvent;
     //import openfl.Vector;
     import openfl.utils.ByteArray;
-    #elseif neko
-    import org.amqp.Error;
-    import neko.vm.Thread;
-    import org.amqp.SMessage;
-    #end
 
     import haxe.io.Bytes;
 
@@ -38,37 +31,31 @@ package org.amqp;
     import org.amqp.impl.SessionImpl;
     import org.amqp.io.SocketDelegate;
 
-    #if flash9
     // not supporting for now
     //import org.amqp.io.TLSDelegate;
-    #end
 
     import org.amqp.methods.connection.CloseOk;
 
     class Connection {
 
-        public var baseSession(getBaseSession, null) : Session ;
         inline static var CLOSED:Int = 0;
         inline static var CONNECTING:Int = 1;
         inline static var CONNECTED:Int = 2;
 
         var currentState:Int ;
         var shuttingDown:Bool ;
-        var delegate:IODelegate;
+        var delegate:SocketDelegate;
         var session0:Session;
         var connectionParams:ConnectionParameters;
         public var sessionManager:SessionManager;
         public var frameMax:Int ;
 
-        #if flash9
         public var receiving:Bool;
         public var frameBuffer:ByteArray;
         public var errorh:Void->Void;
-        #end
 
         public function new(state:ConnectionParameters) {
             
-            //trace("new");
             currentState = CLOSED;
             shuttingDown = false;
             frameMax = 0;
@@ -77,22 +64,19 @@ package org.amqp;
 
             var stateHandler:ConnectionStateHandler = new ConnectionStateHandler(state);
 
-            session0 = new SessionImpl(this, 0, stateHandler);
+            session0 = new SessionImpl(this,0, stateHandler);
             stateHandler.registerWithSession(session0);
 
 
             sessionManager = new SessionManager(this);
 
             if (state.useTLS) {
-                #if flash9
                 //delegate = new TLSDelegate();
-                #end
                 throw new Error("TLS not supported at this time");
             } else {
                 delegate = new SocketDelegate();
             }
 
-            #if flash9
             delegate.addEventListener(Event.CONNECT, onSocketConnect);
             delegate.addEventListener(Event.CLOSE, onSocketClose);
             delegate.addEventListener(IOErrorEvent.IO_ERROR, onSocketError);
@@ -102,7 +86,7 @@ package org.amqp;
             receiving = false;
             frameBuffer = new ByteArray();
             frameBuffer.position = 0;
-            #end 
+			trace("new");
         }
 
         public function getBaseSession():Session {
@@ -113,9 +97,6 @@ package org.amqp;
             if (currentState < CONNECTING) {
                 currentState = CONNECTING;
                 delegate.open(connectionParams);
-                #if neko
-				onSocketConnect();
-                #end
             }
         }
 
@@ -124,51 +105,34 @@ package org.amqp;
         }
 
 
-        #if flash9
         public function onSocketConnect(event:Event):Void {
-        #elseif neko
-        public function onSocketConnect():Void {
-        #end
             currentState = CONNECTED;
+			trace("socket connected");
             var header = AMQP.generateHeader();
-             #if flash9
             delegate.writeBytes(header, 0, header.length);
             delegate.flush();
-            #elseif neko
-            delegate.getOutput().write(header);
-            delegate.getOutput().flush();
-            #end
        }
 
 
-        #if flash9
         public function onSocketClose(event:Event):Void {
-        #elseif neko
-        public function onSocketClose():Void {
-        #end
             currentState = CLOSED;
+			trace("socket closed");
             handleForcedShutdown();
         }
 
-        #if flash9
         public function onSocketError(event:Event):Void {
-        #elseif neko
-        public function onSocketError():Void {
-        #end
             currentState = CLOSED;
             //delegate.dispatchEvent(new ConnectionError());
-            trace("connection error");
+            trace("connection error "+event);
             if(errorh != null) {
                 errorh();
             }
         }
-
-        
-        #if flash9 
+		
         public function onSocketSecurityError(event:SecurityErrorEvent):Void {
+			trace("Socket security error "+event);
             errorh();
         }
-        #end
 
         public function close(?reason:Dynamic = null):Void {
             if (!shuttingDown) {
@@ -179,6 +143,7 @@ package org.amqp;
                     handleForcedShutdown();
                 }
             }
+			trace("Socket closed");
         }
 
         /**
@@ -210,7 +175,6 @@ package org.amqp;
          * This parses frames from the network and hands them to be processed
          * by a frame handler.
          **/
-        #if flash9
         public function onSocketData(event:ProgressEvent):Void {
             try{ 
                 delegate.readBytes(frameBuffer, frameBuffer.position + frameBuffer.bytesAvailable, delegate.bytesAvailable); 
@@ -244,94 +208,21 @@ package org.amqp;
                 }
             }
         }
-        #elseif neko
-        // neko does not have asynch i/o, instead spawn a thread for reading and writing to the socket
-        // reading and writing to the socket is controlled by the socketLoop
-        public function socketLoop(mt:Thread):Void {
-            // incoming data thread
-            var idt = Thread.create(callback(incomingData, Thread.current()));
-            var msg:SMessage;
-            try{
-                while (true) {
-                    msg = neko.vm.Thread.readMessage(true);
-                    switch(msg) {
-                        case SRpc(s, cmd, fun): s.rpc(cmd, fun);
-                        case SDispatch(s, cmd): s.dispatch(cmd);
-                        case SRegister(s, c, b): s.register(c, b); // consumers register
-                        case SUnregister(s, t): s.unregister(t); // cancel consume with t
-                        case SSetReturn(s, r): s.setReturn(r);
-                        case SClose: close();
-                        case SData: onSocketData(); idt.sendMessage(true);
-                        default:
-                    }
-                }
-            } catch (err:Dynamic) {
-                if(Std.is(err, haxe.io.Eof)) {
-                    //trace("end of stream"); // probably from SClose
-                    mt.sendMessage("close");
-                } else {
-                    //trace(err+" this should be logged and reported!");
-                    throw (haxe.Stack.exceptionStack()+"\n "+err+" this should be logged and reported!");
-                }
-            }
-        }
-
-        // notifies the socket loop of incoming data
-        public function incomingData(ct:Thread):Void {
-            var s = cast(delegate, neko.net.Socket);
-            while(true) {
-                s.waitForRead();
-                ct.sendMessage(SData);
-                Thread.readMessage(true);
-            }
-        }
-
-        public function onSocketData():Void {
-            var frame:Frame = parseFrame(delegate);
         
-            if (frame != null) {
-                    if (frame.type == AMQP.FRAME_HEARTBEAT) {
-                        // just ignore this for now
-                    } else if (frame.channel == 0) {
-                        session0.handleFrame(frame);
-                    } else {
-                        var session:Session = sessionManager.lookup(frame.channel);
-                        if(session != null) 
-                            session.handleFrame(frame);
-                    }
-            } else {
-                handleSocketTimeout();
-            }
-        }
-        #end
-        
-        #if flash9
         function parseFrame(b:ByteArray):Frame {
             var frame:Frame = new Frame();
             return frame.readFrom(b) ? frame : null;
         }
-        #elseif neko
-        function parseFrame(delegate:IODelegate):Frame {
-            var frame:Frame = new Frame();
-            return frame.readFrom(delegate.getInput()) ? frame : null;
-        }
-        #end
 
         public function sendFrame(frame:Frame):Void {
             if (delegate.isConnected()) {
-                #if flash9
                 frame.writeTo(delegate);
                 delegate.flush();
-                #elseif neko
-                frame.writeTo(delegate.getOutput());
-                delegate.getOutput().flush();
-                #end
             } else {
                 throw new Error("Connection main loop not running");
             }
         }
 
-    #if flash9
         public function addSocketEventListener(type:String, listener:Dynamic):Void {
             delegate.addEventListener(type, listener);
         }
@@ -339,8 +230,7 @@ package org.amqp;
         public function removeSocketEventListener(type:String, listener:Dynamic):Void {
             delegate.removeEventListener(type, listener);
         }
-	#end
-
+		
         function maybeSendHeartbeat():Void {}
     }
 
