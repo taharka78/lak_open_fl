@@ -27,6 +27,7 @@ class IsoUnit extends IsoObject
 	private var ymovement:Float = 0;
 	public var unitType:String = "";
 	public var parentNode:Dynamic;
+	public var ptarget:Point;
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -49,9 +50,14 @@ class IsoUnit extends IsoObject
 	 *  @event ajout du listener de l'evènement généré par la classe AStar lorsque l'algorithme est executé.
 	 */
 	public function goTo(targetpt:Point){
-		pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));
-		pEnd = targetpt;
-		Astar.findPath(this);
+		if (!hasPath){
+			ptarget = null;
+			pEnd = targetpt;
+			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));
+			Astar.findPath(this);
+		}else{
+			ptarget = targetpt;
+		}		
 	}
 	/*
 	 * @funcname onStateChange (listener de l'évènement générer par la classe Astar lorsque la recherche est terminée ).
@@ -60,21 +66,22 @@ class IsoUnit extends IsoObject
 		if(nodeTab.length > 0){ 
 			for (i in 0...nodeTab.length){
 				nodeTab[i].g = cost(nodeTab[i].direction);
-				nodeTab[i].h = Astar.heuristic(nodeTab[i].position,pEnd);
+				nodeTab[i].h = Astar.heuristic(nodeTab[i].position, pEnd);
 				nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
 			}
 			ArraySort.sort(nodeTab, GameUtils.sortByF);
+			
 			hasPath = true;
 			lookAtDir(nodeTab[0].direction);
 			currentAction = "walk";
 		}else{ 
-			trace(" NO NODE IN _unit.nodeTab ");
+			trace(" NO NODE IN unit.nodeTab ");
 			hasPath = false;
 		}
 	}
 	function cost(direction:String):Int{
-		var score = 10;
-		if (direction == "N" || direction == "E" || direction == "S" || direction == "W") score = 14;
+		var score = 0;
+		if (direction == "N" || direction == "E" || direction == "S" || direction == "W") score = 24;
 		return score;
 	}
 		
@@ -90,18 +97,19 @@ class IsoUnit extends IsoObject
 	{
 		var distEnd:Float;
 		distEnd = Math.floor(GameUtils.distanceBetweenPt(pEnd, pCurr));
-		if (xmovement < IsoWorld.instance.tileW && ymovement < IsoWorld.instance.tileH){
+		if (xmovement < Config.TILE_WIDTH && ymovement < Config.TILE_HEIGHT){
 			moveAtDir(nodeTab[0].direction);
-			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));
 		}else{
+			
 			xmovement = 0;
 			ymovement = 0;
-			if (distEnd == 0){ 
-				parentNode = null;
+			
+			if (distEnd == 48){ 
 				hasPath = false;
 				currentAction = "stay"; 
-			}
-			else{
+			}else{
+				pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));
+				if (ptarget != null){ pEnd = ptarget; }
 				parentNode = nodeTab[0];
 				Astar.findPath(this); 
 			}
@@ -109,10 +117,10 @@ class IsoUnit extends IsoObject
 	}
 	public function moveAtDir(lookdir:String){
 		
-		if (nodeTab[0].direction == "N"){ 
+		if (nodeTab[0].direction == "N"){
 			y -= speed >>1;
 			ymovement += speed >>1; 
-		}else if (nodeTab[0].direction == "NE"){ 
+		}else if (nodeTab[0].direction == "NE"){
 			x += speed;
 			y -= speed >>1;
 			xmovement += speed;

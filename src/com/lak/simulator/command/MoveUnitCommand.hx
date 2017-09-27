@@ -22,12 +22,9 @@ class MoveUnitCommand
 		var pt:Point = IsoUtils.pxToPos(new Point(posx, posy));				
 		
 		var n:Node = LevelManager.instance.getNodeAt(Std.int(pt.x),Std.int(pt.y));
-		n.index = 1;
-		//trace(n.index);
-		
+		n.index = 1;		
 		n.ndType = "rtees";
 		n.selected = true;
-		//trace(("unitx = "+unit.x+" unity = "+unit.y),n.position);
 		actor.goTo(n.position);
 	}
 }

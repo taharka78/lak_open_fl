@@ -71,6 +71,7 @@ class BuilderState implements IGameState
 			IsoWorld.instance.removeChildFromWorld(building);
 			building = null;
 			placed = false;
+			GameStateController.initial();
 		}
 	}
 	
