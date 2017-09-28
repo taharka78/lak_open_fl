@@ -86,7 +86,6 @@ package org.amqp;
             receiving = false;
             frameBuffer = new ByteArray();
             frameBuffer.position = 0;
-			trace("new");
         }
 
         public function getBaseSession():Session {
@@ -107,16 +106,18 @@ package org.amqp;
 
         public function onSocketConnect(event:Event):Void {
             currentState = CONNECTED;
-			trace("socket connected");
+			trace("socket connected " + event);
+			
             var header = AMQP.generateHeader();
-            delegate.writeBytes(header, 0, header.length);
+            delegate.writeBytes(header,0,header.length);
             delegate.flush();
+			trace(header);
        }
 
 
         public function onSocketClose(event:Event):Void {
             currentState = CLOSED;
-			trace("socket closed");
+			trace("socket closed "+event);
             handleForcedShutdown();
         }
 

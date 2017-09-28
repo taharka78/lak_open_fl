@@ -3,7 +3,7 @@ package org.amqp.fast.utils;
 import haxe.Unserializer;
 import haxe.io.Bytes;
 
-#if flash9
+;if flash9
 import openfl.utils.ByteArray;
 class DataReader {
     var b:ByteArray;
@@ -69,7 +69,7 @@ class DataReader {
         return (byte() == 1);
     }
 }
-#elseif neko
+;elseif neko
 import haxe.io.BytesInput;
 import haxe.io.Bytes;
 class DataReader {
@@ -128,4 +128,4 @@ class DataReader {
         return (byte() == 1);
     }
 }
-#end
+;end

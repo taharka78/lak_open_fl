@@ -17,15 +17,9 @@
  **/
 package org.amqp.util;
 
-    //#if flash9
     import openfl.errors.Error;
     import openfl.utils.IDataOutput;
     import openfl.utils.ByteArray;
-    /*#elseif neko
-    import org.amqp.Error;
-    import haxe.io.BytesOutput;
-    import haxe.io.Output;
-    #end*/
 
     import org.amqp.FrameHelper;
     import org.amqp.LongString;
@@ -33,11 +27,7 @@ package org.amqp.util;
 
     class BinaryGenerator {
 
-        //#if flash9
         var output:IDataOutput;
-        /*#elseif neko
-        var output:Output;
-        #end*/
 
         var needBitFlush:Bool;
         /** The current group of bits */
@@ -45,11 +35,7 @@ package org.amqp.util;
         /** The current position within the group of bits */
         var bitMask:Int;
 
-        //#if flash9
         public function new(output:IDataOutput) {
-        /*#elseif neko
-        public function new(output:Output) {
-        #end*/ 
             this.output = output;
             resetBitAccumulator();
         }
@@ -77,22 +63,18 @@ package org.amqp.util;
             //byte [] bytes = str.getBytes("utf-8");
 
             output.writeByte(str.length);
-            //#if flash9
+            //;if flash9
             output.writeUTFBytes(str);
-            //#elseif neko
+            //;elseif neko
             //output.writeString(str);
-            //#end
+            //;end
         }
 
         /** Public API - encodes a long string argument from a LongString. */
         public function writeLongstr(str:LongString):Void {
             bitflush();
             writeLong(str.length());
-            //#if flash9
             output.writeBytes(str.getBytes());
-            //#elseif neko
-            //output.write(str.getBytes());
-            //#end
         }
 
         /** Public API - encodes a long string argument from a String. */
@@ -100,11 +82,11 @@ package org.amqp.util;
             bitflush();
             //byte [] bytes = str.getBytes("utf-8");
             writeLong(str.length);
-            //#if flash9
+            //;if flash9
             output.writeUTFBytes(str);
-            //#elseif neko
+            //;elseif neko
             //output.writeString(str);
-            //#end
+            //;end
         }
 
         /** Public API - encodes a short integer argument. */
@@ -125,11 +107,11 @@ package org.amqp.util;
 
         /** Public API - encodes a long integer argument. */
         public function writeLonglong(ll:Int):Void {
-            //#if flash9
+            //;if flash9
             throw new Error("No 64 bit integers in Flash");
-            //#elseif neko
+            //;elseif neko
             //throw new Error("No 64 bit integers in Neko");
-            //#end
+            //;end
             //bitflush();
             //output.writeInt(ll);
         }

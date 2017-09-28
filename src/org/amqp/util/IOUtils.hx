@@ -17,7 +17,6 @@
  **/
 package org.amqp.util;
 
-    #if flash9
     import openfl.utils.IDataOutput;
     import openfl.utils.ByteArray;
 
@@ -26,4 +25,3 @@ package org.amqp.util;
             output.writeBytes(input);
         }
     }
-    #end

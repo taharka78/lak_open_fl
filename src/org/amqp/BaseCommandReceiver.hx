@@ -17,11 +17,8 @@
  **/
 package org.amqp;
 
-    //#if flash9
     import openfl.events.EventDispatcher;
-    /*#elseif neko
-    import org.amqp.events.EventDispatcher;
-    #end*/
+
 
     class BaseCommandReceiver implements CommandReceiver {
         var dispatcher:EventDispatcher ;

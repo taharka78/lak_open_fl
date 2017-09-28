@@ -17,11 +17,7 @@
  **/
 package org.amqp.error;
 
-    //#if flash9
     import openfl.events.ErrorEvent;
-    /*#elseif neko
-    import org.amqp.events.Event;
-    #end*/
 
     class ConnectionError extends ErrorEvent {
     	inline public static var CONNECTION_ERROR:String = "connectionError";
@@ -29,10 +25,6 @@ package org.amqp.error;
         
         public function new() {
             message = "Connection failed";
-            #if flash9
             super(CONNECTION_ERROR, false, false, message);
-            #elseif neko
-            super(CONNECTION_ERROR);
-            #end
         }
     }

@@ -17,11 +17,7 @@
  **/
 package org.amqp.error;
 
-    #if neko
-    import org.amqp.Error;
-    #elseif flash9
-    import openfl.Error;
-    #end
+    import openfl.errors.Error;
 
     class IllegalArgumentError extends Error {
         inline static var ID:Int = 668;

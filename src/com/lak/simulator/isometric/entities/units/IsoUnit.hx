@@ -41,7 +41,6 @@ class IsoUnit extends IsoObject
 		unitType = un;
 		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ, un));
 		addChild(spriteSheet);
-		
 		addEventListener(Event.CHANGE, onStateChange);
 	}
 	/*
@@ -55,9 +54,8 @@ class IsoUnit extends IsoObject
 			pEnd = targetpt;
 			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));
 			Astar.findPath(this);
-		}else{
-			ptarget = targetpt;
-		}		
+		}
+		else{ ptarget = targetpt; }
 	}
 	/*
 	 * @funcname onStateChange (listener de l'évènement générer par la classe Astar lorsque la recherche est terminée ).
@@ -81,7 +79,7 @@ class IsoUnit extends IsoObject
 	}
 	function cost(direction:String):Int{
 		var score = 0;
-		if (direction == "N" || direction == "E" || direction == "S" || direction == "W") score = 24;
+		if (direction == "N" || direction == "E" || direction == "S" || direction == "W") score = 14;
 		return score;
 	}
 		

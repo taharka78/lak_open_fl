@@ -24,7 +24,7 @@ class Producer
             params.password = "lak-dev";
             params.vhostpath = "lak-dev-vhost";
             params.serverhost = "localhost";
-
+			params.port = 5552;
             return params;
 	}
 	

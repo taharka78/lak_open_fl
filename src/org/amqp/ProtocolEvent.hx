@@ -17,11 +17,7 @@
  **/
 package org.amqp;
 
-    //#if flash9
     import openfl.events.Event;
-    /*#elseif neko
-    import org.amqp.events.Event;
-    #end*/
 
     class ProtocolEvent extends Event {
         public var command:Command;

@@ -21,7 +21,7 @@ class CreateUnitCommand
 			
 			var unit:IsoUnit = IsoUnitPool.getEntity();
 			unit.init("mali", unitType);
-			unit.scaleX = unit.scaleY = .75;
+			unit.scaleX = unit.scaleY = .5;
 			
 			unit.type = "unit";
 			unit.currentAction = "stay";

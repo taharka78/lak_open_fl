@@ -40,23 +40,9 @@ enum ExchangeType {
     TOPIC;
 }
 
-#if flash9
 typedef ByteArray = openfl.utils.ByteArray;
 typedef Delivery = { method:Deliver, properties:BasicProperties, body:ByteArray }
 
 // put these at the bottom to avoid recursive def issues
 typedef AmqpConnection = org.amqp.fast.openfl.AmqpConnection
 typedef Channel = org.amqp.fast.openfl.Channel
-
-#elseif neko
-
-typedef BytesInput = haxe.io.BytesInput;
-typedef BytesOutput = haxe.io.BytesOutput;
-typedef Bytes = haxe.io.Bytes;
-import haxe.io.BytesInput;
-typedef Delivery = { method:Deliver, properties:BasicProperties, body:BytesInput }
-
-// put these at the bottom to avoid recursive def issues
-typedef AmqpConnection = org.amqp.fast.neko.AmqpConnection
-typedef Channel = org.amqp.fast.neko.Channel
-#end
