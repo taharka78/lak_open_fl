@@ -2,7 +2,7 @@ package;
 
 import com.lak.core.managers.SpritesheetManager;
 import com.lak.core.display.FPS_Mem;
-import com.lak.network.Producer;
+import com.lak.core.player.Player;
 import com.lak.simulator.isometric.entities.units.events.UnitEvent;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.Simulator;
@@ -39,6 +39,11 @@ import com.lak.simulator.gamestate.BuilderState;
 import com.lak.simulator.gamestate.InitialState;
 import ru.stablex.ui.widgets.VBox;
 import com.lak.ui.LAKUI;
+
+// Message serveur
+import com.lak.network.MessageHandler;
+import com.lak.network.MessageIdentifiers;
+import com.lak.network.UnitPositionMsg;
 
 /**
  * ...
@@ -82,8 +87,11 @@ class Main extends Sprite
 		
 		removeEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 		
-		var prdc:Producer = new Producer();
-		prdc.run();
+		MessageHandler.registerNewMessage(MessageIdentifiers.UN_POSITIONS, new UnitPositionMsg());
+		
+		var player:Player;
+		player = new Player();
+		player.connect("127.0.0.1", 8888);
 		
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;

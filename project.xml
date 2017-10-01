@@ -18,6 +18,8 @@
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
 	<haxelib name="spritesheet" />
+	<haxelib name="extension-networking" />
+	
 	<!-- assets -->
 	<icon path="assets/icon.png" />
 	<assets path="assets/mali" rename="mali" />
