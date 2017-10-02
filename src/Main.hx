@@ -1,21 +1,5 @@
 package;
 
-import com.lak.core.managers.SpritesheetManager;
-import com.lak.core.display.FPS_Mem;
-import com.lak.core.player.Player;
-import com.lak.simulator.isometric.entities.units.events.UnitEvent;
-import com.lak.simulator.isometric.entities.units.IsoUnit;
-import com.lak.simulator.Simulator;
-import com.lak.simulator.gamestate.IGameState;
-import com.lak.simulator.gamestate.InitialState;
-import com.lak.simulator.isometric.world.IsoWorld;
-import com.lak.simulator.manager.*;
-import com.lak.simulator.isometric.utils.IsoUtils;
-import com.lak.core.utils.GameUtils;
-import com.lak.controllers.*;
-import com.lak.simulator.renderers.GraphicRenderer;
-
-import haxe.Log.trace;
 
 import openfl.display.BitmapData;
 import openfl.display.Bitmap;
@@ -30,15 +14,33 @@ import openfl.events.MouseEvent;
 import openfl.events.KeyboardEvent;
 
 import spritesheet.AnimatedSprite;
+
 import ru.stablex.ui.UIBuilder;
+import ru.stablex.ui.widgets.VBox;
+
+import com.lak.ui.LAKUI;
+import com.lak.core.managers.SpritesheetManager;
+import com.lak.core.display.FPS_Mem;
+import com.lak.core.player.Player;
+import com.lak.core.utils.GameUtils;
 import com.lak.core.managers.LevelManager;
+
+import com.lak.controllers.*;
+
+import com.lak.simulator.renderers.GraphicRenderer;
+import com.lak.simulator.isometric.entities.units.events.UnitEvent;
+import com.lak.simulator.isometric.entities.units.IsoUnit;
+import com.lak.simulator.Simulator;
+import com.lak.simulator.gamestate.IGameState;
+import com.lak.simulator.gamestate.InitialState;
+import com.lak.simulator.isometric.world.IsoWorld;
+import com.lak.simulator.manager.*;
+import com.lak.simulator.isometric.utils.IsoUtils;
 import com.lak.simulator.command.CreateUnitCommand;
 import com.lak.simulator.command.CreateBuildingCommand;
 import com.lak.simulator.controllers.GameStateController;
 import com.lak.simulator.gamestate.BuilderState;
 import com.lak.simulator.gamestate.InitialState;
-import ru.stablex.ui.widgets.VBox;
-import com.lak.ui.LAKUI;
 
 // Message serveur
 import com.lak.network.MessageHandler;
