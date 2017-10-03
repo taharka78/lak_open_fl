@@ -112,8 +112,8 @@ class Main extends Sprite
 		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
 		
-		CreateUnitCommand.execute("general",192,192);
-		//CreateUnitCommand.execute("cavalier", 384, 192);
+		CreateUnitCommand.execute("general","1",192,192);
+		CreateUnitCommand.execute("cavalier","2",384,192);
 		
 		var temp_pt = IsoUtils.pxToPos(new Point(384, 192));
 		//var n = LevelManager.instance.getNodeAt(Std.int(temp_pt.x),Std.int(temp_pt.y));

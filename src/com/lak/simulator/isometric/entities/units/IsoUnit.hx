@@ -11,7 +11,8 @@ import com.lak.simulator.algorithm.Astar;
 
 import spritesheet.AnimatedSprite;
 import com.lak.simulator.renderers.GraphicRenderer;
-
+import com.lak.core.managers.LevelManager;
+import com.lak.simulator.data.GameData;
 import haxe.ds.ArraySort;
 /**
  * ...
@@ -22,12 +23,16 @@ class IsoUnit extends IsoObject
 	public var nodeTab:Array<Dynamic>;
 	private var pCurr:Point = new Point();
 	private var pEnd:Point = new Point();
-	public var lastNode:String = "";
-	private var xmovement:Float = 0;
-	private var ymovement:Float = 0;
+	private var tempNode:Dynamic;
+	public var lastNode:Dynamic;
+	public var xmovement:Float = 0;
+	public var ymovement:Float = 0;
 	public var unitType:String = "";
 	public var parentNode:Dynamic;
 	public var ptarget:Point;
+	private var tempPt:Point;
+	public var hasPath:Bool = false;
+	public var position:Point = new Point();
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -52,7 +57,9 @@ class IsoUnit extends IsoObject
 		if (!hasPath){
 			ptarget = null;
 			pEnd = targetpt;
-			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));
+			position.x = x;
+			position.y = y;
+			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(position));
 			Astar.findPath(this);
 		}
 		else{ ptarget = targetpt; }
@@ -78,9 +85,12 @@ class IsoUnit extends IsoObject
 		}
 	}
 	function cost(direction:String):Int{
-		var score = 0;
-		if (direction == "N" || direction == "E" || direction == "S" || direction == "W") score = 14;
-		return score;
+		//var score = 0;
+		/*if (direction == "N" 
+			|| direction == "E" 
+			|| direction == "S" 
+			|| direction == "W") score = 0;*/
+		return 0;
 	}
 		
 	/*
@@ -94,7 +104,6 @@ class IsoUnit extends IsoObject
 	public function move():Void
 	{
 		var distEnd:Float;
-		distEnd = Math.floor(GameUtils.distanceBetweenPt(pEnd, pCurr));
 		if (xmovement < Config.TILE_WIDTH && ymovement < Config.TILE_HEIGHT){
 			moveAtDir(nodeTab[0].direction);
 		}else{
@@ -102,16 +111,43 @@ class IsoUnit extends IsoObject
 			xmovement = 0;
 			ymovement = 0;
 			
-			if (distEnd == 48){ 
+			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(position));
+			distEnd = Math.floor(GameUtils.distanceBetweenPt(pEnd, pCurr));
+			
+			if (distEnd == 0){
 				hasPath = false;
 				currentAction = "stay"; 
 			}else{
-				pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(new Point(x, y)));
 				if (ptarget != null){ pEnd = ptarget; }
 				parentNode = nodeTab[0];
+				addUnitToNodeFromPos();
 				Astar.findPath(this); 
 			}
 		}
+	}
+	public function checkLineOfSight(){
+		var los:Int = GameData.instance.unitsDesc[unitType].lineOfSight;
+		var tilesCheckNumber:Int = Std.int(Math.pow(((2 * los) + 1), 2))+1;
+		var nodePos:Point = IsoUtils.pxToPos(pCurr);
+		var nodechecking:Array<Point> = IsoUtils.spiralSearch(nodePos, tilesCheckNumber);
+		var n:Dynamic;
+		var currPt:Point;
+		for (i in 0...nodechecking.length){
+			currPt = nodechecking[i];
+			n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
+			if (n != null && n.unit != null && n.unit != this){
+				n.index = 1;		
+				n.ndType = "rtees";
+				n.selected = true;
+				break;
+			}
+		}
+	}
+	public function addUnitToNodeFromPos():Void{
+		tempPt = IsoUtils.pxToPos(position,true);
+		if (lastNode != null && lastNode.unit == this){ lastNode.unit = null; }
+		tempNode = LevelManager.instance.getNodeAt(Std.int(tempPt.x),Std.int(tempPt.y));
+		if (tempNode != null){ tempNode.unit = this;lastNode = tempNode; }
 	}
 	public function moveAtDir(lookdir:String){
 		
@@ -149,7 +185,8 @@ class IsoUnit extends IsoObject
 			xmovement += speed;
 			ymovement += speed;
 		}
-		
+		position.x = x;
+		position.y = y;
 		lookAtDir(lookdir);
 	}
 	public function lookAtDir(lookdir:String):Void{

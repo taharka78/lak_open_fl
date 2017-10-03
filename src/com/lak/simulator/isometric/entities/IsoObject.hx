@@ -11,7 +11,6 @@ class IsoObject extends Sprite
 {
 	public var type:String = "";
 	public var hasBullet:Bool = false;
-	public var hasPath:Bool = false;
 	public var canAttack:Bool = false;
 	public var isAttack:Bool = false;
 	public var spriteSheet:AnimatedSprite;
@@ -21,7 +20,8 @@ class IsoObject extends Sprite
 	public var angle:Int = 0;
 	public var clone:Bool = false;
 	public var isLive:Bool = true;
-	public var speed:Int = 2;	
+	public var speed:Int = 2;
+	public var ownerID:String;
 	/*
 	 * Constructeur
 	 * Classe qde base de tous les Objets isométriques
@@ -34,7 +34,7 @@ class IsoObject extends Sprite
 		
 	}
 	/*
-	 * Affiche le point de pivot (0,0) de l'isoObject
+	 * Affiche le point de pivot (0,0) de l'IsoObject
 	 * */
 	public function centerPoint(){
 		graphics.beginFill(0x0000ff);

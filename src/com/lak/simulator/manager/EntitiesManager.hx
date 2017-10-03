@@ -5,6 +5,7 @@ import openfl.geom.Rectangle;
 import com.lak.simulator.isometric.world.IsoWorld;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.utils.IsoUtils;
+import com.lak.core.managers.LevelManager;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -14,6 +15,9 @@ class EntitiesManager
 	private var world:IsoWorld;
 	private var pt:Point = new Point();
 	public var screen:Rectangle = new Rectangle();
+	private var un:IsoUnit;
+	private var tempPt:Point;
+	private var nd:Dynamic;
 	/*
 	 * ENTITIESMANAGER __CONSTRUCTOR__ @descClasse qui va gérer toutes les actions à faire sur les isoobject contenu dans le monde iso
 	 * @arg _world @type IsoWorld @desc instance de IsoWorld.
@@ -35,11 +39,12 @@ class EntitiesManager
 			pt.y = obj.y;
 			world.setChildIndex(obj, i);
 			manageVisibility(obj);
-			
 			obj.update(delta);
 			
-			if (Std.is(obj, IsoUnit) && obj.visible == true){ 
-				manageShadow(obj); 	
+			if (Std.is(obj, IsoUnit)){
+				if (obj.visible){ 
+					manageShadow(obj); 
+				}				
 			}
 		}
 	}

@@ -18,13 +18,7 @@ class MoveUnitCommand
 	public static function execute(actor:IsoUnit):Void{
 		var posx = GameUtils.toGridCoord((IsoWorld.instance.mouseX), Config.TILE_WIDTH);
 		var posy = GameUtils.toGridCoord((IsoWorld.instance.mouseY), Config.TILE_HEIGHT);
-				
-		var pt:Point = IsoUtils.pxToPos(new Point(posx, posy));				
-		
-		var n:Node = LevelManager.instance.getNodeAt(Std.int(pt.x),Std.int(pt.y));
-		n.index = 1;		
-		n.ndType = "rtees";
-		n.selected = true;
-		actor.goTo(n.position);
+		var pt:Point = IsoUtils.pxToPos(new Point(posx, posy));						
+		actor.goTo(LevelManager.instance.getNodeAt(Std.int(pt.x),Std.int(pt.y)).position);
 	}
 }

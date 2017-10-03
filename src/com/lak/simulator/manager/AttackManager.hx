@@ -29,26 +29,7 @@ class AttackManager
 		for (i in 0...world.worldObject.length){
 			if (Std.is(world.worldObject[i], IsoUnit)){
 				unit = cast(world.worldObject[i], IsoUnit);
-				checkLineOfSight(unit);
-			}
-		}
-	}
-	private function checkLineOfSight(unit:IsoUnit){
-		var los:Int = GameData.instance.unitsDesc[unit.unitType].lineOfSight;
-		var tilesCheckNumber:Int = Std.int(Math.pow(((2 * los) + 1), 2))+1;
-		var nodePos:Point = IsoUtils.pxToPos(new Point(unit.x, unit.y));
-		var nodechecking:Array<Point> = IsoUtils.spiralSearch(nodePos, tilesCheckNumber);
-		var n:Dynamic;
-		var currPt:Point;
-		for (i in 0...nodechecking.length){
-			currPt = nodechecking[i];
-			n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
-			if (n != null && n.unit != null){
-				
-				/*n.index = 1;		
-				n.ndType = "rtees";
-				n.selected = true;*/
-				break;
+				if(unit.xmovement == 0 && unit.ymovement == 0){ unit.checkLineOfSight(); }
 			}
 		}
 	}

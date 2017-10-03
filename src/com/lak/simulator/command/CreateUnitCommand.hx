@@ -16,7 +16,7 @@ class CreateUnitCommand
 	 * @arg assetsName (Le nom de l'image sans l'extension)
 	 * @arg civ (Le nom de la civilisation par defaut mali)
 	 */
-	public static function execute(unitType:String, posX:Int = 100, posY:Int = 100 ){ 
+	public static function execute(unitType:String,ownerID:String, posX:Int = 96, posY:Int = 96 ){ 
 		if (UnitController.enableToCreate(unitType)){
 			
 			var unit:IsoUnit = IsoUnitPool.getEntity();
@@ -31,10 +31,11 @@ class CreateUnitCommand
 			unit.spriteSheet.x = -Std.int(unit.spriteSheet.width+unit.spriteSheet.bitmap.x)*.7;
 			unit.spriteSheet.y = -Std.int(unit.spriteSheet.height +unit.spriteSheet.bitmap.y) * .85;
 			
-			unit.x = posX;
-			unit.y = posY;
+			unit.x = unit.position.x = posX;
+			unit.y = unit.position.y =posY;
 			
 			IsoWorld.instance.addChildToWorld(unit);
+			unit.addUnitToNodeFromPos();
 		}
 	}
 	
