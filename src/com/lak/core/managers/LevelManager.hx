@@ -3,7 +3,9 @@ import com.lak.simulator.isometric.Config;
 import com.lak.simulator.isometric.world.IsoWorld;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.utils.IsoUtils;
+import com.lak.controllers.MoveController;
 import com.lak.core.utils.GameUtils;
+
 import openfl.events.Event;
 import openfl.geom.Point;
 import openfl.utils.ByteArray;
@@ -16,10 +18,15 @@ class LevelManager
 {
 	public static var instance:LevelManager;
 	public var registeredMap:Map<String,Array<Dynamic>> = new Map<String,Array<Dynamic>>();
-	var tempUnit:IsoUnit; 
+	private var tempUnit:IsoUnit; 
+	private var n:Dynamic;
+	private var temp_pt:Point = new Point();
+	private var nodeTab:Array<Dynamic> = new Array<Dynamic>();
+	private var pt:Point;
 	
 	public function new(){ 
 		instance = this; 
+		
 	}
 	/*
 	 * @funcname get9Nodes @desc fonction qui permet de récupérer les 9 nodes adjacentes à l'unité en function de la partie de la carte sur laquelle il est.
@@ -66,21 +73,12 @@ class LevelManager
 	 * @arg tempMapAr @type Array<Dynamic> @desc tableau contenant la carte chargé par la fonction  @funcname mapPartArray
 	 * @return Void.
 	 */
-	public function getPointAdjacentNodes(_point:Point):Array<Point>{		
-		
-		var temp_pt:Point = new Point();
-		var nodeTab:Array<Point> = new Array<Point>();
-		var pt:Point;
+	public function getPointAdjacentNodes(_point:Point):Array<Dynamic>{		
 		for (i in 0...IsoUtils.spiralWalkStepArray.length){
 			temp_pt = IsoUtils.slideMapTileWalker(_point, IsoUtils.spiralWalkStepArray[i]);
 			var n = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
-			if (n != null){
-				if (n.walkable && n.unit == null){
-					pt = new Point();
-					pt.x = n.position.x;
-					pt.y = n.position.y;
-					nodeTab.push(pt);
-				}
+			if (n != null && n.unit == null && n.walkable != false){
+				nodeTab.push(n);
 			}
 		}		
 		return nodeTab;
@@ -94,11 +92,9 @@ class LevelManager
 		
 		for (i in 0...IsoUtils.spiralWalkStepArray.length){
 			temp_pt = IsoUtils.slideMapTileWalker(pt, IsoUtils.spiralWalkStepArray[i]);			
-			var n:Dynamic = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
+			n = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
 			if (n != null){
-				if (n.walkable != false 
-						&& _unit.parentNode != n 
-							&&  n.unit == null){
+				if (n.walkable != false && _unit.parentNode != n &&  n.unit == null){
 					n.direction = IsoUtils.spiralWalkStepArray[i];
 					_unit.nodeTab.push(n);
 				}

@@ -78,7 +78,9 @@ class Main extends Sprite
 	{
 		super();
 		instance = this;
-		addChild(new FPS_Mem());
+		var fps = new FPS_Mem();
+		fps.x = (stage.stageWidth - fps.width);
+		addChild(fps);
 		
 		gameUI = new LAKUI();
 		GameStateController.initial();
@@ -93,17 +95,17 @@ class Main extends Sprite
 		
 		var player:Player;
 		player = new Player();
-		player.connect("127.0.0.1", 8888);
+		player.connect("127.0.0.1",8888);
 		
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;
 		
 		// initialisation de stablexui
-		simulateur = new Simulator();		
+		simulateur = new Simulator();	
 		
 		// Event's listener
 		stage.scaleMode = StageScaleMode.NO_SCALE;
-		this.addEventListener(Event.ENTER_FRAME, update);
+		stage.addEventListener(Event.ENTER_FRAME, update);
 		stage.addEventListener(Event.RESIZE, onstageResized);
 		stage.addEventListener(MouseEvent.CLICK,onStageClick);
 		stage.addEventListener(MouseEvent.MOUSE_DOWN,onStageMouseDown);
@@ -115,13 +117,9 @@ class Main extends Sprite
 		CreateUnitCommand.execute("general","1",192,192);
 		CreateUnitCommand.execute("cavalier","2",384,192);
 		
-		var temp_pt = IsoUtils.pxToPos(new Point(384, 192));
+		//var temp_pt = IsoUtils.pxToPos(new Point(384, 192));
 		//var n = LevelManager.instance.getNodeAt(Std.int(temp_pt.x),Std.int(temp_pt.y));
-		//n.unit = "cavalier";
-		
 		//CreateBuildingCommand.execute("caserne", new Point(192, 192));
-		
-		
 	}
 	
 	//--------------------------------------------------------------------------

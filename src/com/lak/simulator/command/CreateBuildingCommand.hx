@@ -12,13 +12,19 @@ import com.lak.simulator.isometric.utils.IsoUtils;
  */
 class CreateBuildingCommand 
 {
+	private static var bpos:Point = new Point();
+	private static var b:IsoBuilding;
+	
 	public static function execute(type:String, pt:Point){
 		if (BuildingController.enableToPlace(pt,type)){
-			var b:IsoBuilding = IsoBuildingPool.getEntity();
+			b = IsoBuildingPool.getEntity();
 			b.init("mali", type);
-			var bpos:Point = IsoUtils.posToPx(new Point(pt.x, pt.y));	
+			
+			bpos = IsoUtils.posToPx(new Point(pt.x, pt.y));	
+			
 			b.x = bpos.x;
 			b.y = bpos.y;
+			
 			b.spriteSheet.showBehavior("construct");
 			IsoWorld.instance.addChildToWorld(b);
 		}

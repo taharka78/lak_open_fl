@@ -13,7 +13,9 @@ import spritesheet.AnimatedSprite;
 import com.lak.simulator.renderers.GraphicRenderer;
 import com.lak.core.managers.LevelManager;
 import com.lak.simulator.data.GameData;
+
 import haxe.ds.ArraySort;
+
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -21,18 +23,28 @@ import haxe.ds.ArraySort;
 class IsoUnit extends IsoObject
 {
 	public var nodeTab:Array<Dynamic>;
-	private var pCurr:Point = new Point();
+	public var pCurr:Point = new Point();
 	private var pEnd:Point = new Point();
 	private var tempNode:Dynamic;
 	public var lastNode:Dynamic;
-	public var xmovement:Float = 0;
-	public var ymovement:Float = 0;
+	public var xmovement:Int = 0;
+	public var ymovement:Int = 0;
 	public var unitType:String = "";
 	public var parentNode:Dynamic;
 	public var ptarget:Point;
 	private var tempPt:Point;
 	public var hasPath:Bool = false;
+	public var target:IsoUnit;
 	public var position:Point = new Point();
+	private var targetNodeTab:Array<Dynamic> = new Array<Dynamic>();
+	private var distEnd:Float;
+	private var los:Int;
+	private	var tilesCheckNumber:Int;
+	private	var nodePos:Point;
+	private	var n:Dynamic;
+	private	var currPt:Point;
+	private	var nodechecking:Array<Point>;
+	private var distToTarget:Int = 1000;
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -47,6 +59,8 @@ class IsoUnit extends IsoObject
 		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ, un));
 		addChild(spriteSheet);
 		addEventListener(Event.CHANGE, onStateChange);
+		los = GameData.instance.unitsDesc[unitType].lineOfSight;
+		tilesCheckNumber = Std.int(Math.pow(((2 * los) + 1), 2))+1;
 	}
 	/*
 	 *  @funcname goTo (definir le point de destination de l'unité pour faire une recherche AStar)
@@ -61,8 +75,9 @@ class IsoUnit extends IsoObject
 			position.y = y;
 			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(position));
 			Astar.findPath(this);
+		}else{
+			ptarget = targetpt; 
 		}
-		else{ ptarget = targetpt; }
 	}
 	/*
 	 * @funcname onStateChange (listener de l'évènement générer par la classe Astar lorsque la recherche est terminée ).
@@ -75,7 +90,6 @@ class IsoUnit extends IsoObject
 				nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
 			}
 			ArraySort.sort(nodeTab, GameUtils.sortByF);
-			
 			hasPath = true;
 			lookAtDir(nodeTab[0].direction);
 			currentAction = "walk";
@@ -103,7 +117,6 @@ class IsoUnit extends IsoObject
 	}
 	public function move():Void
 	{
-		var distEnd:Float;
 		if (xmovement < Config.TILE_WIDTH && ymovement < Config.TILE_HEIGHT){
 			moveAtDir(nodeTab[0].direction);
 		}else{
@@ -114,32 +127,42 @@ class IsoUnit extends IsoObject
 			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(position));
 			distEnd = Math.floor(GameUtils.distanceBetweenPt(pEnd, pCurr));
 			
+			
+			addUnitToNodeFromPos();
+			
 			if (distEnd == 0){
 				hasPath = false;
-				currentAction = "stay"; 
+				currentAction = "stay";
 			}else{
 				if (ptarget != null){ pEnd = ptarget; }
 				parentNode = nodeTab[0];
-				addUnitToNodeFromPos();
 				Astar.findPath(this); 
-			}
+			}			
 		}
 	}
 	public function checkLineOfSight(){
-		var los:Int = GameData.instance.unitsDesc[unitType].lineOfSight;
-		var tilesCheckNumber:Int = Std.int(Math.pow(((2 * los) + 1), 2))+1;
-		var nodePos:Point = IsoUtils.pxToPos(pCurr);
-		var nodechecking:Array<Point> = IsoUtils.spiralSearch(nodePos, tilesCheckNumber);
-		var n:Dynamic;
-		var currPt:Point;
+		
+		nodePos = IsoUtils.pxToPos(pCurr);
+		nodechecking = IsoUtils.spiralSearch(nodePos, tilesCheckNumber);
+		
 		for (i in 0...nodechecking.length){
 			currPt = nodechecking[i];
 			n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
-			if (n != null && n.unit != null && n.unit != this){
-				n.index = 1;		
-				n.ndType = "rtees";
-				n.selected = true;
-				break;
+			if(n != null && n.unit != null && n.unit != this && n.unit.ownerID != ownerID){
+				if (target == null && n.unit != target){ target = n.unit; }
+			}
+			if (Std.is(target, IsoUnit) && target.xmovement == 0 && target.ymovement == 0){
+				distToTarget = Math.floor(GameUtils.distanceBetweenPt(target.pCurr, pCurr) / Config.TILE_WIDTH);
+				if (distToTarget == 0){
+					hasPath = false;
+					currentAction = "attack";
+				}else{
+					if (distToTarget > los){ target = null; }
+					else{
+						targetNodeTab = LevelManager.instance.getPointAdjacentNodes(IsoUtils.pxToPos(target.pCurr));
+						if (targetNodeTab.length > 0 ){ goTo(targetNodeTab[0].position); }
+					}
+				}
 			}
 		}
 	}
@@ -151,42 +174,18 @@ class IsoUnit extends IsoObject
 	}
 	public function moveAtDir(lookdir:String){
 		
-		if (nodeTab[0].direction == "N"){
-			y -= speed >>1;
-			ymovement += speed >>1; 
-		}else if (nodeTab[0].direction == "NE"){
-			x += speed;
-			y -= speed >>1;
-			xmovement += speed;
-			ymovement += speed >>1; 
-		}else if (nodeTab[0].direction == "E"){ 
-			x += speed; 
-			xmovement += speed;
-		}else if (nodeTab[0].direction == "SE"){ 
-			x += speed;
-			y += speed >>1; 
-			xmovement += speed;
-			ymovement += speed >>1;
-			
-		}else if (nodeTab[0].direction == "S"){
-			y += speed >>1; 
-			ymovement += speed >>1;
-		}else if (nodeTab[0].direction == "SW"){ 
-			x -= speed;
-			y += speed >>1;
-			xmovement += speed;
-			ymovement += speed;
-		}else if (nodeTab[0].direction == "W"){ 
-			x -= speed; 
-			xmovement += speed;
-		}else if (nodeTab[0].direction == "NW"){
-			x -= speed;
-			y -= speed >>1; 
-			xmovement += speed;
-			ymovement += speed;
-		}
+		if (nodeTab[0].direction == "N"){ y -= speed >> 1; ymovement += speed >> 1; }
+		else if (nodeTab[0].direction == "NE"){ x += speed; y -= speed >> 1; xmovement += speed; ymovement += speed >> 1; }
+		else if (nodeTab[0].direction == "E"){ x += speed; xmovement += speed; }
+		else if (nodeTab[0].direction == "SE"){ x += speed; y += speed >> 1; xmovement += speed; ymovement += speed >> 1; }
+		else if (nodeTab[0].direction == "S"){ y += speed >> 1; ymovement += speed >> 1; }
+		else if (nodeTab[0].direction == "SW"){ x -= speed; y += speed >> 1; xmovement += speed; ymovement += speed; }
+		else if (nodeTab[0].direction == "W"){ x -= speed; xmovement += speed; }
+		else if (nodeTab[0].direction == "NW"){ x -= speed;y -= speed >>1;xmovement += speed;ymovement += speed; }
+		
 		position.x = x;
 		position.y = y;
+		
 		lookAtDir(lookdir);
 	}
 	public function lookAtDir(lookdir:String):Void{

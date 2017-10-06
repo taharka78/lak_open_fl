@@ -6,6 +6,7 @@ import com.lak.simulator.isometric.entities.IsoObject;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
 import com.lak.simulator.isometric.utils.IsoUtils;
 import com.lak.simulator.data.GameData;
+import com.lak.controllers.MoveController;
 import openfl.geom.Point;
 /**
  * ...

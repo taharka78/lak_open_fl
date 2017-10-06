@@ -62,6 +62,11 @@ class IsoUtils
 		}
 		return pointsArray;
 	}
+	public static function debugTile(n:Dynamic):Void{
+		n.index = 1;		
+		n.ndType = "rtees";
+		n.selected = true;
+	}
 	/*
 	 * @funcname slideMapTileWalker @desc en fonction du point de départ redefinir un point à une position cardinale donnée
 	 * @arg ptStart @type Point @desc point de départ

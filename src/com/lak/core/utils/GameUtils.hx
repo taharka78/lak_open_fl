@@ -64,6 +64,11 @@ class GameUtils
 		if (a.f > b.f){ return 1; }
 		return 0;
 	}
+	public static function sortByDis(a:Dynamic,b:Dynamic):Int{
+		if (a.dis < b.dis){ return -1; }
+		if (a.dis > b.dis){ return 1; }
+		return 0;
+	}
 	/*
 	 * @funcname random @desc valeur aléatoire entre deux valeur
 	 * @arg min @type Int @desc valeur minimale souhaitée
