@@ -9,7 +9,7 @@ import com.lak.core.utils.GameUtils;
 import openfl.events.Event;
 import openfl.geom.Point;
 import openfl.utils.ByteArray;
-
+import haxe.ds.ArraySort;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -67,6 +67,18 @@ class LevelManager
 		}
 		return null;
 	}
+	public function closestNodeFromPoint(_point:Point, pc:Point):Dynamic{
+		var tempn:Dynamic=null;
+		for (i in 0...IsoUtils.spiralWalkStepArray.length){
+			temp_pt = IsoUtils.slideMapTileWalker(_point, IsoUtils.spiralWalkStepArray[i]);
+			var n = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
+			if (n != null && n.unit == null && n.walkable != false){
+				n.d = (Math.sqrt(Math.pow((pc.x - n.position.x), 2) + Math.pow((pc.y - n.position.y), 2)));
+				if (tempn == null || n.d < tempn.d){ tempn = n; }
+			}
+		}
+		return tempn;
+	}
 	/*
 	 * @funcname getUnitAdjacentNodes @desc function qui va chercher les 9 nodes adjacente en fonction de la position de l'unité spécifiée.
 	 * @arg _unit @type IsoUnit @desc unité à partir de laquelle on va chercher les 9 nodes adjacentes à sa position initiale.
@@ -83,7 +95,6 @@ class LevelManager
 		}		
 		return nodeTab;
 	}
-	//private function getUnitAdjacentNodes(_unit:IsoUnit,tempMapAr:Array<Dynamic>):Void{		
 	private function getUnitAdjacentNodes(_unit:IsoUnit, partName:String):Void{		
 		
 		var pt:Point = IsoUtils.pxToPos(new Point(_unit.x,_unit.y));
@@ -103,5 +114,4 @@ class LevelManager
 		}
 		_unit.dispatchEvent(new Event(Event.CHANGE));
 	}
-	
 }

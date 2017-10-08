@@ -50,7 +50,7 @@ class CreateUnitCommand
 			}
 			
 			IsoWorld.instance.addChildToWorld(unit);
-			unit.addUnitToNodeFromPos();
+			unit.addUnitToNodeFromPos(n);
 		}
 	}
 	

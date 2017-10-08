@@ -10,6 +10,14 @@ import com.lak.simulator.isometric.utils.IsoUtils;
  */
 class GameUtils
 {
+	public static function getPositionAngle(posA:Point,posB:Point):Float
+	{
+		var dx:Float = posA.x - posB.x;
+		var dy:Float = posA.y - posB.y;
+		var angle:Float = (Math.atan2(dy,dx)*(180/Math.PI));
+		if(angle < 0){ angle = angle + 360; }
+		return angle;
+	}		
 	/**
 	 * 
 	 * @param	pt- The point to test against

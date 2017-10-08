@@ -13,7 +13,8 @@ import spritesheet.AnimatedSprite;
 import com.lak.simulator.renderers.GraphicRenderer;
 import com.lak.core.managers.LevelManager;
 import com.lak.simulator.data.GameData;
-
+import motion.Actuate;
+import motion.easing.Linear;
 import haxe.ds.ArraySort;
 
 /**
@@ -22,9 +23,9 @@ import haxe.ds.ArraySort;
  */
 class IsoUnit extends IsoObject
 {
-	public var nodeTab:Array<Dynamic>;
+	public var nodeTab:Array<Dynamic> = new Array<Dynamic>();
 	public var pCurr:Point = new Point();
-	private var pEnd:Point = new Point();
+	public var pEnd:Point = new Point();
 	private var tempNode:Dynamic;
 	public var lastNode:Dynamic;
 	public var xmovement:Int = 0;
@@ -93,18 +94,23 @@ class IsoUnit extends IsoObject
 			hasPath = true;
 			lookAtDir(nodeTab[0].direction);
 			currentAction = "walk";
+			Actuate.tween(this,speed, {x:nodeTab[0].position.x, y:nodeTab[0].position.y}).ease(Linear.easeNone).onComplete(displacement);
 		}else{ 
 			trace(" NO NODE IN unit.nodeTab ");
 			hasPath = false;
 		}
 	}
-	function cost(direction:String):Int{
-		//var score = 0;
-		/*if (direction == "N" 
-			|| direction == "E" 
-			|| direction == "S" 
-			|| direction == "W") score = 0;*/
-		return 0;
+	function cost(direction:String):Float{
+		var score = 0;
+		/*if (direction == "N" ) score =  ;
+		else if (direction == "NE") score = 48 ;
+		else if (direction == "E")  score = 96
+		else if (direction == "SE")  score = 144 ;
+		else if (direction == "S")  score = 96
+		else if (direction == "SW") score = 144;
+		else if (direction == "W") score = -96;
+		else if (direction == "NW") score = 144;*/
+		return score;
 	}
 		
 	/*
@@ -112,81 +118,70 @@ class IsoUnit extends IsoObject
 	 */
 	override public function update(delta:Int){
 		if(spriteSheet.currentBehavior.name != currentAction + "_" + phase){ this.spriteSheet.showBehavior(currentAction + "_" + phase); }
-		if (hasPath) move();
 		spriteSheet.update(delta);
 	}
-	public function move():Void
-	{
-		if (xmovement < Config.TILE_WIDTH && ymovement < Config.TILE_HEIGHT){
-			moveAtDir(nodeTab[0].direction);
+	private function displacement(){
+		
+		pCurr = nodeTab[0].position;
+		addUnitToNodeFromPos(nodeTab[0]);
+		if (pCurr == pEnd){
+			hasPath = false;
+			currentAction = "stay";
 		}else{
-			
-			xmovement = 0;
-			ymovement = 0;
-			
-			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(position));
-			distEnd = Math.floor(GameUtils.distanceBetweenPt(pEnd, pCurr));
-			
-			
-			addUnitToNodeFromPos();
-			
-			if (distEnd == 0){
-				hasPath = false;
-				currentAction = "stay";
-			}else{
-				if (ptarget != null){ pEnd = ptarget; }
-				parentNode = nodeTab[0];
-				Astar.findPath(this); 
-			}			
+			if (ptarget != null){ pEnd = ptarget; }
+			parentNode = nodeTab[0];
+			checkLineOfSight();
+			Astar.findPath(this); 
 		}
 	}
 	public function checkLineOfSight(){
-		
-		nodePos = IsoUtils.pxToPos(pCurr);
-		nodechecking = IsoUtils.spiralSearch(nodePos, tilesCheckNumber);
-		
-		for (i in 0...nodechecking.length){
-			currPt = nodechecking[i];
-			n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
-			if(n != null && n.unit != null && n.unit != this && n.unit.ownerID != ownerID){
-				if (target == null && n.unit != target){ target = n.unit; }
-			}
-			if (Std.is(target, IsoUnit) && target.xmovement == 0 && target.ymovement == 0){
-				distToTarget = Math.floor(GameUtils.distanceBetweenPt(target.pCurr, pCurr) / Config.TILE_WIDTH);
-				if (distToTarget == 0){
-					hasPath = false;
-					currentAction = "attack";
-				}else{
-					if (distToTarget > los){ target = null; }
-					else{
-						targetNodeTab = LevelManager.instance.getPointAdjacentNodes(IsoUtils.pxToPos(target.pCurr));
-						if (targetNodeTab.length > 0 ){ goTo(targetNodeTab[0].position); }
+		if (!hasPath){
+			if (target == null){
+				nodechecking = IsoUtils.spiralSearch(IsoUtils.pxToPos(pCurr), tilesCheckNumber);
+				for (i in 0...nodechecking.length){
+					currPt = nodechecking[i];
+					n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
+					if(n != null && n.unit != null && n.unit != this && n.unit.ownerID != ownerID){ target = n.unit; }
+				}
+			}else{
+				if (!target.hasPath){
+					var dx:Int = Math.floor(GameUtils.dx(target.pCurr, pCurr) / Config.TILE_WIDTH);
+					var dy:Int = Math.floor(GameUtils.dy(target.pCurr, pCurr) / Config.TILE_HEIGHT);
+					if (dx == 0 && dy == 0){
+						lookAtFromAngle(GameUtils.getPositionAngle(target.pCurr,pCurr));
+						currentAction = "attack";
+					}else{
+						if (dx > los || dy > los ){ 
+							target = null; 
+						}else{
+							var nd:Dynamic = LevelManager.instance.closestNodeFromPoint(IsoUtils.pxToPos(target.pCurr),pCurr);
+							if (nd != null){ goTo(nd.position); }
+						}
 					}
+				}else{
+					currentAction = "stay";
 				}
 			}
 		}
 	}
-	public function addUnitToNodeFromPos():Void{
-		tempPt = IsoUtils.pxToPos(position,true);
-		if (lastNode != null && lastNode.unit == this){ lastNode.unit = null; }
-		tempNode = LevelManager.instance.getNodeAt(Std.int(tempPt.x),Std.int(tempPt.y));
-		if (tempNode != null){ tempNode.unit = this;lastNode = tempNode; }
+	public function addUnitToNodeFromPos(n:Dynamic):Void{
+		if (lastNode != null){ lastNode.unit = null; }
+		n.unit = this;
+		lastNode = n; 
 	}
-	public function moveAtDir(lookdir:String){
-		
-		if (nodeTab[0].direction == "N"){ y -= speed >> 1; ymovement += speed >> 1; }
-		else if (nodeTab[0].direction == "NE"){ x += speed; y -= speed >> 1; xmovement += speed; ymovement += speed >> 1; }
-		else if (nodeTab[0].direction == "E"){ x += speed; xmovement += speed; }
-		else if (nodeTab[0].direction == "SE"){ x += speed; y += speed >> 1; xmovement += speed; ymovement += speed >> 1; }
-		else if (nodeTab[0].direction == "S"){ y += speed >> 1; ymovement += speed >> 1; }
-		else if (nodeTab[0].direction == "SW"){ x -= speed; y += speed >> 1; xmovement += speed; ymovement += speed; }
-		else if (nodeTab[0].direction == "W"){ x -= speed; xmovement += speed; }
-		else if (nodeTab[0].direction == "NW"){ x -= speed;y -= speed >>1;xmovement += speed;ymovement += speed; }
-		
-		position.x = x;
-		position.y = y;
-		
-		lookAtDir(lookdir);
+	public function lookAtFromAngle(_angle:Float){
+		if (_angle < 0){ _angle =_angle + 360; }
+		if(angle != _angle){
+			angle = _angle;
+			if (angle > 240 && angle < 300){ phase = "U";scaleX = scale; }
+			if (angle > 300 && angle < 340){ phase = "UL";scaleX = -scale; }
+			if ((angle >= 0 && angle < 20) || (angle > 340 && angle <= 360)){ phase = "L";scaleX = -scale; }
+			if (angle > 20 && angle  < 60){ phase = "DL";scaleX = -scale; }
+			if (angle > 60 && angle  < 120){ phase = "D";scaleX = scale; }
+			if (angle > 120 && angle < 160){ phase = "DL";scaleX = scale; }
+			if (angle > 160 && angle < 200){ phase = "L";scaleX = scale; }
+			if (angle > 200 && angle < 240){ phase = "UL";scaleX = scale; }
+		}
 	}
 	public function lookAtDir(lookdir:String):Void{
 		if (lookdir == "N"){ phase = "U";scaleX = scale; }

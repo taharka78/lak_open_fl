@@ -50,7 +50,7 @@ class GameService
 				},
 				"general" => {
 					types : ["melee", "mounted"],
-					lineOfSight : 2,
+					lineOfSight : 3,
 					mountType : "horse"
 				}
 			];
@@ -81,25 +81,25 @@ class GameService
 	public static function getMountType():Map<String,Dynamic>{
 		return [
 				"horse" => {
-					speed : 3,
+					speed : .5,
 					defense : 2,
 					attack : 0,
 					stamina : 100
 				},
 				"donkey" => {
-					speed : 3,
+					speed : .5,
 					defense : 2,
 					attack : 0,
 					stamina : 100
 				},
 				"camel" => {
-					speed : 3,
+					speed : .5,
 					defense : 2,
 					attack : 0,
 					stamina : 100
 					},
 				"elephant" => {
-					speed : 3,
+					speed : .5,
 					defense : 2,
 					attack : 0,
 					stamina : 100

@@ -17,10 +17,10 @@ class IsoObject extends Sprite
 	public var scale:Float = 1;
 	public var currentAction:String="";
 	public var phase:String = "";
-	public var angle:Int = 0;
+	public var angle:Float = 0;
 	public var clone:Bool = false;
 	public var isLive:Bool = true;
-	public var speed:Int = 2;
+	public var speed:Float = .5;
 	public var ownerID:String;
 	/*
 	 * Constructeur
