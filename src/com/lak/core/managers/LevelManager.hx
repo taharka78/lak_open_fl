@@ -60,13 +60,13 @@ class LevelManager
 	public function getNodeAt(line:Int, col:Int):Dynamic{
 		var lineIndex:Int = Std.int(Math.floor(line/IsoWorld.instance.PART_NUM_TILE_W));
 		var colIndex:Int = Std.int(Math.floor(col/IsoWorld.instance.PART_NUM_TILE_H));
-		//trace("part_" + lineIndex + "-" + colIndex + ".txt");
 		if (lineIndex >= 0 && colIndex >= 0){
 			var tempLevel:Array<Dynamic> = mapPartArray("part_" + lineIndex + "-" + colIndex + ".txt");
 			return tempLevel[line%100][col%100];
 		}
 		return null;
 	}
+	
 	public function closestNodeFromPoint(_point:Point, pc:Point):Dynamic{
 		var tempn:Dynamic=null;
 		for (i in 0...IsoUtils.spiralWalkStepArray.length){
@@ -79,6 +79,7 @@ class LevelManager
 		}
 		return tempn;
 	}
+	
 	public function facingTo(me:IsoUnit,target:IsoUnit):String{
 		var facing:String="";
 		for (i in 0...IsoUtils.spiralWalkStepArray.length){
@@ -116,7 +117,10 @@ class LevelManager
 			temp_pt = IsoUtils.slideMapTileWalker(pt, IsoUtils.spiralWalkStepArray[i]);			
 			n = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
 			if (n != null){
-				if (n.walkable != false && _unit.parentNode != n &&  n.unit == null){
+				//trace(" parent node : " + _unit.parentNode + " --- node : " + n);
+				if (n.walkable != false 
+						&& _unit.parentNode.id != n.id
+						&&  n.unit == null){
 					n.direction = IsoUtils.spiralWalkStepArray[i];
 					_unit.nodeTab.push(n);
 				}

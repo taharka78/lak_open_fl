@@ -42,6 +42,7 @@ class CreateUnitCommand
 			if (n != null){ 
 				n.unit = unit;
 				unit.pCurr = n.position;
+				unit.parentNode = n;
 				//IsoUtils.debugTile(n);
 			}
 			else{

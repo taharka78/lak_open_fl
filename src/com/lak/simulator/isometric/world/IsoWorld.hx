@@ -122,17 +122,11 @@ class IsoWorld extends Sprite
         NB_TILE_W = Math.floor(VIEW_WIDTH/tileW)+2;
         NB_TILE_H = Math.floor(VIEW_HEIGHT/Config.OFFSETY)+2;
 		
-		/*trace("NB_TILE_H  = " + NB_TILE_H+" WIDTH "+VIEW_WIDTH);
-        trace("NB_TILE_W = " + NB_TILE_W+" HEIGHT "+VIEW_HEIGHT);
-        trace("setup map data ");*/
-		
 		setupMapData(curentLevel,1,1,true);
 		if (_first == false){ stage.removeChild(floor); }
 		groundCanvas = new BitmapData((VIEW_WIDTH + tileW), (VIEW_HEIGHT + tileH));
 		
 		floor = new Bitmap(groundCanvas);
-		//floor.x = -Config.OFFSETX;
-		//floor.y = -Config.OFFSETY;
 		stage.addChild(floor);
 		stage.setChildIndex(floor, 0);
 	}
@@ -213,7 +207,7 @@ class IsoWorld extends Sprite
 			while(wColViewCpt < NB_TILE_H)
 			{
 			  if (tilesArray[wRowCpt] == null ){ tilesArray[wRowCpt] = new Array<Node>(); }
-			  tilesArray[wRowCpt].push(new Node("none",IsoUtils.posToPx(new Point(wColViewCpt, wRowCpt)),-1));
+			  tilesArray[wRowCpt].push(new Node("none",IsoUtils.posToPx(new Point(wRowCpt,wColViewCpt)),-1,(wRowCpt+"-"+wColViewCpt)));
 			  wColViewCpt++;
 			}
 			wRowCpt++;
@@ -255,9 +249,10 @@ class IsoWorld extends Sprite
 					nW = LevelManager.instance.getNodeAt(Std.int(lineViewCpt + LIGNE_VISIBLE_OFFSET),Std.int(colViewCpt + COLONNE_VISIBLE_OFFSET));
 					n = tilesArray[lineViewCpt][colViewCpt];
 					if (nW != null && n != null && nW.ndType != n.ndType){
+						
 						n.position  = nW.position;
 						n.ndType = nW.ndType;
-						
+						nW.id = n.id;
 						mtrx.tx = pos.x-Config.OFFSETX;
 						mtrx.ty = pos.y-Config.OFFSETY;
 						
@@ -272,9 +267,7 @@ class IsoWorld extends Sprite
 							/*mtrx.tx = nW.position.x;
 							mtrx.ty = nW.position.y;							
 							groundCanvas.draw(centerpt, mtrx);*/
-							
 						}
-						
 					}
 				}
 				colViewCpt++;
