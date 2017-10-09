@@ -79,6 +79,17 @@ class LevelManager
 		}
 		return tempn;
 	}
+	public function facingTo(me:IsoUnit,target:IsoUnit):String{
+		var facing:String="";
+		for (i in 0...IsoUtils.spiralWalkStepArray.length){
+			temp_pt = IsoUtils.slideMapTileWalker(IsoUtils.pxToPos(me.pCurr), IsoUtils.spiralWalkStepArray[i]);
+			var n = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
+			if (n != null && n.unit != null && n.unit == target){
+				return IsoUtils.spiralWalkStepArray[i];
+			}
+		}
+		return null;
+	}
 	/*
 	 * @funcname getUnitAdjacentNodes @desc function qui va chercher les 9 nodes adjacente en fonction de la position de l'unité spécifiée.
 	 * @arg _unit @type IsoUnit @desc unité à partir de laquelle on va chercher les 9 nodes adjacentes à sa position initiale.

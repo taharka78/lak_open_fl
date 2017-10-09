@@ -148,7 +148,9 @@ class IsoUnit extends IsoObject
 					var dx:Int = Math.floor(GameUtils.dx(target.pCurr, pCurr) / Config.TILE_WIDTH);
 					var dy:Int = Math.floor(GameUtils.dy(target.pCurr, pCurr) / Config.TILE_HEIGHT);
 					if (dx == 0 && dy == 0){
-						lookAtFromAngle(GameUtils.getPositionAngle(target.pCurr,pCurr));
+						//lookAtFromAngle(GameUtils.getPositionAngle(target.pCurr,pCurr));
+						//trace(LevelManager.instance.facingTo(target));
+						lookAtDir(LevelManager.instance.facingTo(this,target));
 						currentAction = "attack";
 					}else{
 						if (dx > los || dy > los ){ 
@@ -168,20 +170,6 @@ class IsoUnit extends IsoObject
 		if (lastNode != null){ lastNode.unit = null; }
 		n.unit = this;
 		lastNode = n; 
-	}
-	public function lookAtFromAngle(_angle:Float){
-		if (_angle < 0){ _angle =_angle + 360; }
-		if(angle != _angle){
-			angle = _angle;
-			if (angle > 240 && angle < 300){ phase = "U";scaleX = scale; }
-			if (angle > 300 && angle < 340){ phase = "UL";scaleX = -scale; }
-			if ((angle >= 0 && angle < 20) || (angle > 340 && angle <= 360)){ phase = "L";scaleX = -scale; }
-			if (angle > 20 && angle  < 60){ phase = "DL";scaleX = -scale; }
-			if (angle > 60 && angle  < 120){ phase = "D";scaleX = scale; }
-			if (angle > 120 && angle < 160){ phase = "DL";scaleX = scale; }
-			if (angle > 160 && angle < 200){ phase = "L";scaleX = scale; }
-			if (angle > 200 && angle < 240){ phase = "UL";scaleX = scale; }
-		}
 	}
 	public function lookAtDir(lookdir:String):Void{
 		if (lookdir == "N"){ phase = "U";scaleX = scale; }
