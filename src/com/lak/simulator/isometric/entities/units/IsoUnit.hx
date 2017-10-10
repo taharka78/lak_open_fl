@@ -16,7 +16,7 @@ import com.lak.simulator.data.GameData;
 import motion.Actuate;
 import motion.easing.Linear;
 import haxe.ds.ArraySort;
-
+import com.lak.simulator.isometric.entities.units.ai.AttackAI;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -32,6 +32,7 @@ class IsoUnit extends IsoObject
 	public var ymovement:Int = 0;
 	public var unitType:String = "";
 	public var parentNode:Dynamic;
+	public var parentNodeID:String;
 	public var ptarget:Point;
 	private var tempPt:Point;
 	public var hasPath:Bool = false;
@@ -39,13 +40,13 @@ class IsoUnit extends IsoObject
 	public var position:Point = new Point();
 	private var targetNodeTab:Array<Dynamic> = new Array<Dynamic>();
 	private var distEnd:Float;
-	private var los:Int;
-	private	var tilesCheckNumber:Int;
+	public var los:Int;
+	public	var tilesCheckNumber:Int;
 	private	var nodePos:Point;
 	private	var n:Dynamic;
 	private	var currPt:Point;
 	private	var nodechecking:Array<Point>;
-	private var distToTarget:Int = 1000;
+	private var lastDirection:String = "";
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -84,11 +85,12 @@ class IsoUnit extends IsoObject
 	 * @funcname onStateChange (listener de l'évènement générer par la classe Astar lorsque la recherche est terminée ).
 	 */
 	function onStateChange(e:Event):Void{
-		if(nodeTab.length > 0){ 
+		if (nodeTab.length > 0){ 
 			for (i in 0...nodeTab.length){
 				nodeTab[i].g = cost(nodeTab[i].direction);
 				nodeTab[i].h = Astar.heuristic(nodeTab[i].position, pEnd);
 				nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
+				//trace(nodeTab[i].direction, nodeTab[i].f);
 			}
 			ArraySort.sort(nodeTab, GameUtils.sortByF);
 			hasPath = true;
@@ -102,14 +104,12 @@ class IsoUnit extends IsoObject
 	}
 	function cost(direction:String):Float{
 		var score = 0;
-		/*if (direction == "N" ) score =  ;
-		else if (direction == "NE") score = 48 ;
-		else if (direction == "E")  score = 96
-		else if (direction == "SE")  score = 144 ;
-		else if (direction == "S")  score = 96
-		else if (direction == "SW") score = 144;
-		else if (direction == "W") score = -96;
-		else if (direction == "NW") score = 144;*/
+		if (((lastDirection == "N" && direction == "S") || (lastDirection == "S" && direction == "N"))
+				|| ((lastDirection == "NE" && direction == "SW") || (lastDirection == "SW" && direction == "NE"))
+				|| ((lastDirection == "NE" && direction == "W") || (lastDirection == "W" && direction == "NE"))
+				|| ((lastDirection == "NW" && direction == "SE") || (lastDirection == "SE" && direction == "NW"))
+				|| ((lastDirection == "E" && direction == "W") || (lastDirection == "W" && direction == "E"))){ score = 184; }
+		//trace("Last direction : "+lastDirection+" node direction : "+direction+"  "+score);
 		return score;
 	}
 		
@@ -124,17 +124,18 @@ class IsoUnit extends IsoObject
 		
 		pCurr = nodeTab[0].position;
 		addUnitToNodeFromPos(nodeTab[0]);
+		
 		if (pCurr == pEnd){
 			hasPath = false;
 			currentAction = "stay";
 		}else{
 			if (ptarget != null){ pEnd = ptarget; }
-			parentNode = nodeTab[0];
-			checkLineOfSight();
+			AttackAI.checkUnitEnemy(this);
+			//checkLineOfSight();
 			Astar.findPath(this); 
 		}
 	}
-	public function checkLineOfSight(){
+	/*public function checkLineOfSight(){
 		if (!hasPath){
 			if (target == null){
 				nodechecking = IsoUtils.spiralSearch(IsoUtils.pxToPos(pCurr), tilesCheckNumber);
@@ -165,7 +166,7 @@ class IsoUnit extends IsoObject
 				}
 			}
 		}
-	}
+	}*/
 	public function addUnitToNodeFromPos(n:Dynamic):Void{
 		if (lastNode != null){ lastNode.unit = null; }
 		n.unit = this;
@@ -181,6 +182,7 @@ class IsoUnit extends IsoObject
 		else if (lookdir == "W"){ phase = "L";scaleX = scale; }
 		else if (lookdir == "NW"){ phase = "UL"; scaleX = scale; }
 		else{ return null; }
+		lastDirection = lookdir;
 		if (spriteSheet.currentBehavior.name != currentAction + "_" + phase) this.spriteSheet.showBehavior(currentAction + "_" + phase);
 	}
 }

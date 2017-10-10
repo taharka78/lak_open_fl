@@ -8,6 +8,7 @@ import com.lak.simulator.isometric.utils.IsoUtils;
 import com.lak.simulator.data.GameData;
 import com.lak.controllers.MoveController;
 import openfl.geom.Point;
+import com.lak.simulator.isometric.entities.units.ai.AttackAI;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -30,7 +31,7 @@ class AttackManager
 		for (i in 0...world.worldObject.length){
 			if (Std.is(world.worldObject[i], IsoUnit)){
 				unit = cast(world.worldObject[i], IsoUnit);
-				if(unit.xmovement == 0 && unit.ymovement == 0){ unit.checkLineOfSight(); }
+				if(!unit.hasPath) AttackAI.checkUnitEnemy(unit);
 			}
 		}
 	}

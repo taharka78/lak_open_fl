@@ -117,9 +117,8 @@ class LevelManager
 			temp_pt = IsoUtils.slideMapTileWalker(pt, IsoUtils.spiralWalkStepArray[i]);			
 			n = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
 			if (n != null){
-				//trace(" parent node : " + _unit.parentNode + " --- node : " + n);
 				if (n.walkable != false 
-						&& _unit.parentNode.id != n.id
+						&& _unit.pCurr != n.position
 						&&  n.unit == null){
 					n.direction = IsoUtils.spiralWalkStepArray[i];
 					_unit.nodeTab.push(n);
