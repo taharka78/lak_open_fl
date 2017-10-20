@@ -50,8 +50,17 @@ class InitialState implements IGameState
 	
 	public function mouseclick():Void{
 		if (Simulator.instance.armyManager.selectedUnits.length > 0){
+			
+			var posx = GameUtils.toGridCoord(IsoWorld.instance.mouseX, Config.TILE_WIDTH);
+			var posy = GameUtils.toGridCoord(IsoWorld.instance.mouseY, Config.TILE_HEIGHT);
+			var pt:Point = IsoUtils.pxToPos(new Point(posx, posy));
+			var newTargetPt:Point;
 			for (unit in Simulator.instance.armyManager.selectedUnits){
-					MoveUnitCommand.execute(unit);
+				if (Simulator.instance.armyManager.selectedUnits.length == 1 || Simulator.instance.armyManager.selectedUnits.indexOf(unit) == 0){
+					MoveUnitCommand.execute(unit,pt);
+				}else{
+					
+				}
 			}
 		}
 	}

@@ -107,10 +107,8 @@ class GameService
 			];
 	}
 	
-	public static function getWeaponTypes():Array<Dynamic>{
-		return [
-			 {
-				type : "sword",
+	public static function getWeaponTypes():Map<String,Dynamic>{
+		return ["sword" => {
 				targetBodyPart : 1,
 				// IDs du type d'unité.
 				strengh : [],
@@ -118,13 +116,14 @@ class GameService
 				weakness : [],
 				// bonus octroyé par cette arme.
 				bonus : {
-					defense : 10,
-					attack : 0,
+					defense : 0,
+					attack : 10,
 					speed : -1
 				}
 			}			
 		];
 	}
+	
 	public static function getArmorTypes():Array<Dynamic>{
 		return [
 			{
