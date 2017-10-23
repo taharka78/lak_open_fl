@@ -114,7 +114,7 @@ class Main extends Sprite
 		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
 		
-		for (i in 0...5){
+		for (i in 0...12){
 			CreateUnitCommand.execute("general", "1", 192,(192+(i*48)));
 		}
 		
