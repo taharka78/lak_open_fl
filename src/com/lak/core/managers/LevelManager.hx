@@ -119,6 +119,7 @@ class LevelManager
 			if (n != null){
 				if (n.walkable != false 
 						&& _unit.pCurr != n.position
+						&& _unit.lastNode != n
 						&&  n.unit == null){
 					n.direction = IsoUtils.spiralWalkStepArray[i];
 					_unit.nodeTab.push(n);

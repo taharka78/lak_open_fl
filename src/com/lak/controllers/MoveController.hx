@@ -10,7 +10,7 @@ class MoveController
 {
 	
 	public static function isReachable(actor:IsoUnit,n:Dynamic):Bool{ 
-		return (n.walkable != false && actor.parentNode != n &&  n.unit == null) ? true : false;
+		return (n.walkable != false && actor.lastNode != n &&  n.unit == null) ? true : false;
 	}
 	public static function nodeExist(n:Dynamic):Bool{
 		return (n != null) ? true : false ;

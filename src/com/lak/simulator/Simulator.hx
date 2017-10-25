@@ -32,7 +32,7 @@ class Simulator extends DisplayObject
 	public var armyManager:ArmyManager;
 	public var gameData:GameData;
 	public var state:IGameState;
-	
+	private var tempUnit:IsoUnit;
 	public function new() 
 	{
 		super();
@@ -52,10 +52,15 @@ class Simulator extends DisplayObject
 	{
 		for(obj in IsoWorld.instance.worldObject)
 		{
-			if(Std.is(obj,IsoUnit) && obj.visible && GraphicRenderer.instance.selectionSprt.selectionRect.contains(obj.x,obj.y)/*&& obj.isLive && obj.owner == joueur.properties.username && onRect(obj.x,obj.y) == 1*/)
+			if(Std.is(obj,IsoUnit) /*&& obj.isLive && obj.owner == joueur.properties.username && onRect(obj.x,obj.y) == 1*/)
 			{
-				GraphicRenderer.instance.createEllipse(obj, 0xFF00FF);
-				armyManager.selectUnit(cast(obj,IsoUnit));
+				tempUnit = cast(obj, IsoUnit);
+				if (obj.visible && GraphicRenderer.instance.selectionSprt.selectionRect.contains(tempUnit.x, tempUnit.y) && tempUnit.ownerID == "1"){
+					GraphicRenderer.instance.createEllipse(obj, 0xFF00FF);
+					armyManager.selectUnit(tempUnit);
+					
+				}				
+				
 			}
 		}
 	}

@@ -15,14 +15,22 @@ class AttackAI
 			var nodechecking:Array<Point>;
 			var n:Dynamic;
 			var currPt:Point;
-			if (actor.target == null){
+			
+			//if (actor.target == null){
+				actor.targetTab = new Array<IsoUnit>();
 				nodechecking = IsoUtils.spiralSearch(IsoUtils.pxToPos(actor.pCurr), actor.tilesCheckNumber);
 				for (i in 0...nodechecking.length){
 					currPt = nodechecking[i];
 					n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
-					if(n != null && n.unit != null && n.unit != actor && n.unit.ownerID != actor.ownerID){ actor.target = n.unit; }
+					if (n != null && n.unit != null && n.unit != actor && n.unit.ownerID != actor.ownerID){ 
+						//actor.target = n.unit; 
+						actor.targetTab.push(n.unit);
+					}
 				}
-			}else{
+				if (actor.targetTab.length > 0){
+					actor.target = actor.targetTab[0];
+				}
+			//}else{
 				if (!actor.target.hasPath){
 					var dx:Int = Math.floor(GameUtils.dx(actor.target.pCurr, actor.pCurr) / Config.TILE_WIDTH);
 					var dy:Int = Math.floor(GameUtils.dy(actor.target.pCurr, actor.pCurr) / Config.TILE_HEIGHT);
@@ -31,16 +39,18 @@ class AttackAI
 						actor.currentAction = "attack";
 					}else{
 						if (dx > actor.los || dy > actor.los ){ 
-							actor.target = null; 
+							actor.target = null;
 						}else{
 							var nd:Dynamic = LevelManager.instance.closestNodeFromPoint(IsoUtils.pxToPos(actor.target.pCurr),actor.pCurr);
-							if (nd != null){ actor.goTo(nd.position); }
+							if (nd != null){
+								actor.goTo(nd.position); 
+							}
 						}
 					}
 				}else{
 					actor.currentAction = "stay";
 				}
-			}
+			//}
 	}
 	
 }

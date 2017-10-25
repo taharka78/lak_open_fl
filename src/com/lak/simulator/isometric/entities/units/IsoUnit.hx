@@ -2,6 +2,8 @@ package com.lak.simulator.isometric.entities.units;
 
 import com.lak.simulator.isometric.entities.IsoObject;
 import com.lak.simulator.isometric.world.IsoWorld;
+import openfl.display.Graphics;
+import openfl.display.Shape;
 import openfl.geom.Point;
 import openfl.events.Event;
 
@@ -31,7 +33,6 @@ class IsoUnit extends IsoObject
 	public var xmovement:Int = 0;
 	public var ymovement:Int = 0;
 	public var unitType:String = "";
-	public var parentNode:Dynamic;
 	public var parentNodeID:String;
 	public var ptarget:Point;
 	private var tempPt:Point;
@@ -42,11 +43,13 @@ class IsoUnit extends IsoObject
 	private var distEnd:Float;
 	public var los:Int;
 	public	var tilesCheckNumber:Int;
+	public var targetTab:Array<IsoUnit> = new Array<IsoUnit>();
 	private	var nodePos:Point;
 	private	var n:Dynamic;
 	private	var currPt:Point;
 	private	var nodechecking:Array<Point>;
 	private var lastDirection:String = "";
+	public var isoTile:Shape = new Shape();
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -54,6 +57,14 @@ class IsoUnit extends IsoObject
 	public function new() 
 	{
 		super();
+		isoTile.graphics.beginFill(0xFF0000);
+		isoTile.graphics.moveTo(0, Config.TILE_HEIGHT >> 1);
+		isoTile.graphics.lineTo(Config.TILE_WIDTH >> 1, 0);
+		isoTile.graphics.lineTo(0, -Config.TILE_HEIGHT >> 1);
+		isoTile.graphics.lineTo( -Config.TILE_WIDTH >> 1, 0);
+		isoTile.graphics.lineTo(0, Config.TILE_HEIGHT >> 1);
+		isoTile.graphics.endFill();
+		//addChild(isoTile);
 	}
 	
 	public function init(civ:String,un:String){
@@ -75,31 +86,47 @@ class IsoUnit extends IsoObject
 			pEnd = targetpt;
 			position.x = x;
 			position.y = y;
-			pCurr = IsoUtils.posToPx(IsoUtils.pxToPos(position));
+
+			var st:Point = IsoUtils.pxToPos(position);
+			
+			pCurr = IsoUtils.posToPx(st);
+			lastNode = LevelManager.instance.getNodeAt(Std.int(st.x),Std.int(st.y));
+			
 			Astar.findPath(this);
+			
 		}else{
 			ptarget = targetpt; 
 		}
 	}
+	function canMove():Bool{
+		for ( i in 0...targetTab.length){
+			if (!targetTab[i].isoTile.hitTestObject(this.isoTile)){
+				return false;		
+			}
+		}
+		return true;
+	}
 	/*
 	 * @funcname onStateChange (listener de l'évènement générer par la classe Astar lorsque la recherche est terminée ).
 	 */
-	function onStateChange(e:Event):Void{
-		if (nodeTab.length > 0){ 
-			for (i in 0...nodeTab.length){
-				nodeTab[i].g = cost(nodeTab[i].direction);
-				nodeTab[i].h = Astar.heuristic(nodeTab[i].position, pEnd);
-				nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
-				//trace(nodeTab[i].direction, nodeTab[i].f);
+	function onStateChange(e:Event):Void{	
+		if (canMove()){
+			if (nodeTab.length > 0){ 
+				for (i in 0...nodeTab.length){
+					nodeTab[i].g = cost(nodeTab[i].direction);
+					nodeTab[i].h = Astar.heuristic(nodeTab[i].position, pEnd);
+					nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
+					//trace(nodeTab[i].direction, nodeTab[i].f);
+				}
+				ArraySort.sort(nodeTab, GameUtils.sortByF);
+				hasPath = true;
+				lookAtDir(nodeTab[0].direction);
+				currentAction = "walk";
+				Actuate.tween(this,speed, {x:nodeTab[0].position.x, y:nodeTab[0].position.y}).ease(Linear.easeNone).onComplete(displacement);
+			}else{ 
+				trace(" NO NODE IN unit.nodeTab ");
+				hasPath = false;
 			}
-			ArraySort.sort(nodeTab, GameUtils.sortByF);
-			hasPath = true;
-			lookAtDir(nodeTab[0].direction);
-			currentAction = "walk";
-			Actuate.tween(this,speed, {x:nodeTab[0].position.x, y:nodeTab[0].position.y}).ease(Linear.easeNone).onComplete(displacement);
-		}else{ 
-			trace(" NO NODE IN unit.nodeTab ");
-			hasPath = false;
 		}
 	}
 	function cost(direction:String):Float{
@@ -130,46 +157,13 @@ class IsoUnit extends IsoObject
 			currentAction = "stay";
 		}else{
 			if (ptarget != null){ pEnd = ptarget; }
+			Astar.findPath(this);
 			AttackAI.checkUnitEnemy(this);
-			//checkLineOfSight();
-			Astar.findPath(this); 
 		}
 	}
-	/*public function checkLineOfSight(){
-		if (!hasPath){
-			if (target == null){
-				nodechecking = IsoUtils.spiralSearch(IsoUtils.pxToPos(pCurr), tilesCheckNumber);
-				for (i in 0...nodechecking.length){
-					currPt = nodechecking[i];
-					n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
-					if(n != null && n.unit != null && n.unit != this && n.unit.ownerID != ownerID){ target = n.unit; }
-				}
-			}else{
-				if (!target.hasPath){
-					var dx:Int = Math.floor(GameUtils.dx(target.pCurr, pCurr) / Config.TILE_WIDTH);
-					var dy:Int = Math.floor(GameUtils.dy(target.pCurr, pCurr) / Config.TILE_HEIGHT);
-					if (dx == 0 && dy == 0){
-						//lookAtFromAngle(GameUtils.getPositionAngle(target.pCurr,pCurr));
-						//trace(LevelManager.instance.facingTo(target));
-						lookAtDir(LevelManager.instance.facingTo(this,target));
-						currentAction = "attack";
-					}else{
-						if (dx > los || dy > los ){ 
-							target = null; 
-						}else{
-							var nd:Dynamic = LevelManager.instance.closestNodeFromPoint(IsoUtils.pxToPos(target.pCurr),pCurr);
-							if (nd != null){ goTo(nd.position); }
-						}
-					}
-				}else{
-					currentAction = "stay";
-				}
-			}
-		}
-	}*/
 	public function addUnitToNodeFromPos(n:Dynamic):Void{
-		if (lastNode != null){ lastNode.unit = null; }
-		n.unit = this;
+		if (lastNode != null && lastNode.unit == this){ lastNode.unit = null; }
+		if(n.unit == null) n.unit = this;
 		lastNode = n; 
 	}
 	public function lookAtDir(lookdir:String):Void{
