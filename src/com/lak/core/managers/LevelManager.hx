@@ -113,6 +113,13 @@ class LevelManager
 		var temp_pt:Point = new Point();
 		_unit.nodeTab = new Array<Dynamic>();
 		
+		_unit.ocupiedPosition = [];
+		for ( i in 0..._unit.targetTab.length){
+			if (_unit.targetTab[i].isoTile.hitTestObject(_unit.isoTile)){
+				_unit.ocupiedPosition.push(_unit.targetTab[i].lastNode);		
+			}
+		}
+		
 		for (i in 0...IsoUtils.spiralWalkStepArray.length){
 			temp_pt = IsoUtils.slideMapTileWalker(pt, IsoUtils.spiralWalkStepArray[i]);			
 			n = getNodeAt(Std.int(temp_pt.x), Std.int(temp_pt.y));
@@ -120,7 +127,8 @@ class LevelManager
 				if (n.walkable != false 
 						&& _unit.pCurr != n.position
 						&& _unit.lastNode != n
-						&&  n.unit == null){
+						&&  n.unit == null
+						&& _unit.ocupiedPosition.indexOf(n) == -1){
 					n.direction = IsoUtils.spiralWalkStepArray[i];
 					_unit.nodeTab.push(n);
 				}

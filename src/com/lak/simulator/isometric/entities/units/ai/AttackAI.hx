@@ -31,7 +31,7 @@ class AttackAI
 					actor.target = actor.targetTab[0];
 				}
 			//}else{
-				if (!actor.target.hasPath){
+				if (actor.target != null && !actor.target.hasPath){
 					var dx:Int = Math.floor(GameUtils.dx(actor.target.pCurr, actor.pCurr) / Config.TILE_WIDTH);
 					var dy:Int = Math.floor(GameUtils.dy(actor.target.pCurr, actor.pCurr) / Config.TILE_HEIGHT);
 					if (dx == 0 && dy == 0){
@@ -47,8 +47,6 @@ class AttackAI
 							}
 						}
 					}
-				}else{
-					actor.currentAction = "stay";
 				}
 			//}
 	}

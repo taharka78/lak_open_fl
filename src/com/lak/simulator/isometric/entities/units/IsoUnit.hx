@@ -50,6 +50,7 @@ class IsoUnit extends IsoObject
 	private	var nodechecking:Array<Point>;
 	private var lastDirection:String = "";
 	public var isoTile:Shape = new Shape();
+	public var ocupiedPosition:Array<Dynamic>;
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -98,35 +99,25 @@ class IsoUnit extends IsoObject
 			ptarget = targetpt; 
 		}
 	}
-	function canMove():Bool{
-		for ( i in 0...targetTab.length){
-			if (!targetTab[i].isoTile.hitTestObject(this.isoTile)){
-				return false;		
-			}
-		}
-		return true;
-	}
 	/*
 	 * @funcname onStateChange (listener de l'évènement générer par la classe Astar lorsque la recherche est terminée ).
 	 */
 	function onStateChange(e:Event):Void{	
-		if (canMove()){
-			if (nodeTab.length > 0){ 
-				for (i in 0...nodeTab.length){
-					nodeTab[i].g = cost(nodeTab[i].direction);
-					nodeTab[i].h = Astar.heuristic(nodeTab[i].position, pEnd);
-					nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
-					//trace(nodeTab[i].direction, nodeTab[i].f);
-				}
-				ArraySort.sort(nodeTab, GameUtils.sortByF);
-				hasPath = true;
-				lookAtDir(nodeTab[0].direction);
-				currentAction = "walk";
-				Actuate.tween(this,speed, {x:nodeTab[0].position.x, y:nodeTab[0].position.y}).ease(Linear.easeNone).onComplete(displacement);
-			}else{ 
-				trace(" NO NODE IN unit.nodeTab ");
-				hasPath = false;
+		if (nodeTab.length > 0){ 
+			for (i in 0...nodeTab.length){
+				nodeTab[i].g = cost(nodeTab[i].direction);
+				nodeTab[i].h = Astar.heuristic(nodeTab[i].position, pEnd);
+				nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
+				//trace(nodeTab[i].direction, nodeTab[i].f);
 			}
+			ArraySort.sort(nodeTab, GameUtils.sortByF);
+			hasPath = true;
+			lookAtDir(nodeTab[0].direction);
+			currentAction = "walk";
+			Actuate.tween(this,speed, {x:nodeTab[0].position.x, y:nodeTab[0].position.y}).ease(Linear.easeNone).onComplete(displacement);
+		}else{ 
+			trace(" NO NODE IN unit.nodeTab ");
+			hasPath = false;
 		}
 	}
 	function cost(direction:String):Float{
