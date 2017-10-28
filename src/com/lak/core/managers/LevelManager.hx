@@ -114,6 +114,7 @@ class LevelManager
 		_unit.nodeTab = new Array<Dynamic>();
 		
 		_unit.ocupiedPosition = [];
+		
 		for ( i in 0..._unit.targetTab.length){
 			if (_unit.targetTab[i].isoTile.hitTestObject(_unit.isoTile)){
 				_unit.ocupiedPosition.push(_unit.targetTab[i].lastNode);		
@@ -128,7 +129,8 @@ class LevelManager
 						&& _unit.pCurr != n.position
 						&& _unit.lastNode != n
 						&&  n.unit == null
-						&& _unit.ocupiedPosition.indexOf(n) == -1){
+						&& _unit.ocupiedPosition.indexOf(n) == -1
+						&& (n.reachBy == null || n.reachBy == _unit)){
 					n.direction = IsoUtils.spiralWalkStepArray[i];
 					_unit.nodeTab.push(n);
 				}

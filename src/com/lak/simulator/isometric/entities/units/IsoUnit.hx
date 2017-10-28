@@ -51,6 +51,7 @@ class IsoUnit extends IsoObject
 	private var lastDirection:String = "";
 	public var isoTile:Shape = new Shape();
 	public var ocupiedPosition:Array<Dynamic>;
+	public var closeAllies:Array<Dynamic>;
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -108,10 +109,10 @@ class IsoUnit extends IsoObject
 				nodeTab[i].g = cost(nodeTab[i].direction);
 				nodeTab[i].h = Astar.heuristic(nodeTab[i].position, pEnd);
 				nodeTab[i].f = nodeTab[i].g + nodeTab[i].h;
-				//trace(nodeTab[i].direction, nodeTab[i].f);
 			}
 			ArraySort.sort(nodeTab, GameUtils.sortByF);
 			hasPath = true;
+			nodeTab[0].reachBy = this;
 			lookAtDir(nodeTab[0].direction);
 			currentAction = "walk";
 			Actuate.tween(this,speed, {x:nodeTab[0].position.x, y:nodeTab[0].position.y}).ease(Linear.easeNone).onComplete(displacement);
@@ -127,7 +128,6 @@ class IsoUnit extends IsoObject
 				|| ((lastDirection == "NE" && direction == "W") || (lastDirection == "W" && direction == "NE"))
 				|| ((lastDirection == "NW" && direction == "SE") || (lastDirection == "SE" && direction == "NW"))
 				|| ((lastDirection == "E" && direction == "W") || (lastDirection == "W" && direction == "E"))){ score = 184; }
-		//trace("Last direction : "+lastDirection+" node direction : "+direction+"  "+score);
 		return score;
 	}
 		
@@ -154,7 +154,8 @@ class IsoUnit extends IsoObject
 	}
 	public function addUnitToNodeFromPos(n:Dynamic):Void{
 		if (lastNode != null && lastNode.unit == this){ lastNode.unit = null; }
-		if(n.unit == null) n.unit = this;
+		if (n.unit == null) n.unit = this;
+		if (n.reachBy == this) n.reachBy = null;
 		lastNode = n; 
 	}
 	public function lookAtDir(lookdir:String):Void{
