@@ -24,16 +24,6 @@ class AttackManager
 		world = _world;
 	}
 	public function run(delta){
-		getClosestEnemy();
-	}
-	private function getClosestEnemy(){
-		var unit:IsoUnit;
-		for (i in 0...world.worldObject.length){
-			if (Std.is(world.worldObject[i], IsoUnit)){
-				unit = cast(world.worldObject[i], IsoUnit);
-				if(!unit.hasPath) AttackAI.checkUnitEnemy(unit);
-			}
-		}
 	}
 	/*
 	 * @funcname  manageAttack fonction de gestion des attaques des objets iso.

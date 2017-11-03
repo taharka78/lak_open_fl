@@ -3,6 +3,7 @@ package com.lak.simulator.command;
 import com.lak.simulator.Simulator;
 import com.lak.simulator.controllers.UnitController;
 import com.lak.simulator.isometric.entities.units.IsoUnit;
+import com.lak.simulator.isometric.entities.units.states.Idle;
 import com.lak.simulator.isometric.world.IsoWorld;
 import com.lak.simulator.pools.IsoUnitPool;
 import com.lak.core.managers.LevelManager;
@@ -23,11 +24,11 @@ class CreateUnitCommand
 		if (UnitController.enableToCreate(unitType)){
 			
 			var unit:IsoUnit = IsoUnitPool.getEntity();
+			unit.state = new Idle(unit);
 			unit.init("mali", unitType);
 			unit.scaleX = unit.scaleY = .75;
 			unit.ownerID = ownerID;
 			unit.type = "unit";
-			unit.currentAction = "stay";
 			unit.phase = "DL";
 			
 			unit.spriteSheet.showBehavior(unit.currentAction + "_" + unit.phase);

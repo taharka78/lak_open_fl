@@ -1,4 +1,4 @@
-package src.com.lak.simulator.isometric.entities.interfaces;
+package com.lak.simulator.isometric.entities.interfaces;
 import openfl.geom.Point;
 
 /**

@@ -1,6 +1,7 @@
 package;
 
 
+import motion.MotionPath;
 import openfl.display.BitmapData;
 import openfl.display.Bitmap;
 import openfl.display.FPS;
@@ -41,7 +42,7 @@ import com.lak.simulator.command.CreateBuildingCommand;
 import com.lak.simulator.controllers.GameStateController;
 import com.lak.simulator.gamestate.BuilderState;
 import com.lak.simulator.gamestate.InitialState;
-
+import motion.Actuate;
 // Message serveur
 import com.lak.network.MessageHandler;
 import com.lak.network.MessageIdentifiers;
@@ -113,11 +114,11 @@ class Main extends Sprite
 		stage.addEventListener(MouseEvent.MOUSE_MOVE, onStageMouseMove);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
-		
-		for (i in 0...25){
+
+		for (i in 0...1){
 			CreateUnitCommand.execute("general", "1", 192,(192+(i*48)));
 		}
-		for (i in 0...25){
+		for (i in 0...1){
 			CreateUnitCommand.execute("cavalier", "2", 384,(192+(i*48)));
 		}
 		/*for (i in 0...12){

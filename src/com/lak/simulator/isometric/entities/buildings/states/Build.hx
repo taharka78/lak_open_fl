@@ -1,4 +1,4 @@
-package src.com.lak.simulator.isometric.entities.states.buildings;
+package com.lak.simulator.isometric.entities.buildings.states;
 
 /**
  * ...

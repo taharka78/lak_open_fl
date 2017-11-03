@@ -17,7 +17,15 @@ class GameUtils
 		var angle:Float = (Math.atan2(dy,dx)*(180/Math.PI));
 		if(angle < 0){ angle = angle + 360; }
 		return angle;
-	}		
+	}
+	public static function arrayHasValue(search:String,table:Array<String>):Bool{
+		for ( i in 0...table.length){
+			if (table[i] == search){
+				return true;
+			}
+		}
+		return false;
+	}
 	/**
 	 * 
 	 * @param	pt- The point to test against

@@ -1,9 +1,14 @@
 package com.lak.simulator.isometric.entities.units;
 
 import com.lak.simulator.isometric.entities.IsoObject;
+import com.lak.simulator.isometric.entities.units.states.Attack;
+import com.lak.simulator.isometric.entities.units.states.Idle;
+import com.lak.simulator.isometric.entities.units.states.Walk;
 import com.lak.simulator.isometric.world.IsoWorld;
+import motion.MotionPath;
 import openfl.display.Graphics;
 import openfl.display.Shape;
+import openfl.display.Sprite;
 import openfl.geom.Point;
 import openfl.events.Event;
 
@@ -52,6 +57,8 @@ class IsoUnit extends IsoObject
 	public var isoTile:Shape = new Shape();
 	public var ocupiedPosition:Array<Dynamic>;
 	public var closeAllies:Array<Dynamic>;
+	public var bullet:Sprite;
+	public var canLauchAgain:Bool = true;
 	/*
 	 * Constructeur
 	 * Classe qui représente un élément unité
@@ -68,7 +75,12 @@ class IsoUnit extends IsoObject
 		isoTile.graphics.endFill();
 		//addChild(isoTile);
 	}
-	
+	public function createBullet(){
+		bullet = new Sprite();
+		bullet.graphics.beginFill(0xFF0000);
+		bullet.graphics.drawCircle(0, 0, 10);
+		
+	}
 	public function init(civ:String,un:String){
 		unitType = un;
 		spriteSheet = new AnimatedSprite(Main.instance.sprSheetManager.getSpritesheet(civ, un));
@@ -114,11 +126,27 @@ class IsoUnit extends IsoObject
 			hasPath = true;
 			nodeTab[0].reachBy = this;
 			lookAtDir(nodeTab[0].direction);
-			currentAction = "walk";
-			Actuate.tween(this,speed, {x:nodeTab[0].position.x, y:nodeTab[0].position.y}).ease(Linear.easeNone).onComplete(displacement);
+			state = new Walk(this);
+			Actuate.tween(this,speed, {x:nodeTab[0].position.x, y:nodeTab[0].position.y}).ease(Linear.easeNone).snapping().onComplete(displacement);
 		}else{ 
 			trace(" NO NODE IN unit.nodeTab ");
 			hasPath = false;
+		}
+	}
+	public function fire(position:Point){
+		if (canLauchAgain){
+			if (bullet == null){
+				createBullet();
+			}
+			canLauchAgain = false;
+			bullet.x = pCurr.x;
+			bullet.y = pCurr.y;
+			IsoWorld.instance.addChild(bullet);
+			
+			var path = new MotionPath().bezier(position.x,position.y,Math.abs(position.x - position.y),96);
+			Actuate.motionPath(bullet, .5, {x:path.x, y:path.y}).onComplete(function(){
+				canLauchAgain = true;
+			});
 		}
 	}
 	function cost(direction:String):Float{
@@ -129,14 +157,14 @@ class IsoUnit extends IsoObject
 				|| ((lastDirection == "NW" && direction == "SE") || (lastDirection == "SE" && direction == "NW"))
 				|| ((lastDirection == "E" && direction == "W") || (lastDirection == "W" && direction == "E"))){ score = 184; }
 		return score;
-	}
-		
+	}	
 	/*
 	 * @funcname update (function de mise à jour globale de l'unité) 
 	 */
 	override public function update(delta:Int){
 		if(spriteSheet.currentBehavior.name != currentAction + "_" + phase){ this.spriteSheet.showBehavior(currentAction + "_" + phase); }
 		spriteSheet.update(delta);
+		if (state != null) state.update();
 	}
 	private function displacement(){
 		
@@ -145,11 +173,10 @@ class IsoUnit extends IsoObject
 		
 		if (pCurr == pEnd){
 			hasPath = false;
-			currentAction = "stay";
+			state = (target == null) ? new Idle(this) : new Attack(this);
 		}else{
 			if (ptarget != null){ pEnd = ptarget; }
 			Astar.findPath(this);
-			AttackAI.checkUnitEnemy(this);
 		}
 	}
 	public function addUnitToNodeFromPos(n:Dynamic):Void{

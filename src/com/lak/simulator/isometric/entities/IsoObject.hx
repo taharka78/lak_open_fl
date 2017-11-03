@@ -1,7 +1,9 @@
 package com.lak.simulator.isometric.entities;
+import com.lak.simulator.isometric.entities.units.states.State;
 import openfl.geom.Point;
 import openfl.display.Sprite;
 import spritesheet.AnimatedSprite;
+import com.lak.simulator.isometric.entities.interfaces.IState;
 
 /**
  * ...
@@ -22,6 +24,7 @@ class IsoObject extends Sprite
 	public var isLive:Bool = true;
 	public var speed:Float = .5;
 	public var ownerID:String;
+	public var state:State;
 	/*
 	 * Constructeur
 	 * Classe qde base de tous les Objets isométriques

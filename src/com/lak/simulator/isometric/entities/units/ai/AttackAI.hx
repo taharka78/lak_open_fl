@@ -1,5 +1,7 @@
 package com.lak.simulator.isometric.entities.units.ai;
 
+import com.lak.simulator.isometric.entities.units.states.Attack;
+import com.lak.simulator.isometric.entities.units.states.Idle;
 import com.lak.simulator.isometric.utils.IsoUtils;
 import com.lak.core.managers.LevelManager;
 import com.lak.core.utils.GameUtils;
@@ -16,35 +18,26 @@ class AttackAI
 			var n:Dynamic;
 			var currPt:Point;
 			
-			actor.targetTab = new Array<IsoUnit>();
-			nodechecking = IsoUtils.spiralSearch(IsoUtils.pxToPos(actor.pCurr), actor.tilesCheckNumber);
-			for (i in 0...nodechecking.length){
-				currPt = nodechecking[i];
-				n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
-				if (n != null && n.unit != null && n.unit != actor && n.unit.ownerID != actor.ownerID){ 
-						actor.targetTab.push(n.unit);
-				}
-			}
-			if (actor.targetTab.length > 0){
-				actor.target = actor.targetTab[0];
-			}
-			if (actor.target != null && !actor.target.hasPath){
-				var dx:Int = Math.floor(GameUtils.dx(actor.target.pCurr, actor.pCurr) / Config.TILE_WIDTH);
-				var dy:Int = Math.floor(GameUtils.dy(actor.target.pCurr, actor.pCurr) / Config.TILE_HEIGHT);
-				if (dx == 0 && dy == 0  && !actor.hasPath){
-					actor.lookAtDir(LevelManager.instance.facingTo(actor,actor.target));
-					actor.currentAction = "attack";
-				}else{
-					if (dx > actor.los || dy > actor.los ){ 
-						actor.target = null;
-					}else{
-						var nd:Dynamic = LevelManager.instance.closestNodeFromPoint(IsoUtils.pxToPos(actor.target.pCurr),actor.pCurr);
-						if (nd != null){
-							actor.goTo(nd.position); 
+			if (actor.target == null){
+					actor.targetTab = new Array<IsoUnit>();
+					nodechecking = IsoUtils.spiralSearch(IsoUtils.pxToPos(actor.pCurr), actor.tilesCheckNumber);
+					for (i in 0...nodechecking.length){
+						currPt = nodechecking[i];
+						n = LevelManager.instance.getNodeAt(Std.int(currPt.x), Std.int(currPt.y));
+						if (n != null && n.unit != null && n.unit != actor && n.unit.ownerID != actor.ownerID){ 
+								actor.targetTab.push(n.unit);
 						}
 					}
-				}
+					if (actor.targetTab.length > 0){ 
+						actor.target = actor.targetTab[0]; 
+						actor.state = new Attack(actor);
+					}else{
+						
+						if(!Std.is(actor.state,Idle)) actor.state = new Idle(actor);
+					}
+					
 			}
+			
 	}
 	
 }
