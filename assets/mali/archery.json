@@ -1,6 +1,6 @@
 {
 "framerate":24,
-"images":["archer.png"],
+"images":["archery.png"],
 "frames":[[0, 0,392,299, 0, 0, 0]],
 "animations": {
 		"construct": {

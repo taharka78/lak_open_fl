@@ -78,7 +78,8 @@ class IsoUnit extends IsoObject
 	public function createBullet(){
 		bullet = new Sprite();
 		bullet.graphics.beginFill(0xFF0000);
-		bullet.graphics.drawCircle(0, 0, 10);
+		bullet.graphics.drawCircle(0,0,5);
+		IsoWorld.instance.addChild(bullet);
 		
 	}
 	public function init(civ:String,un:String){
@@ -135,15 +136,25 @@ class IsoUnit extends IsoObject
 	}
 	public function fire(position:Point){
 		if (canLauchAgain){
-			if (bullet == null){
-				createBullet();
-			}
+			
+			if (bullet == null){ createBullet(); }
+			
 			canLauchAgain = false;
+			
 			bullet.x = pCurr.x;
 			bullet.y = pCurr.y;
-			IsoWorld.instance.addChild(bullet);
 			
-			var path = new MotionPath().bezier(position.x,position.y,Math.abs(position.x - position.y),96);
+			var leftOrRight = 1;
+			var topOrBottom = -1;
+			if (position.x < pCurr.x){ leftOrRight = -1; }
+			else if (position.x == pCurr.x){ leftOrRight = 0; topOrBottom = -2; }
+			else if (Math.abs(position.x - pCurr.x) < 96){ leftOrRight = 0; topOrBottom = -2; }
+			else{ leftOrRight = 1; }
+			
+			var crtlX = pCurr.x + leftOrRight * Math.floor(Std.int(GameUtils.distanceBetweenPt(pCurr, position)) >> 1);
+			var ctrlY = pCurr.y + topOrBottom * Math.floor(Std.int(GameUtils.distanceBetweenPt(pCurr, position)) >> 1);
+						
+			var path = new MotionPath().bezier(position.x,position.y,crtlX,ctrlY);
 			Actuate.motionPath(bullet, .5, {x:path.x, y:path.y}).onComplete(function(){
 				canLauchAgain = true;
 			});

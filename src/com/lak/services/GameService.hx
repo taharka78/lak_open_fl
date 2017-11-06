@@ -39,19 +39,23 @@ class GameService
 	}
 	public static function getUnitsDescription():Map<String,Dynamic>{
 		return [ "cavalier" => {
-					types : ["ranged", "mounted"],
-					lineOfSight : 6,
+					types : ["melee", "mounted"],
+					lineOfSight : 3,
 					mountType : "horse"
 				},
 				"king" => {
-					types : ["melee", "mounted"],
-					lineOfSight : 3,
+					types : ["ranged", "mounted"],
+					lineOfSight : 6,
 					mountType : "horse"
 				},
 				"general" => {
 					types : ["melee", "mounted"],
 					lineOfSight : 3,
 					mountType : "horse"
+				},
+				"archer" => {
+					types : ["ranged"] ,
+					lineOfSight : 6
 				}
 			];
 	}

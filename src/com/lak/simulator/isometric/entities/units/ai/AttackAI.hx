@@ -12,7 +12,6 @@ import flash.geom.Point;
  */
 class AttackAI 
 {
-
 	public static function checkUnitEnemy(actor:IsoUnit){
 			var nodechecking:Array<Point>;
 			var n:Dynamic;

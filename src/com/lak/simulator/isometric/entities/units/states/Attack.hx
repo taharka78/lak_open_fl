@@ -43,7 +43,8 @@ class Attack extends State
 			var dx:Int = Math.floor(GameUtils.dx(_un.target.pCurr, _un.pCurr) / Config.TILE_WIDTH);
 			var dy:Int = Math.floor(GameUtils.dy(_un.target.pCurr, _un.pCurr) / Config.TILE_HEIGHT);
 			
-			_un.lookAtDir(LevelManager.instance.facingTo(_un, _un.target));
+			if (isMelee) _un.lookAtDir(LevelManager.instance.facingTo(_un, _un.target));
+			if (isRanged) _un.lookAtDirFromAngle(_un.target);
 			if (dx == 0 && dy == 0){
 				 //GameData.instance.unitsDesc.get(_un.unitType).types;
 				 if (isMelee) _un.currentAction = "attack";
@@ -51,7 +52,7 @@ class Attack extends State
 				
 			}else{
 				if (dx > _un.los || dy > _un.los ){
-					if(isMelee) _un.currentAction = "stay";
+					_un.currentAction = "stay";
 					_un.target = null;
 					idle();
 				}else if ((dx < _un.los && dx > 0) || (dy < _un.los && dy > 0)){
