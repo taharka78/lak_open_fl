@@ -5,6 +5,7 @@ import com.lak.simulator.isometric.entities.units.states.Attack;
 import com.lak.simulator.isometric.entities.units.states.Idle;
 import com.lak.simulator.isometric.entities.units.states.Walk;
 import com.lak.simulator.isometric.world.IsoWorld;
+import flash.display.Bitmap;
 import motion.MotionPath;
 import openfl.display.Graphics;
 import openfl.display.Shape;
@@ -57,7 +58,7 @@ class IsoUnit extends IsoObject
 	public var isoTile:Shape = new Shape();
 	public var ocupiedPosition:Array<Dynamic>;
 	public var closeAllies:Array<Dynamic>;
-	public var bullet:Sprite;
+	public var bullet:Bitmap;
 	public var canLauchAgain:Bool = true;
 	/*
 	 * Constructeur
@@ -76,9 +77,8 @@ class IsoUnit extends IsoObject
 		//addChild(isoTile);
 	}
 	public function createBullet(){
-		bullet = new Sprite();
-		bullet.graphics.beginFill(0xFF0000);
-		bullet.graphics.drawCircle(0,0,5);
+		bullet = new Bitmap();
+		bullet.bitmapData = Main.instance.sprSheetManager.getSpritesheet("world", GameData.instance.unitsDesc[unitType].bullet.type).getFrame(0).bitmapData;
 		IsoWorld.instance.addChild(bullet);
 		
 	}
@@ -135,29 +135,46 @@ class IsoUnit extends IsoObject
 		}
 	}
 	public function fire(position:Point){
-		if (canLauchAgain){
+		if (canLauchAgain && spriteSheet.currentFrameIndex > GameData.instance.unitsDesc[unitType].bullet.indexFire){
 			
 			if (bullet == null){ createBullet(); }
-			
+			bullet.visible = true;
 			canLauchAgain = false;
-			
-			bullet.x = pCurr.x;
-			bullet.y = pCurr.y;
-			
 			var leftOrRight = 1;
 			var topOrBottom = -1;
-			if (position.x < pCurr.x){ leftOrRight = -1; }
-			else if (position.x == pCurr.x){ leftOrRight = 0; topOrBottom = -2; }
-			else if (Math.abs(position.x - pCurr.x) < 96){ leftOrRight = 0; topOrBottom = -2; }
-			else{ leftOrRight = 1; }
+			//var disX = Math.floor(Std.int(GameUtils.dx(pCurr, position)));
+			//var disY = Math.floor(Std.int(GameUtils.dy(pCurr, position)));
+			var dis = Math.floor(Std.int(GameUtils.distanceBetweenPt(pCurr, position)));
+			if (position.x < pCurr.x){
+				
+				topOrBottom = (position.y >= pCurr.y && dis > 96) ? -1 : -2;
+				leftOrRight = -1;
+				bullet.x = pCurr.x - GameData.instance.unitsDesc[unitType].bullet.offset.x;
+				bullet.y = pCurr.y - GameData.instance.unitsDesc[unitType].bullet.offset.y;
+			}
+			else if (position.x == pCurr.x){ 
+				
+				leftOrRight = 0;
+				topOrBottom = (position.y >= pCurr.y && dis > 96) ? -1 : -2;
+				
+				bullet.x = pCurr.x;
+				bullet.y = pCurr.y - GameData.instance.unitsDesc[unitType].bullet.offset.y;
+				
+			}else{ 
+				
+				leftOrRight = 1;
+				topOrBottom = (position.y >= pCurr.y && dis > 96) ? -1 : -2;
+				
+				bullet.x = pCurr.x + GameData.instance.unitsDesc[unitType].bullet.offset.x;
+				bullet.y = pCurr.y - GameData.instance.unitsDesc[unitType].bullet.offset.y;
+			}
 			
-			var crtlX = pCurr.x + leftOrRight * Math.floor(Std.int(GameUtils.distanceBetweenPt(pCurr, position)) >> 1);
-			var ctrlY = pCurr.y + topOrBottom * Math.floor(Std.int(GameUtils.distanceBetweenPt(pCurr, position)) >> 1);
+			var crtlX = pCurr.x + leftOrRight * (dis >> 1);
+			var ctrlY = pCurr.y + topOrBottom * 96;
 						
 			var path = new MotionPath().bezier(position.x,position.y,crtlX,ctrlY);
-			Actuate.motionPath(bullet, .5, {x:path.x, y:path.y}).onComplete(function(){
-				canLauchAgain = true;
-			});
+			
+			Actuate.motionPath(bullet,.5,{x:path.x, y:path.y,rotation : path.rotation}).onComplete(function(){ canLauchAgain = true; bullet.visible = false; });
 		}
 	}
 	function cost(direction:String):Float{
@@ -176,6 +193,20 @@ class IsoUnit extends IsoObject
 		if(spriteSheet.currentBehavior.name != currentAction + "_" + phase){ this.spriteSheet.showBehavior(currentAction + "_" + phase); }
 		spriteSheet.update(delta);
 		if (state != null) state.update();
+	}
+	public function lookAtFromAngle(_angle:Float){
+		if (_angle < 0){ _angle =_angle + 360; }
+		if(angle != _angle){
+			angle = _angle;
+			if (angle > 240 && angle < 300){ phase = "U";scaleX = scale; }
+			if (angle > 300 && angle < 340){ phase = "UL";scaleX = -scale; }
+			if ((angle >= 0 && angle < 20) || (angle > 340 && angle <= 360)){ phase = "L";scaleX = -scale; }
+			if (angle > 20 && angle  < 60){ phase = "DL";scaleX = -scale; }
+			if (angle > 60 && angle  < 120){ phase = "D";scaleX = scale; }
+			if (angle > 120 && angle < 160){ phase = "DL";scaleX = scale; }
+			if (angle > 160 && angle < 200){ phase = "L";scaleX = scale; }
+			if (angle > 200 && angle < 240){ phase = "UL";scaleX = scale; }
+		}
 	}
 	private function displacement(){
 		

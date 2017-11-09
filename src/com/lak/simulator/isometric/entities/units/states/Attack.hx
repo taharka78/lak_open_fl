@@ -44,7 +44,7 @@ class Attack extends State
 			var dy:Int = Math.floor(GameUtils.dy(_un.target.pCurr, _un.pCurr) / Config.TILE_HEIGHT);
 			
 			if (isMelee) _un.lookAtDir(LevelManager.instance.facingTo(_un, _un.target));
-			if (isRanged) _un.lookAtDirFromAngle(_un.target);
+			if (isRanged) _un.lookAtFromAngle(GameUtils.getPositionAngle(_un.target.pCurr,_un.pCurr));
 			if (dx == 0 && dy == 0){
 				 //GameData.instance.unitsDesc.get(_un.unitType).types;
 				 if (isMelee) _un.currentAction = "attack";

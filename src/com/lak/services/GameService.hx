@@ -44,17 +44,22 @@ class GameService
 					mountType : "horse"
 				},
 				"king" => {
-					types : ["ranged", "mounted"],
-					lineOfSight : 6,
-					mountType : "horse"
-				},
-				"general" => {
 					types : ["melee", "mounted"],
 					lineOfSight : 3,
 					mountType : "horse"
 				},
+				"general" => {
+					types : ["melee", "mounted"],
+					lineOfSight : 1,
+					mountType : "horse"
+				},
 				"archer" => {
 					types : ["ranged"] ,
+					bullet : {
+						offset : { x:15,y:25},
+						indexFire : 20,
+						type : "arrow"
+					},
 					lineOfSight : 6
 				}
 			];

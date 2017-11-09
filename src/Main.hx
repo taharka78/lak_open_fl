@@ -119,7 +119,7 @@ class Main extends Sprite
 			CreateUnitCommand.execute("general", "1", 192,(192+(i*48)));
 		}
 		for (i in 0...1){
-			CreateUnitCommand.execute("king", "2", 384,(192+(i*48)));
+			CreateUnitCommand.execute("archer", "2", 384,(192+(i*48)));
 		}
 		/*for (i in 0...12){
 			CreateUnitCommand.execute("general", "1", 576,(192+(i*48)));
