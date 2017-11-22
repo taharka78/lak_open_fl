@@ -22,7 +22,7 @@ class IsoObject extends Sprite
 	public var angle:Float = 0;
 	public var clone:Bool = false;
 	public var isLive:Bool = true;
-	public var speed:Float = .5;
+	public var speed:Float = .7;
 	public var ownerID:String;
 	public var state:State;
 	/*

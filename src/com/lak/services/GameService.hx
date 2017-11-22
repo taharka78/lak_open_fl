@@ -52,6 +52,29 @@ class GameService
 					types : ["melee", "mounted"],
 					lineOfSight : 1,
 					mountType : "horse"
+				},"commander" => {
+					types : ["melee", "mounted"],
+					lineOfSight : 1,
+					mountType : "horse"
+				},"lord" => {
+					types : ["melee", "mounted"],
+					lineOfSight : 1,
+					mountType : "horse"
+				},"knight" => {
+					types : ["melee", "mounted"],
+					lineOfSight : 1,
+					mountType : "horse"
+				},"horsebowman" => {
+					types : ["ranged", "mounted"],
+					lineOfSight : 1,
+					mountType : "horse"
+				},
+				"griot" => {
+					types : ["melee","spelling"],
+					lineOfSight : 1
+				},"spy" => {
+					types : ["spy","melee"],
+					lineOfSight : 1
 				},
 				"archer" => {
 					types : ["ranged"] ,
