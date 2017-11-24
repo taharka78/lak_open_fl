@@ -70,7 +70,10 @@ class GameService
 					mountType : "horse"
 				},
 				"griot" => {
-					types : ["melee","spelling"],
+					types : ["spelling"],
+					lineOfSight : 1
+				},"monk" => {
+					types : ["spelling"],
 					lineOfSight : 1
 				},"spy" => {
 					types : ["spy","melee"],
@@ -89,23 +92,18 @@ class GameService
 	}
 	public static function getUnitsType():Map<String,Dynamic>{
 		return [ "onFoot" => {
-					weakness : [],
 					strengh : []
 				},
 				"mounted" => {
-					weakness : [],
 					strengh : []
 				},
 				"melee" => {
-					weakness : [],
 					strengh : []
 				},
 				"distance" => {
-					weakness : [],
 					strengh : []
 				},
 				"siege" => {
-					weakness : [],
 					strengh : []
 				}
 		];
@@ -144,10 +142,8 @@ class GameService
 				targetBodyPart : 1,
 				// IDs du type d'unité.
 				strengh : [],
-				// IDs du type d'arme.
-				weakness : [],
 				// bonus octroyé par cette arme.
-				bonus : {
+				stat : {
 					defense : 0,
 					attack : 10,
 					speed : -1
