@@ -22,7 +22,10 @@ class EntitiesManager
 	 * ENTITIESMANAGER __CONSTRUCTOR__ @descClasse qui va gérer toutes les actions à faire sur les isoobject contenu dans le monde iso
 	 * @arg _world @type IsoWorld @desc instance de IsoWorld.
 	 */
-	public function new(_world:IsoWorld) {
+	public function new() {
+		
+	}
+	public function init(_world:IsoWorld){
 		world = _world;
 		updateViewBounds();
 	}
@@ -31,20 +34,22 @@ class EntitiesManager
 	 * @return Void.
 	 */
 	public function run(delta:Int):Void{
-		world.worldObject.sort(sortByY);
-		var i:Int =  0;
-		for (obj in world.worldObject){
-			i++;
-			pt.x = obj.x;
-			pt.y = obj.y;
-			world.setChildIndex(obj, i);
-			manageVisibility(obj);
-			obj.update(delta);
-			
-			if (Std.is(obj, IsoUnit)){
-				if (obj.visible){ 
-					manageShadow(obj); 
-				}				
+		if (world != null){
+			world.worldObject.sort(sortByY);
+			var i:Int =  0;
+			for (obj in world.worldObject){
+				i++;
+				pt.x = obj.x;
+				pt.y = obj.y;
+				world.setChildIndex(obj, i);
+				manageVisibility(obj);
+				obj.update(delta);
+				
+				if (Std.is(obj, IsoUnit)){
+					if (obj.visible){ 
+						manageShadow(obj); 
+					}				
+				}
 			}
 		}
 	}

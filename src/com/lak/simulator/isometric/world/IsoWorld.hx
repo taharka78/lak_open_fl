@@ -32,7 +32,6 @@ class IsoWorld extends Sprite
 {
 	private var data:ByteArray;
 	private var floor:Bitmap;
-	//public var aWorld:Array<Array<Dynamic>> = new Array<Array<Dynamic>>();
 	public var tilesArray:Array<Array<Node>> = new Array<Array<Node>>();
 			
 	private var groundCanvas:BitmapData;
@@ -68,7 +67,7 @@ class IsoWorld extends Sprite
 	
 	public var tileH:Int;
 	public var tileW:Int;
-	
+	public var folder:String = "world1";
 	private var centerpt:Shape = new Shape();
 	
 	var pt:Point = new Point();
@@ -137,7 +136,7 @@ class IsoWorld extends Sprite
 	 * @arg sensY @type Int @desc decris le sens de déplacement -1 vers le haut 1 vers le bas
 	 */
 	private function setupMapData(partNum:String="0-0",sensX:Int=1,sensY:Int=1,creation:Bool=false):Void{
-		trace("map : part_"+partNum+".txt" +" SENSY ==> " + ((sensY == -1)? "vers le haut" : "vers le bas ")+ " SENSX ==>"+ ((sensX == -1)? "vers la gauche" : "vers la droite "));
+		//trace("map : part_"+partNum+".txt" +" SENSY ==> " + ((sensY == -1)? "vers le haut" : "vers le bas ")+ " SENSX ==>"+ ((sensX == -1)? "vers la gauche" : "vers la droite "));
 		if(sensX == 1){ 
 			LIGNE_VISIBLE_OFFSET = OFFSET_LIGNE_WORLD-(PART_NUM_TILE_W*(Std.parseFloat(partNum.split("-")[0])));
 			if(LIGNE_VISIBLE_OFFSET < 0 )  LIGNE_VISIBLE_OFFSET = 0;

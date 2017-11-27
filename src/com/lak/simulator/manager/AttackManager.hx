@@ -20,7 +20,10 @@ class AttackManager
 	 * AttackMananger __CONSTRUCTOR__ @descClasse qui va gérer toutes les actions d'attaque.
 	 * @arg _world @type IsoWorld @desc instance de IsoWorld.
 	 */
-	public function new(_world:IsoWorld){
+	public function new(){
+		
+	}
+	public function init(_world:IsoWorld){
 		world = _world;
 	}
 	public function run(delta){

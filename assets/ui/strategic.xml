@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Root element of our UI -->
+<HBox id="'strategic'" w="Main.instance.realWidth" h="67" skin:Slice3-src="'ui/images/TopBar_Background.png'" skin:Slice3-slice="[84]">
+	<HBox>
+		<Bmp src="'ui/images/icons/stone-pile.png'" stretch="true" keepAspect="true" h="35" />
+		<!--<Bmp w="3" heightPt="100" src="'ui/images/TopBar_Separator.png'" />-->
+	</HBox>
+</HBox>

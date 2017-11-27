@@ -16,9 +16,10 @@ class GraphicRenderer
 	public function new() 
 	{
 		instance = this;
+	}
+	public function initSelectionRenderer():Void{
 		IsoWorld.instance.addChild(selectionSprt);
 	}
-	
 	/* @funcname createEllipse affichage de l'ellipse de selection sous l'unité
 	 * @arg obj @type IsoObject @desc l'objet cible du dessin de l'ellipse.
 	 * @arg color @type Int @desc couleur de la bordure de l'elipse.
@@ -59,7 +60,7 @@ class GraphicRenderer
 			selectionSprt.drawRect();
 			Simulator.instance.checkForSelection(); 
 		}
-		IsoWorld.instance.drawView();
+		if(IsoWorld.instance != null) IsoWorld.instance.drawView();
 	}
 	
 }

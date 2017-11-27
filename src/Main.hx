@@ -1,6 +1,8 @@
 package;
 
 
+import com.lak.simulator.gamestate.BattleState;
+import com.lak.simulator.gamestate.StrategicState;
 import motion.MotionPath;
 import openfl.display.BitmapData;
 import openfl.display.Bitmap;
@@ -64,12 +66,14 @@ class Main extends Sprite
 	public var sprSheetManager:SpritesheetManager = new SpritesheetManager();
 	public var world:IsoWorld = null;
 	public static var instance:Main;
-	public var realWidth:Int;
-	public var realHeight:Int;
+	public var realWidth:Int = 100;
+	public var realHeight:Int = 100;
 	public var simulateur:Simulator;
 	public var state:IGameState;
 	public var initialState:InitialState = new InitialState();
 	public var builderState:BuilderState = new BuilderState();
+	public var battleState:BattleState = new BattleState();
+	public var strategicState:StrategicState = new StrategicState();
 	public var gameUI:LAKUI;
 	//----------------------------------
 	//  CONSTANTS
@@ -84,7 +88,6 @@ class Main extends Sprite
 		addChild(fps);
 		
 		gameUI = new LAKUI();
-		GameStateController.initial();
 		addEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 	}
 	
@@ -92,7 +95,7 @@ class Main extends Sprite
 		
 		removeEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 		
-		MessageHandler.registerNewMessage(MessageIdentifiers.UN_POSITIONS, new UnitPositionMsg());
+		//MessageHandler.registerNewMessage(MessageIdentifiers.UN_POSITIONS, new UnitPositionMsg());
 		
 		var player:Player;
 		player = new Player();
@@ -100,6 +103,8 @@ class Main extends Sprite
 		
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;
+		
+		GameStateController.initial();
 		
 		// initialisation de stablexui
 		simulateur = new Simulator();	
@@ -115,12 +120,12 @@ class Main extends Sprite
 		stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDownListener);
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUpListener);
 
-		for (i in 0...1){
-			CreateUnitCommand.execute("commander", "1", 192,(192+(i*48)));
+		/*for (i in 0...1){
+			CreateUnitCommand.execute("lord", "1", 192,(192+(i*48)));
 		}
 		for (i in 0...1){
 			CreateUnitCommand.execute("archer", "2", 384,(192+(i*48)));
-		}
+		}*/
 		/*for (i in 0...12){
 			CreateUnitCommand.execute("general", "1", 576,(192+(i*48)));
 		}*/
@@ -164,8 +169,10 @@ class Main extends Sprite
 	}
 	
 	function onstageResized(e:Event){
-		world.worldSize();
-		simulateur.entitiesManager.updateViewBounds();
+		if (world != null){
+			world.worldSize();
+			simulateur.entitiesManager.updateViewBounds();
+		}
 	}
 	
 	function update(e:Event){

@@ -44,7 +44,7 @@ class LevelManager
 	public function mapPartArray(partName:String):Array<Dynamic>{
 		if (registeredMap.get(partName) == null){
 			
-			var bytes:ByteArray = openfl.Assets.getBytes("world1/"+partName);
+			var bytes:ByteArray = openfl.Assets.getBytes(Main.instance.world.folder+"/"+partName);
 			bytes.uncompress();
 			
 			var str:String = bytes.toString();

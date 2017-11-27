@@ -7,6 +7,7 @@ package com.lak.simulator.gamestate;
 // vue d'enssemble de la carte du monde avec les royaume ect....
 // gestion de la diplomatie
 // deplacements des armées.
+import ru.stablex.ui.UIBuilder;
 class StrategicState implements IGameState
 {
 
@@ -15,6 +16,7 @@ class StrategicState implements IGameState
 		
 	}
 	public function enter():Void{
+		Main.instance.addChild(UIBuilder.buildFn('assets/ui/strategic.xml')());
 		
 	}
 	public function mouseover():Void{
@@ -33,6 +35,6 @@ class StrategicState implements IGameState
 		
 	}
 	public function exit():Void{
-		
+		Main.instance.removeChild(UIBuilder.get("strategic"));
 	}
 }

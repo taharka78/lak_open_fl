@@ -42,8 +42,8 @@ class Simulator extends DisplayObject
 		instance = this;
 		
 		renderer = new GraphicRenderer();
-		entitiesManager = new EntitiesManager(Main.instance.world);
-		attackManager = new AttackManager(Main.instance.world);
+		entitiesManager = new EntitiesManager();
+		attackManager = new AttackManager();
 		armyManager = new ArmyManager();
 		gameData = new GameData();
 	}
