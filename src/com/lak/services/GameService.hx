@@ -18,11 +18,11 @@ class GameService
 	}
 	
 	public static function getRessourceTypes():Array<Dynamic>{
-		return [ 	{name:"food",icon:"food_ico"},
-					{name:"wood",icon:"wood_ico"},
-					{name:"gold",icon:"gold_ico"},
-					{name:"horse",icon:"horse_ico"},
-					{name:"stone",icon:"stone_ico"}
+		return [ 	{name:"food",icon:"meat"},
+					{name:"wood",icon:"log"},
+					{name:"gold",icon:"gold-bar"},
+					{name:"horse",icon:"horse-head"},
+					{name:"stone",icon:"stone-pile"}
 				];
 	}
 	

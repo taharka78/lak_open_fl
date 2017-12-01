@@ -8,6 +8,7 @@ package com.lak.simulator.gamestate;
 // gestion de la diplomatie
 // deplacements des armées.
 import ru.stablex.ui.UIBuilder;
+import com.lak.simulator.isometric.world.IsoWorld;
 class StrategicState implements IGameState
 {
 
@@ -16,6 +17,12 @@ class StrategicState implements IGameState
 		
 	}
 	public function enter():Void{
+		if (Main.instance.world == null){
+			var world:IsoWorld = new IsoWorld();
+			Main.instance.world = world;
+			Main.instance.addChild(world);
+		}
+		Simulator.instance.renderer.initSelectionRenderer();
 		Main.instance.addChild(UIBuilder.buildFn('assets/ui/strategic.xml')());
 		
 	}

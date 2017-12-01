@@ -17,7 +17,7 @@ class GameData
 	
 	public function new(){
 		instance = this;
-		// appel au service récupérant les types de ressoiurces.		
+		// appel au service récupérant les types de ressources.		
 		this.types = GameService.getRessourceTypes();		
 		this.buildings = GameService.getBuildingOptions();
 		this.unitTypes = GameService.getUnitsType();

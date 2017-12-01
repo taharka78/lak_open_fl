@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- Root element of our UI -->
 <HBox id="'strategic'" w="Main.instance.realWidth" h="67" skin:Slice3-src="'ui/images/TopBar_Background.png'" skin:Slice3-slice="[84]">
-	<HBox>
-		<Bmp src="'ui/images/icons/stone-pile.png'" stretch="true" keepAspect="true" h="35" />
-		<!--<Bmp w="3" heightPt="100" src="'ui/images/TopBar_Separator.png'" />-->
-	</HBox>
+	<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
+		<HBox left="($this.contentWidth*cnt)" bottom="5" heightPt="100">
+			<Bmp src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" heightPt="100" stretch="true" keepAspect="true" />
+			<Text left="10" topPt="25" text="'100'"  />
+		</HBox>
+	</meta:repeat>
 </HBox>

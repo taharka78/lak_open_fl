@@ -8,7 +8,7 @@
 		skin:Img-scaleImg="true">
 	
 	<Text leftPt="5" topPt="40" text="'Chargement en cours ...'"/>
-    <Progress widthPt="100" h="69" max="1000" 
+    <Progress widthPt="100" h="69" max="10" 
         skin:Slice3-src="'ui/images/LoadingBar_sliced_3.png'"
 		skin:Slice3-slice="[84]"
 		bar-skin:Slice3-src="'ui/images/LoadingBar_Fill.png'"

@@ -104,10 +104,10 @@ class Main extends Sprite
 		realWidth = stage.stageWidth;
 		realHeight = stage.stageHeight;
 		
-		GameStateController.initial();
-		
 		// initialisation de stablexui
-		simulateur = new Simulator();	
+		simulateur = new Simulator();
+		
+		GameStateController.initial();
 		
 		// Event's listener
 		stage.scaleMode = StageScaleMode.NO_SCALE;
