@@ -1,7 +1,7 @@
 package com.lak.simulator.gamestate;
 import openfl.display.Shape;
+import com.lak.simulator.command.ui.CloseUICommand;
 import ru.stablex.ui.UIBuilder;
-import ru.stablex.ui.widgets.VBox;
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -44,6 +44,6 @@ class InitialState implements IGameState
 	}
 	
 	public function exit():Void{
-		Main.instance.removeChild(UIBuilder.get("enter"));
+		CloseUICommand.execute("enter");
 	}
 }

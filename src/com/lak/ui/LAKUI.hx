@@ -13,5 +13,4 @@ class LAKUI
 		UIBuilder.setTheme('ru.stablex.ui.themes.android4');
 		UIBuilder.init();
 	}
-	
 }
