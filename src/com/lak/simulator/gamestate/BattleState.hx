@@ -15,8 +15,7 @@ import com.lak.core.managers.LevelManager;
 import com.lak.core.utils.GameUtils;
 import com.lak.simulator.command.MoveUnitCommand;
 import com.lak.simulator.handler.SelectionHandler;
-import ru.stablex.ui.UIBuilder;
-import ru.stablex.ui.widgets.VBox;
+import com.lak.simulator.command.ui.CloseUICommand;
 class BattleState implements IGameState
 {
 	
@@ -69,7 +68,7 @@ class BattleState implements IGameState
 	}
 	
 	public function exit():Void{
-		Main.instance.removeChild(UIBuilder.get("main"));
+		CloseUICommand.execute("main");
 	}
 	
 }

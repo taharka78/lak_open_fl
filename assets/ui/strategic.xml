@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Root element of our UI -->
-<HBox id="'strategic'" w="Main.instance.realWidth" h="67" skin:Slice3-src="'ui/images/TopBar_Background.png'" skin:Slice3-slice="[84]">
-	<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
-		<HBox left="($this.contentWidth*cnt)" bottom="5" heightPt="100">
-			<Bmp src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" heightPt="100" stretch="true" keepAspect="true" />
-			<Text left="10" topPt="25" text="'100'"  />
+<Widget w="Main.instance.realWidth" h="Main.instance.realHeight" id="'strategic'">
+	<HBox topPt="0" widthPt="100" h="67" skin:Slice3-src="'ui/images/TopBar_Background.png'" skin:Slice3-slice="[84]">
+		<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
+			<HBox left="($this.contentWidth*cnt)" bottom="5" heightPt="100">
+				<Bmp src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" heightPt="100" stretch="true" keepAspect="true" />
+				<Text left="10" topPt="25" text="'100'"  />
+			</HBox>
+		</meta:repeat>
+	</HBox>
+	<HBox paddingLeft="45" top="Main.instance.realHeight-98" h="98">
+		<HBox align="'left,top'" paddingLeft="-50" paddingTop="-75" skin:Slice3-src="'ui/images/ActionBar_Background_Left_Globe.png'" skin:Slice3-stretch="false">
+			<Box paddingTop="-20" skin:Img-src="'ui/images/globe_avatar.png'">
+				<Bmp src="'ui/images/avatar/mali1.png'" />
+			</Box>
 		</HBox>
-	</meta:repeat>
-</HBox>
+		<HBox align="'bottom,left'" paddingLeft="10" paddingRight="10" paddingTop="30" paddingBottom="5" skin:Slice3-src="'ui/images/ActionBar_Background.png'" skin:Slice3-slice="[111]">
+			<meta:repeat counter="i" times="7">
+				<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true">
+					<Bmp src="'ui/images/avatar/commanders/mali1.png'" />
+				</Box>
+			</meta:repeat>
+		</HBox>
+	</HBox>
+	<VBox top="Main.instance.realHeight-150">
+		<Box paddingRight="-25">
+			<Button on-click="Main.instance.addChild(UIBuilder.buildFn('assets/ui/window.xml')());" skin:Layer-behind:Img-src="'ui/images/RoundButton_Background.png'" skin:Layer-current:Img-src="'ui/images/RoundButton_Foreground.png'">
+				<Bmp src="'ui/images/icons/RoundButton_Icon_Settings.png'" />
+			</Button>	
+		</Box>
+		<Box skin:Layer-behind:Img-src="'ui/images/RoundButton_Background.png'" skin:Layer-current:Img-src="'ui/images/RoundButton_Foreground.png'">
+			<Bmp src="'ui/images/icons/RoundButton_Icon_Profile.png'" />
+		</Box>
+	</VBox>
+</Widget>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Widget 
+	skin:Slice3-src="'ui/images/window/Window_Background.png'" 
+	skin:Slice3-slice="[140]" w="900" h="600">
+</Widget>
