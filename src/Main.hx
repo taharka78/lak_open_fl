@@ -15,6 +15,7 @@ import openfl.Lib;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.events.KeyboardEvent;
+import orm.Db;
 
 import spritesheet.AnimatedSprite;
 
@@ -51,6 +52,9 @@ import com.lak.network.MessageHandler;
 import com.lak.network.MessageIdentifiers;
 import com.lak.network.UnitPositionMsg;
 
+// Orm for querying database
+import com.lak.models.Orm;
+
 /**
  * ...
  * @author Youssouf & Moussa Sissoko
@@ -63,6 +67,7 @@ class Main extends Sprite
 	//  Variables
 	//
 	//--------------------------------------------------------------------------
+	
 	private var lastTime:Int = 0;
 	private var unit:IsoUnit;
 	public var sprSheetManager:SpritesheetManager = new SpritesheetManager();
@@ -77,9 +82,13 @@ class Main extends Sprite
 	public var battleState:BattleState = new BattleState();
 	public var strategicState:StrategicState = new StrategicState();
 	public var gameUI:LAKUI;
+	
 	//----------------------------------
 	//  CONSTANTS
 	//----------------------------------
+	
+	// Hardcoded database connection url
+    static inline var DB_CONNECTION_STRING = "mysql://root:root@localhost/lak_bdd";
 	
 	public function new() 
 	{
@@ -97,7 +106,13 @@ class Main extends Sprite
 		
 		removeEventListener(Event.ADDED_TO_STAGE, onMainAdded);
 		
-		//MessageHandler.registerNewMessage(MessageIdentifiers.UN_POSITIONS, new UnitPositionMsg());
+		// Connect to game database
+		var db = new Db(DB_CONNECTION_STRING);
+		// Orm test
+		var orm = new Orm(db);
+		
+		// Success creating the civilization after this call
+		//orm.civilization.create("Nubie", "Nub", "assets/nubie.bmp"); 
 		
 		var player:Player;
 		player = new Player();
