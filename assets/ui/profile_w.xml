@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VBox id="'profile'" align="'top'" skin:Slice9-src="'ui/images/window/Window_Background.png'" skin:Slice9-slice="[72,108,72,108]" w="500" h="400">
+	<meta:inject code="var titre = 'Mon profile';var winID = 'profile';" />
+	<meta:include src="assets/ui/include/WindowHeader.xml" /> 
+	
+</VBox>

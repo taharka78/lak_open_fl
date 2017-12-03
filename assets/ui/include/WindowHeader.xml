@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Box widthPt="100" align="'top,right'">
+	<HBox align="'middle'" paddingTop="5" widthPt="100">
+		<Box widthPt="100" skin:Slice3-stretch="false" skin:Slice3-src="'ui/images/window/Window_Header.png'" skin:Slice3-slice="[129]">
+			<Text paddingTop="10" text="titre" />
+		</Box>
+		<Box paddingRight="-25">
+			<Box right="0" on-click="CloseUICommand.execute(winID);" skin:Layer-behind:Img-src="'ui/images/RoundButton_Background.png'" skin:Layer-current:Img-src="'ui/images/RoundButton_Foreground.png'">
+				<Bmp src="'ui/images/window/Window_CloseButton.png'" />
+			</Box>	
+		</Box>
+	</HBox>
+</Box>

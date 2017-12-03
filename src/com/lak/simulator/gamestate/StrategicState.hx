@@ -9,6 +9,7 @@ package com.lak.simulator.gamestate;
 // deplacements des armées.
 import ru.stablex.ui.UIBuilder;
 import com.lak.simulator.isometric.world.IsoWorld;
+import com.lak.simulator.command.ui.CloseUICommand;
 class StrategicState implements IGameState
 {
 

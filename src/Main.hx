@@ -44,6 +44,7 @@ import com.lak.simulator.command.CreateBuildingCommand;
 import com.lak.simulator.controllers.GameStateController;
 import com.lak.simulator.gamestate.BuilderState;
 import com.lak.simulator.gamestate.InitialState;
+import com.lak.simulator.command.ui.CloseUICommand;
 import motion.Actuate;
 // Message serveur
 import com.lak.network.MessageHandler;
@@ -54,6 +55,7 @@ import com.lak.network.UnitPositionMsg;
  * ...
  * @author Youssouf & Moussa Sissoko
  */
+
 class Main extends Sprite 
 {	
 	//--------------------------------------------------------------------------
