@@ -19,7 +19,8 @@
 	<haxelib name="actuate" />
 	<haxelib name="spritesheet" />
 	<haxelib name="extension-networking" />
-	
+	<haxelib name="orm" />
+
 	<!-- assets -->
 	<icon path="assets/icon.png" />
 	<assets path="assets/mali" rename="mali" />

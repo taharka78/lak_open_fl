@@ -16,7 +16,7 @@ class Player extends MessageHandler
 {
 	public var teamID:Int;
 	public var realmID:Int;
-	public var civID:Int;
+	public var civ:Int;
 	public var name:String;
 	private var clientSession:Session;
 	
