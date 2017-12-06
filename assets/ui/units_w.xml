@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VBox top="(((Main.instance.realHeight*.5)-$this.contentHeight)*.5)" left="(((Main.instance.realWidth)-$this.contentWidth)*.5)" id="'units'" align="'top'" skin:Slice9-src="'ui/images/window/Window_Background.png'" skin:Slice9-slice="[72,108,72,108]" w="500" h="400">
+	<meta:inject code="var titre = 'Bâtiment';var winID = 'units';" />
+	<meta:include src="assets/ui/include/WindowHeader.xml" />
+	<Box w="470" h="310" paddingLeft="10" paddingRight="10">
+		<Scroll widthPt="100" heightPt="100">
+			<HBox widthPt="30">
+				<meta:repeat counter="cnt" times="1">
+				<meta:inject code="var item = {name:'Archer',src:'ui/images/icons/units/archer.png'};" />
+					<meta:include src="assets/ui/include/unit_box.xml" />
+				</meta:repeat>
+			</HBox>	
+		</Scroll>
+	</Box>
+</VBox>

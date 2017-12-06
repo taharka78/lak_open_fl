@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<VBox id="'settings'" align="'top'" skin:Slice9-src="'ui/images/window/Window_Background.png'" skin:Slice9-slice="[72,108,72,108]" w="300" h="600">
+<VBox top="(((Main.instance.realHeight*.5)-$this.contentHeight)*.5)" left="(((Main.instance.realWidth)-$this.contentWidth)*.5)" id="'settings'" align="'top'" skin:Slice9-src="'ui/images/window/Window_Background.png'" skin:Slice9-slice="[72,108,72,108]" w="300" h="500">
 	<meta:inject code="var titre = 'Options';var winID = 'settings';" />
 	<meta:include src="assets/ui/include/WindowHeader.xml" /> 
-	
 </VBox>

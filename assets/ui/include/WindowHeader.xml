@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Box widthPt="100" align="'top,right'">
+<Box widthPt="100" h="81" align="'top,right'">
 	<HBox align="'middle'" paddingTop="5" widthPt="100">
 		<Box widthPt="100" skin:Slice3-stretch="false" skin:Slice3-src="'ui/images/window/Window_Header.png'" skin:Slice3-slice="[129]">
 			<Text paddingTop="10" text="titre" />

@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Root element of our UI -->
 <Widget w="Main.instance.realWidth" h="Main.instance.realHeight" id="'strategic'">
-	<HBox align="'center,top'" topPt="0" widthPt="100" h="67" skin:Slice3-src="'ui/images/TopBar_Background.png'" skin:Slice3-slice="[84]">
-		<Box left="0" h="45" w="45" skin:Slice9-src="'ui/images/IconSlot_Background.png'" skin:Slice9-slice="[20,20,20,20]">
+	<HBox align="'left,top'" topPt="0" widthPt="100" h="67" skin:Slice3-src="'ui/images/TopBar_Background.png'" skin:Slice3-slice="[84]" layout:Column-cols="[45,-1,45,45]">
+		<Box align="'middle'" heightPt="100" w="45" skin:Slice9-src="'ui/images/IconSlot_Background.png'" skin:Slice9-slice="[20,20,20,20]">
 			<Bmp src="'ui/images/icons/UIIcon_World.png'" />
 		</Box>
-		<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
-			<HBox left="($this.contentWidth*cnt)" bottom="5" heightPt="100">
-				<Bmp src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" heightPt="100" stretch="true" keepAspect="true" />
-				<Text left="10" topPt="25" text="'100'"  />
-			</HBox>
-		</meta:repeat>
-		<Box h="45" w="45" skin:Slice9-src="'ui/images/IconSlot_Background.png'" skin:Slice9-slice="[20,20,20,20]">
+		<HBox heightPt="100">
+			<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
+				<HBox h="48" align="'center'">
+					<Bmp src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" w="30" stretch="true" keepAspect="true" />
+					<Text left="10" topPt="25" text="'100'"  />
+				</HBox>
+			</meta:repeat>
+		</HBox>
+		<Box h="57" w="45" skin:Slice9-src="'ui/images/IconSlot_Background.png'" skin:Slice9-slice="[20,20,20,20]" on-click="(UIBuilder.get('units') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/units_w.xml')()) : Main.instance.addChild(UIBuilder.get('units'));">
 			<Bmp src="'ui/images/icons/chat.png'" />
 		</Box>
-		<Box h="45" w="45" skin:Slice9-src="'ui/images/IconSlot_Background.png'" skin:Slice9-slice="[20,20,20,20]" on-click="(UIBuilder.get('settings') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/settings_w.xml')()) : Main.instance.addChild(UIBuilder.get('settings'));">
+		<Box heightPt="100" w="45" skin:Slice9-src="'ui/images/IconSlot_Background.png'" skin:Slice9-slice="[20,20,20,20]" on-click="(UIBuilder.get('settings') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/settings_w.xml')()) : Main.instance.addChild(UIBuilder.get('settings'));">
 			<Bmp src="'ui/images/icons/RoundButton_Icon_Settings.png'" />
 		</Box>
 	</HBox>

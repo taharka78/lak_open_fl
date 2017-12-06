@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VBox align="'top,left'" padding="10" w="128" skin:Paint-border="1" skin:Paint-borderColor= "0xFF0000">
+	<Box widthPt="100" h="128" skin:Paint-border="1" skin:Paint-borderColor= "0x00FF00" >
+		<Bmp widthPt="100" heightPt="100" keepAspect="true" stretch="true" src="item.src" />
+	</Box>
+	<Text text="item.name" />
+	<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
+		<HBox top="$this.contentHeight* (cnt % 2) " left="$this.contentWidth*(cnt / 2)" bottom="5" widthPt="50" h="30">
+			<Bmp src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" heightPt="100" stretch="true" keepAspect="true" />
+			<Text left="10" topPt="25" text="'100'"  />
+		</HBox>
+	</meta:repeat>
+</VBox>
