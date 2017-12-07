@@ -41,8 +41,8 @@ class IsoWorld extends Sprite
 	private var mtrx:Matrix = new Matrix();
 	
     public var NB_TILE_W:Int;
-    public var VIEW_WIDTH:Int;
-    public var VIEW_HEIGHT:Int;
+    public var VIEW_WIDTH:Int=0;
+    public var VIEW_HEIGHT:Int=0;
     public var worldTileWidth:Int;
     public var NB_LIGNE_WORLD:Int;
     
@@ -122,7 +122,9 @@ class IsoWorld extends Sprite
         NB_TILE_H = Math.floor(VIEW_HEIGHT/Config.OFFSETY)+2;
 		
 		setupMapData(curentLevel,1,1,true);
-		if (_first == false){ stage.removeChild(floor); }
+		if (_first == false){ 
+			stage.removeChild(floor); 
+		}
 		groundCanvas = new BitmapData((VIEW_WIDTH + tileW), (VIEW_HEIGHT + tileH));
 		
 		floor = new Bitmap(groundCanvas);

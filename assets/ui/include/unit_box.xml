@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<VBox align="'top,left'" padding="10" w="128" skin:Paint-border="1" skin:Paint-borderColor= "0xFF0000">
-	<Box widthPt="100" h="128" skin:Paint-border="1" skin:Paint-borderColor= "0x00FF00" >
-		<Bmp widthPt="100" heightPt="100" keepAspect="true" stretch="true" src="item.src" />
-	</Box>
-	<Text text="item.name" />
-	<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
-		<HBox top="$this.contentHeight* (cnt % 2) " left="$this.contentWidth*(cnt / 2)" bottom="5" widthPt="50" h="30">
-			<Bmp src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" heightPt="100" stretch="true" keepAspect="true" />
-			<Text left="10" topPt="25" text="'100'"  />
+<VBox>
+	<VBox skin:Paint-color="0x000000" padding="5">
+		<Text text="item.name" />
+		<Box>
+			<Bmp w="70" h="70" keepAspect="true" stretch="true" src="item.src" />
+		</Box>
+		<Text text="'statiqtiques'" />
+		<HBox>
+				<VBox>
+					<Bmp w="30" tip:Tip-text="'attaque'" src="'ui/images/icons/stats/Icon_Sword.png'" h="30" stretch="true" keepAspect="true" />
+					<Text text="'20'" />
+				</VBox>
+				<VBox>
+					<Bmp w="30" tip:Tip-text="'defense : 20'" src="'ui/images/icons/stats/Icon_Shield.png'" h="30" stretch="true" keepAspect="true" />
+					<Text text="'20'" />
+				</VBox>
+				<VBox>
+					<Bmp w="30" tip:Tip-text="'protection perçage : 20'" src="'ui/images/icons/stats/Icon_Arrows.png'" h="30" stretch="true" keepAspect="true" />
+					<Text text="'20'" />
+				</VBox>
+				<VBox>
+					<Bmp w="30" tip:Tip-text="'vitesse : 2'" src="'ui/images/icons/stats/Icon_BlindingLight.png'" h="30" stretch="true" keepAspect="true" />
+					<Text text="'20'" />
+				</VBox>
 		</HBox>
-	</meta:repeat>
+		<Text text="'coût'" />
+		<HBox>
+			<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
+				<VBox>
+					<Bmp w="30" tip:Tip-text="'coût'" src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" h="30" stretch="true" keepAspect="true" />
+					<Text paddingTop="-15" text="'10'" />
+				</VBox>
+			</meta:repeat>
+		</HBox>
+	</VBox>
+	<Box h="10"></Box>
+	<Button h="20" w="100" text="'entraîner'" />
 </VBox>

@@ -25,8 +25,7 @@ class EntitiesManager
 	public function new() {
 		
 	}
-	public function init(_world:IsoWorld){
-		world = _world;
+	public function init(){
 		updateViewBounds();
 	}
 	/*
@@ -64,10 +63,10 @@ class EntitiesManager
 	 * @return Void.
 	 */
 	public function updateViewBounds():Void{
-		screen.width = world.VIEW_WIDTH;
-		screen.height = world.VIEW_HEIGHT;
-		screen.x = world.OFFSET_LIGNE_WORLD;
-		screen.y = world.OFFSET_COLONNE_WORLD;
+		screen.width = Main.instance.world.VIEW_WIDTH;
+		screen.height = Main.instance.world.VIEW_HEIGHT;
+		screen.x = Main.instance.world.OFFSET_LIGNE_WORLD;
+		screen.y = Main.instance.world.OFFSET_COLONNE_WORLD;
 	}
 	/*
 	 * @funcname  manageShadow fonction de gestion des ombres des objets iso visibles.
