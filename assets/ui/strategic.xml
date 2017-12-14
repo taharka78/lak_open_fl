@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Root element of our UI -->
 <Widget w="Main.instance.realWidth" h="Main.instance.realHeight" id="'strategic'">
-	<HBox align="'left,top'" widthPt="100" h="60" skin:Slice3-src="'ui/images/TopBar_Background.png'" skin:Slice3-slice="[84]" layout:Column-cols="[45,-1,45,45,45]">
+	<HBox align="'left,top'" widthPt="100" h="60" skin:Slice3-src="'ui/images/TopBar_Background.png'" skin:Slice3-slice="[84]" layout:Column-cols="[45,-1,45,45,45,45,45]">
 		<Bmp heightPt="100" src="'ui/images/icons/UIIcon_World.png'" keepAspect="true" />
 		<HBox heightPt="100" align="'center'">
 			<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
@@ -11,15 +11,18 @@
 				</HBox>
 			</meta:repeat>
 		</HBox>
+		<Bmp heightPt="100" on-click="(UIBuilder.get('cities') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/cities_w.xml')()) : Main.instance.addChild(UIBuilder.get('cities'));" src="'ui/images/icons/chat.png'" keepAspect="true" />		
+		<Bmp heightPt="100" on-click="(UIBuilder.get('buildings') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/buildings_w.xml')()) : Main.instance.addChild(UIBuilder.get('buildings'));" src="'ui/images/icons/chat.png'" keepAspect="true" />		
 		<Bmp heightPt="100" on-click="(UIBuilder.get('units') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/units_w.xml')()) : Main.instance.addChild(UIBuilder.get('units'));" src="'ui/images/icons/chat.png'" keepAspect="true" />
 		<Bmp heightPt="100" on-click="(UIBuilder.get('settings') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/settings_w.xml')()) : Main.instance.addChild(UIBuilder.get('settings'));" src="'ui/images/icons/RoundButton_Icon_Settings.png'" keepAspect="true" />
 		<Bmp heightPt="100" on-click="(UIBuilder.get('profile') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/profile_w.xml')()) : Main.instance.addChild(UIBuilder.get('profile'));" src="'ui/images/icons/RoundButton_Icon_Profile.png'" />
 	</HBox>
-	<Box paddingLeft="40" top="Main.instance.realHeight - 93">
-		<HBox skin:Paint-border="1" skin:Paint-borderColor="0xFF0000">
+	<HBox widthPt="100" paddingLeft="40" top="Main.instance.realHeight - 93" layout:Column-cols="[40,-1,40]">
+		<Box w="40"></Box>
+		<HBox align="'center'">
 			<HBox id="'avatar'" align="'left,top'" paddingLeft="-50" paddingTop="-75" skin:Slice3-src="'ui/images/ActionBar_Background_Left_Globe.png'" skin:Slice3-stretch="false">
 				<Box paddingTop="-20" skin:Img-src="'ui/images/globe_avatar.png'">
-					<Bmp src="'ui/images/avatar/mali1.png'" />
+					<Bmp on-click="(UIBuilder.get('character') == null) ? Main.instance.addChild(UIBuilder.buildFn('assets/ui/character_w.xml')()) : Main.instance.addChild(UIBuilder.get('character'));" src="'ui/images/avatar/mali1.png'" />
 				</Box>
 			</HBox>
 			<HBox align="'bottom,left'" paddingLeft="10" paddingRight="10" paddingTop="30" paddingBottom="5" skin:Slice3-src="'ui/images/ActionBar_Background.png'" skin:Slice3-slice="[111]">
@@ -30,5 +33,6 @@
 				</meta:repeat>
 			</HBox>
 		</HBox>
-	</Box>
+		<Box w="40"></Box>
+	</HBox>
 </Widget>

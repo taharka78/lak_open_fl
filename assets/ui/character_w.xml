@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VBox id="'character'" top="(((Main.instance.realHeight*.5)-$this.contentHeight)*.5)" left="(((Main.instance.realWidth)-$this.contentWidth)*.5)" align="'top'" skin:Slice9-src="'ui/images/window/Window_Background.png'" skin:Slice9-slice="[72,108,72,108]" w="800" h="500">
+	<meta:inject code="var titre = 'Nom personnage';var winID = 'character';" />
+	<meta:include src="assets/ui/include/WindowHeader.xml" />
+	<HBox widthPt="100" heightPt="80">
+		<Box widthPt="70" heightPt="100" align="'bottom,center'">
+			<Box widthPt="93" heightPt="100" skin:Paint-border="1" skin:Paint-borderColor="0x0000FF"></Box>
+		</Box>
+		<Box padding="5" widthPt="30" heightPt="98" align="'bottom,center'">
+			<Scroll skin:Paint-border="1" skin:Paint-borderColor="0x00FF00" widthPt="85" heightPt="100">
+				<VBox y="0" x="0" widthPt="100" layout:Row-rows="[67,67,67,67,67,67,67,67]" childPadding="10" padding="0" >
+							<!-- Row 1 -->
+							<HBox paddingBottom="10" widthPt="100" h="57" unifyChildren="true">
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+							</HBox>		
+							<!-- Row 2 -->
+							<HBox widthPt="100" h="57" unifyChildren="true" >
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+							</HBox>	
+							<!-- Row 3 -->
+							<HBox widthPt="100" h="57" unifyChildren="true" >		
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+							</HBox>
+							<HBox widthPt="100" h="57" unifyChildren="true" >		
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+							</HBox>
+							<HBox widthPt="100" h="57" unifyChildren="true" >		
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+							</HBox>
+							<HBox widthPt="100" h="57" unifyChildren="true" >		
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+							</HBox>
+							<HBox widthPt="100" h="57" unifyChildren="true" >		
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+							</HBox>
+							<HBox widthPt="100" h="57" unifyChildren="true" >		
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+							</HBox>
+						</VBox>
+				<!--<HBox widthPt="100" heightPt="100">
+					<meta:repeat counter="cnt" times="20">
+						<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
+					</meta:repeat>
+				</HBox>-->
+			</Scroll>
+		</Box>
+	</HBox>
+</VBox>

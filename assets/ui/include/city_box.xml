@@ -3,25 +3,16 @@
 	<VBox skin:Paint-color="0x000000" padding="7">
 		<Text text="item.name" />
 		<Box>
-			<Bmp w="70" h="70" keepAspect="true" stretch="true" src="item.src" />
+			<Bmp w="96" h="96" keepAspect="true" stretch="true" src="item.src" />
 		</Box>
-		<Text text="'statiqtiques'" />
+		<Text text="'Bonus'" />
 		<HBox>
 				<VBox>
 					<Bmp w="30" tip:Tip-text="'attaque'" src="'ui/images/icons/stats/Icon_Sword.png'" h="30" stretch="true" keepAspect="true" />
 					<Text paddingTop="-25" text="'20'" />
 				</VBox>
 				<VBox>
-					<Bmp w="30" tip:Tip-text="'defense : 20'" src="'ui/images/icons/stats/Icon_Shield.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-25" text="'20'" />
-				</VBox>
-				<VBox>
-					<Bmp w="30" tip:Tip-text="'protection perçage : 20'" src="'ui/images/icons/stats/Icon_Arrows.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-25" text="'20'" />
-				</VBox>
-				<VBox>
-					<Bmp w="30" tip:Tip-text="'vitesse : 2'" src="'ui/images/icons/stats/Icon_BlindingLight.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-25" text="'20'" />
+					<Bmp w="30" tip:Tip-text="'archer'" src="'ui/images/icons/units/archer.png'" h="30" stretch="true" keepAspect="true" />
 				</VBox>
 		</HBox>
 		<Text text="'coût'" />
@@ -35,5 +26,5 @@
 		</HBox>
 	</VBox>
 	<Box h="10"></Box>
-	<Button h="20" w="100" text="'entraîner'" />
+	<Button h="20" w="100" text="'construire'" />
 </VBox>

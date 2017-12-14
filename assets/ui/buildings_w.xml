@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VBox top="(((Main.instance.realHeight*.5)-$this.contentHeight)*.5)" left="(((Main.instance.realWidth)-$this.contentWidth)*.5)" id="'buildings'" align="'center,top'" skin:Slice9-src="'ui/images/window/Window_Background.png'" skin:Slice9-slice="[72,108,72,108]" w="512" h="400">
+	<meta:inject code="var titre = 'Construire';var winID = 'buildings';" />
+	<meta:include src="assets/ui/include/WindowHeader.xml" />
+	<HBox align="'top'">
+		<Scroll w="480" h="305" vScroll = "false">
+			<HBox>
+				<meta:repeat counter="cnt" times="5">
+					<meta:inject code="var item = {name:'Forum',src:'ui/images/icons/buildings/castle.png'};" />
+					<meta:include src="assets/ui/include/building_box.xml" />
+				</meta:repeat>
+			</HBox>	
+		</Scroll>
+	</HBox>
+</VBox>
