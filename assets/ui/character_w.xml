@@ -4,24 +4,25 @@
 	<meta:include src="assets/ui/include/WindowHeader.xml" />
 	<HBox widthPt="100" heightPt="80">
 		<Box widthPt="70" heightPt="100" align="'bottom,center'">
-			<Box widthPt="93" heightPt="100" skin:Paint-border="1" skin:Paint-borderColor="0x0000FF"></Box>
+			<Box widthPt="93" heightPt="100" skin:Paint-border="1" skin:Paint-borderColor="0x0000FF">
+				<Box heightPt="100" widthPt="100" align="'bottom,center'" skin:Img-src="'ui/images/character/Inventory_CharacterFigure.png'">
+					<meta:include src="assets/ui/include/character.xml"></meta:include>
+				</Box>
+			</Box>
 		</Box>
 		<Box padding="5" widthPt="30" heightPt="98" align="'bottom,center'">
-			<Scroll skin:Paint-border="1" skin:Paint-borderColor="0x00FF00" widthPt="85" heightPt="100">
-				<VBox y="0" x="0" widthPt="100" layout:Row-rows="[67,67,67,67,67,67,67,67]" childPadding="10" padding="0" >
-							<!-- Row 1 -->
+			<Scroll widthPt="85" heightPt="100">
+				<VBox y="100" x="0" widthPt="100" layout:Row-rows="[67,67,67,67,67,67,67,67]" childPadding="10" padding="0" >
 							<HBox paddingBottom="10" widthPt="100" h="57" unifyChildren="true">
 								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
 								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
 								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
 							</HBox>		
-							<!-- Row 2 -->
 							<HBox widthPt="100" h="57" unifyChildren="true" >
 								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
 								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
 								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
 							</HBox>	
-							<!-- Row 3 -->
 							<HBox widthPt="100" h="57" unifyChildren="true" >		
 								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>
 								<Box skin:Img-src="'ui/images/IconSlot_Background.png'" skin:Img-keepAspect="true"></Box>

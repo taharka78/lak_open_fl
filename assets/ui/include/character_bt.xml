@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+	<Box paddingTop="0">
+		<Bmp src="'ui/images/character/Inventory_Figure_Gloves_Normal.png'" />
+	</Box>
+	<Box paddingTop="0">
+		<Bmp src="'ui/images/character/Inventory_Figure_Belt_Normal.png'" />
+	</Box>
+	<Box paddingTop="0">
+		<Bmp src="'ui/images/character/Inventory_Figure_Pants_Normal.png'" />
+	</Box>
+	<Box paddingTop="0">
+		<Bmp src="'ui/images/character/Inventory_Figure_Boots_Normal.png'" />
+	</Box>
