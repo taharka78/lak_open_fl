@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Box>
-	<meta:inject code="var imgArray:Array<Dynamic> = [{name : 'Head', offset : 0},
+<Box align="'bottom,center'" paddingLeft="-17" paddingTop="-15" skin:Img-src="'ui/images/character/Inventory_CharacterFigure.png'">
+	<meta:inject code="var imgArray:Array<Dynamic> = [{name : 'Head', offset : -10},
 													 {name :'Chest', offset : 0},
 													 {name : 'Shoulders', offset : -55 },
 													 {name : 'Bracers' , offset : 0 },
-													 {name : 'Gloves', offset : 0},
+													 {name : 'Gloves', offset : -5},
 													 {name : 'Belt', offset : -50 },
 													 { name :'Pants', offset : 0},
-													 { name :'Boots', offset : 0}];" />
+													 { name :'Boots', offset : -10}];" />
 	<meta:repeat times="imgArray.length" counter="cnt">
 		<Box paddingTop="imgArray[cnt].offset">
 			<Bmp src="'ui/images/character/Inventory_Figure_'+imgArray[cnt].name+'_Normal.png'" />
