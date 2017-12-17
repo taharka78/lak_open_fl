@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
-	<Box>
-		<Bmp src="'ui/images/character/Inventory_Figure_Head_Normal.png'" />
-	</Box>
-	<Box>
-		<Bmp src="'ui/images/character/Inventory_Figure_Shoulders_Normal.png'" />
-	</Box>
-	<Box>
-		<Bmp src="'ui/images/character/Inventory_Figure_Chest_Normal.png'" />
-	</Box>
-	<Box>
-		<Bmp src="'ui/images/character/Inventory_Figure_Bracers_Normal.png'" />
-	</Box>
-	<Box paddingTop="0">
-			<Bmp src="'ui/images/character/Inventory_Figure_Gloves_Normal.png'" />
-	</Box>
-	<Box paddingTop="0">
-		<Bmp src="'ui/images/character/Inventory_Figure_Belt_Normal.png'" />
-	</Box>
-	<Box paddingTop="0">
-		<Bmp src="'ui/images/character/Inventory_Figure_Pants_Normal.png'" />
-	</Box>
-	<Box paddingTop="0">
-		<Bmp src="'ui/images/character/Inventory_Figure_Boots_Normal.png'" />
-	</Box>
+<Box>
+	<meta:inject code="var imgArray:Array<Dynamic> = [{name : 'Head', offset : 0},
+													 {name :'Chest', offset : 0},
+													 {name : 'Shoulders', offset : -55 },
+													 {name : 'Bracers' , offset : 0 },
+													 {name : 'Gloves', offset : 0},
+													 {name : 'Belt', offset : -50 },
+													 { name :'Pants', offset : 0},
+													 { name :'Boots', offset : 0}];" />
+	<meta:repeat times="imgArray.length" counter="cnt">
+		<Box paddingTop="imgArray[cnt].offset">
+			<Bmp src="'ui/images/character/Inventory_Figure_'+imgArray[cnt].name+'_Normal.png'" />
+		</Box>
+	</meta:repeat>
+	
+</Box>
+	
 
