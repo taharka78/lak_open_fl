@@ -7,29 +7,16 @@
 		</Box>
 		<Text text="'statiqtiques'" />
 		<HBox>
-				<VBox>
-					<Bmp w="30" tip:Tip-text="'attaque'" src="'ui/images/icons/stats/Icon_Sword.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-25" text="'20'" />
-				</VBox>
-				<VBox>
-					<Bmp w="30" tip:Tip-text="'defense : 20'" src="'ui/images/icons/stats/Icon_Shield.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-25" text="'20'" />
-				</VBox>
-				<VBox>
-					<Bmp w="30" tip:Tip-text="'protection perçage : 20'" src="'ui/images/icons/stats/Icon_Arrows.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-25" text="'20'" />
-				</VBox>
-				<VBox>
-					<Bmp w="30" tip:Tip-text="'vitesse : 2'" src="'ui/images/icons/stats/Icon_BlindingLight.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-25" text="'20'" />
-				</VBox>
+				<Bmp w="20" tip:Tip-text="'attaque 20'" src="'ui/images/icons/stats/pointy-sword.png'" h="30" stretch="true" keepAspect="true" />
+				<Bmp w="20" tip:Tip-text="'defense : 20'" src="'ui/images/icons/stats/shield.png'" h="30" stretch="true" keepAspect="true" />
+				<Bmp w="20" tip:Tip-text="'protection perçage : 20'" src="'ui/images/icons/stats/on-target.png'" h="30" stretch="true" keepAspect="true" />
+				<Bmp w="20" tip:Tip-text="'vitesse : 2'" src="'ui/images/icons/stats/sprint.png'" h="30" stretch="true" keepAspect="true" />
 		</HBox>
 		<Text text="'coût'" />
 		<HBox>
 			<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
 				<VBox>
-					<Bmp w="30" src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-20" text="'10'" />
+					<Bmp w="20" src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" h="30" stretch="true" keepAspect="true" />
 				</VBox>
 			</meta:repeat>
 		</HBox>

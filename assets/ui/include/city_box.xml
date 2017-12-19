@@ -7,21 +7,13 @@
 		</Box>
 		<Text text="'Bonus'" />
 		<HBox>
-				<VBox>
-					<Bmp w="30" tip:Tip-text="'attaque'" src="'ui/images/icons/stats/Icon_Sword.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-25" text="'20'" />
-				</VBox>
-				<VBox>
-					<Bmp w="30" tip:Tip-text="'archer'" src="'ui/images/icons/units/archer.png'" h="30" stretch="true" keepAspect="true" />
-				</VBox>
+			<Bmp w="30" h="30" tip:Tip-text="'attaque'" src="'ui/images/icons/stats/pointy-sword.png'" stretch="true" keepAspect="true" />
+			<Bmp w="30" h="30" tip:Tip-text="'archer'" src="'ui/images/icons/units/archer.png'" stretch="true" keepAspect="true" />
 		</HBox>
 		<Text text="'coût'" />
 		<HBox>
 			<meta:repeat counter="cnt" times="Main.instance.simulateur.gameData.types.length">
-				<VBox>
-					<Bmp w="30" src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" h="30" stretch="true" keepAspect="true" />
-					<Text paddingTop="-20" text="'10'" />
-				</VBox>
+				<Bmp w="30" h="30" src="'ui/images/icons/'+Main.instance.simulateur.gameData.types[cnt].icon+'.png'" stretch="true" keepAspect="true" />
 			</meta:repeat>
 		</HBox>
 	</VBox>
