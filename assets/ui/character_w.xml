@@ -21,7 +21,7 @@
 			</HBox>
 			<Scroll widthPt="90" h="40">
 				<HBox>
-					<meta:repeat counter="i" times="7">
+					<meta:repeat counter="i" times="5">
 						<Bmp w="40" h="40" stretch="true" keepAspect="true" src="'ui/images/avatar/commanders/mali1.png'" />
 					</meta:repeat>
 				</HBox>
